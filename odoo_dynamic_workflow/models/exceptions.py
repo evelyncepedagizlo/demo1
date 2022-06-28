@@ -38,6 +38,7 @@ Warning = UserError
 
 
 class RedirectWarning(Exception):
+    
     """ Warning with a possibility to redirect the user instead of simply
     diplaying the warning message.
 
