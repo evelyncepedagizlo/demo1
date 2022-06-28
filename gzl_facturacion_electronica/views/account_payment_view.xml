@@ -54,7 +54,7 @@
         </field> -->
     
 
-  <record id="pago_cuota_form2" model="ir.ui.view">
+<!--   <record id="pago_cuota_form2" model="ir.ui.view">
     <field name="name">account.payment.form2</field>
     <field name="model">account.payment</field>
     <field name="arch" type="xml">
@@ -80,9 +80,9 @@
         </footer>
       </form>
     </field>
-  </record>
+  </record> -->
 
-  <record id="estado_contrato_form" model="ir.ui.view">
+<!--   <record id="estado_contrato_form" model="ir.ui.view">
     <field name="name">contrato.estado.cuenta.payment.form</field>
     <field name="model">contrato.estado.cuenta.payment</field>
     <field name="arch" type="xml">
@@ -112,6 +112,6 @@
         </footer>
       </form>
     </field>
-  </record>
+  </record> -->
 
 </odoo>
