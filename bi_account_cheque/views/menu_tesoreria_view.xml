@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <menuitem id="menu_tesoreria" name="Tesorería" parent="account_accountant.menu_accounting" sequence="5"/>
+
+        <menuitem id="menu_conciliacion_bancaria" name="Conciliación Bancaria" parent="menu_tesoreria" sequence="5"/>
+
+        <menuitem id="menu_informes_tesoreria" name="Informes de Tesoreria" parent="menu_tesoreria" sequence="5"/>
+
+        <menuitem id="menu_estado_flujo_efectivo" name="Estado de Flujos de Efectivo" parent="menu_informes_tesoreria" sequence="5" action="account_reports.action_account_report_cs"/>
+
+        <menuitem id="menu_pagos_tesoreria" name="Pagos" parent="menu_tesoreria" sequence="5" action="account.action_account_payments_payable"/>
+
+
+        <menuitem id="menu_cobros_tesoreria" name="Cobros" parent="menu_tesoreria" sequence="6" action="account.action_account_payments"/>
+
+
+
+
+</odoo>

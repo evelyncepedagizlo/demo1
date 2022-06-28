@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="tipo_contrato1" model="tipo.contrato.adjudicado">
+            <field name="name">Licitación</field>
+            <field name="code">licitacion</field>
+            <field name="descripcion">Contrato par aganar por numero de cuotas ofertadas</field>
+        </record>
+        <record id="tipo_contrato2" model="tipo.contrato.adjudicado">
+            <field name="name">Evaluación</field>
+            <field name="code">evaluacion</field>
+            <field name="descripcion">Contrato para ganar por cumplimiento de pagos a la fecha</field>
+        </record>
+
+    </data>
+</odoo>

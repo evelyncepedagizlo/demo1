@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_employee_children,hr.employee.children,model_hr_employee_children,hr.group_hr_user,1,1,1,1
+hr_employee_comision_bitacora,comision.bitacora,model_comision_bitacora,hr.group_hr_user,1,1,1,1
+hr_employee_comision,comision,model_comision,hr.group_hr_user,1,1,1,1

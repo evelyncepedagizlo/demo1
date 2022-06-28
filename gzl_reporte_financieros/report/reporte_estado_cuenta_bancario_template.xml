@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <template id="template_estado_cuenta_bancario_pdf_id">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Reporte de Estado de Cuenta Bancario</h1></center></span><br/><br/>
+                    <span><strong>Diario: </strong></span> <span t-esc="o.bank_id.name"/><br/>
+                    <span><strong>Desde: </strong></span> <span t-esc="o.date_from"/><br/>
+                    <span><strong>Hasta: </strong></span> <span t-esc="o.date_to"/><br/>
+
+
+
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Cuenta</th>
+                        <th>Nombre Cuenta</th>
+                        <th>Fecha</th>
+                        <th>No. Doc.</th>
+                        <th>T. T.</th>
+                        <th>No. Cheque</th>
+                        <th>Conciliado</th>
+                        <th>Orden</th>
+                        <th>Detalle</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                        <th>Saldo</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.obtenerDatos()" t-as="estado">
+                        <td><span t-esc="estado.documento_contable" /></td>
+                        <td><span t-esc="estado.numero_cuenta"  /></td>
+                        <td><span t-esc="estado.fecha"   /></td>
+                        <td><span t-esc="estado.numero_documento"   /></td>
+                        <td><span t-esc="estado.tt"   /></td>
+                        <td><span t-esc="estado.numero_cheque"   /></td>
+                        <td><span t-esc="estado.conciliado"   /></td>
+                        <td><span t-esc="estado.orden"   /></td>
+                        <td><span t-esc="estado.detalle"   /></td>
+
+
+
+
+                        <td><span t-esc="'%.2f' %(estado.debe)"  t-if="estado.reglon != 'titulo'" /></td>
+                        <td><span t-esc="'%.2f' %(estado.haber)"  t-if="estado.reglon != 'titulo'" /></td>
+                        <td><span t-esc="'%.2f' %(estado.saldo)"  t-if="estado.reglon == 'detalle' " /></td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

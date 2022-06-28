@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <template id="template_estado_cuenta_reporte">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Reporte de Estado de Cuenta</h1></center></span><br/><br/>
+                    <span><strong>Desde: </strong></span> <span t-esc="o.date_from"/><br/>
+                    <span><strong>Hasta: </strong></span> <span t-esc="o.date_to"/><br/>
+
+
+
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Fecha Emisión</th>
+                        <th>Tipo</th>
+                        <th>Nro. Documento</th>
+                        <th>Tipo de Ref.</th>
+                        <th>Referencia</th>
+                        <th>Docu. Count</th>
+                        <th>Concepto</th>
+                        <th>Saldo Docum</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                        <th>Saldo</th>
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.obtenerDatos()" t-as="estado">
+                        <td><span t-esc="estado.fecha_emision" /></td>
+                        <td><span t-esc="estado.tipo_referencia"  /></td>
+                        <td><span t-esc="estado.numero_documento"   /></td>
+                        <td><span t-esc="estado.tipo_invoice"   /></td>
+                        <td><span t-esc="estado.referencia"   /></td>
+                        <td><span t-esc="estado.documento_contable"   /></td>
+                        <td><span t-esc="estado.observaciones"   /></td>
+
+                        <td><span t-esc="'%.2f' %(estado.monto_adeudado)" t-if="estado.reglon != 'titulo'"/></td>
+                        <td><span t-esc="'%.2f' %(estado.debe)"  t-if="estado.reglon != 'titulo'" /></td>
+                        <td><span t-esc="'%.2f' %(estado.haber)"  t-if="estado.reglon != 'titulo'" /></td>
+                        <td><span t-esc="'%.2f' %(estado.saldo)"  t-if="estado.reglon == 'detalle' " /></td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

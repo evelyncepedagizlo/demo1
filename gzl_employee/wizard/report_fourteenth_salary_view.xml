@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_fourteenth_salary_form" model="ir.ui.view">
+            <field name="name">Décimo Cuarto Sueldo</field>
+            <field name="model">report.fourteenth.salary</field>
+            <field name="arch" type="xml">
+                <form string="Décimo Cuarto Sueldo">
+                    <group>
+                        <group col="2">
+                            <field name="date"/>
+                            <field name="year_date" required="1"/>
+                            <field name="basic_salary"/>
+                        </group>                    
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_fourteenth_salary" model="ir.actions.act_window">
+            <field name="name">Décimo Cuarto Sueldo</field>
+            <field name="res_model">report.fourteenth.salary</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_fourteenth_salary" 
+                  id="menu_action_report_fourteenth_salary" 
+                  parent="hr_payroll.menu_hr_payroll_report" 
+                  sequence="3"/>
+
+</odoo>

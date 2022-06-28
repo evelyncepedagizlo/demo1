@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+        <record id="wizard_import_documents" model="ir.ui.view">
+            <field name="name">wizard.import.documents</field>
+            <field name="model">wizard.import.documents</field>
+            <field name="arch" type="xml">
+				<form>
+					<group>
+						<field name="type_document"/>
+						<field name="file_xml" filename="name" string='Archivo'/>
+					</group>
+					<footer>
+    					<button name="import_xml" type="object" string="Importar Archivo" class="oe_highlight" />
+					</footer>
+				</form>
+            </field>
+        </record>
+
+		<record id="action_wizard_import_documents" model="ir.actions.act_window">
+            <field name="name">Importar Documentos</field>
+            <field name="res_model">wizard.import.documents</field>
+            <field name="view_mode">form</field>
+           <field name="view_id" ref="wizard_import_documents"/>
+           <field name="target">current</field>
+        </record>
+         
+        <menuitem id="menu_wizard_import_documents" parent="account.menu_finance_reports" action="action_wizard_import_documents" sequence="100"/>
+
+    </data>
+</odoo>

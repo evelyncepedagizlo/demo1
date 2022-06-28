@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--Email template -->
+        <record id="email_contrato_en_mora" model="mail.template">
+            <field name="name">Email Envio de Correo Socio en mora</field>
+            <field name="email_from">admin@promoauto.com</field>
+            <field name="subject">Contrato  Socio ${object.cliente.name} En Mora  </field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="gzl_adjudicacion.model_contrato"/>
+            <field name="email_to">${object.cliente.email}</field>
+            <field name="body_html"><![CDATA[
+
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <table style="width:600px;background:inherit;color:inherit" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+            <td style="padding:10px 10px 10px 5px;font-size: 12px" width="200" valign="center">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+<p>Estimado ${object.cliente.name},
+    </p><p>Esta notificación es para indicarle que su contrato se encuentra en Estado de Mora por falta de pago.
+<p>
+</p>
+
+
+    <p>
+    Saludos,
+    
+    </p>
+
+    <br><br>Administrador del Sistema.<br><br><strong>Nota: Este correo ha sido generado de manera automática por favor no responder.</strong></div>
+]]></field>
+        </record>
+
+        <record id="email_contrato_notificacion_de_pago" model="mail.template">
+            <field name="name">Email Envio de Correo Socio aviso cuota por pagar</field>
+            <field name="email_from">admin@promoauto.com</field>
+            <field name="subject">Cuota a vencer Contrato  Socio ${object.cliente.name}    </field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="gzl_adjudicacion.model_contrato"/>
+            <field name="email_to">${object.cliente.email}</field>
+            <field name="body_html"><![CDATA[
+
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <table style="width:600px;background:inherit;color:inherit" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+            <td style="padding:10px 10px 10px 5px;font-size: 12px" width="200" valign="center">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+<p>Estimado ${object.cliente.name},
+    </p><p>Esta notificación es para indicarle que debe acercarse a realizar el pago antes del 5 de cada mes.
+<p>
+</p>
+
+
+    <p>
+    Saludos,
+    
+    </p>
+
+    <br><br>Administrador del Sistema.<br><br><strong>Nota: Este correo ha sido generado de manera automática por favor no responder.</strong></div>
+]]></field>
+        </record>
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+<!-- Documento pdf - saas -->
+    <record id="attachment_sign_saas" model="ir.attachment">
+        <field name="name">Contrato Demo.pdf</field>
+        <field name="datas" type="base64" file="sign_gzl/static/demo/contrato_demo.pdf"/>
+        <field name="mimetype">application/pdf;base64</field>
+        <field name="tipo_plantilla">adjudicacion</field>
+    </record>
+
+    <record id="template_sign_saas" model="sign.template">
+        <field name="attachment_id" ref="attachment_sign_saas"/>
+        <field name="share_link">demo-template-saas</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_saas_name">
+        <field name="template_id" ref="template_sign_saas"/>
+        <field name="type_id" ref="sign.sign_item_type_name"/>
+        <field name="responsible_id" ref="sign.sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.212</field>
+        <field name="posY" type="float">0.126</field>
+        <field name="width" type="float">0.305</field>
+        <field name="height" type="float">0.017</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_saas_email">
+        <field name="template_id" ref="template_sign_saas"/>
+        <field name="type_id" ref="sign.sign_item_type_email"/>
+        <field name="responsible_id" ref="sign.sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.183</field>
+        <field name="posY" type="float">0.149</field>
+        <field name="width" type="float">0.337</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_saas_phone">
+        <field name="template_id" ref="template_sign_saas"/>
+        <field name="type_id" ref="sign.sign_item_type_phone"/>
+        <field name="responsible_id" ref="sign.sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.604</field>
+        <field name="posY" type="float">0.147</field>
+        <field name="width" type="float">0.300</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_saas_name_signature">
+        <field name="template_id" ref="template_sign_saas"/>
+        <field name="type_id" ref="sign.sign_item_type_name"/>
+        <field name="responsible_id" ref="sign.sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.529</field>
+        <field name="posY" type="float">0.652</field>
+        <field name="width" type="float">0.284</field>
+        <field name="height" type="float">0.016</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_saas_signature">
+        <field name="template_id" ref="template_sign_saas"/>
+        <field name="type_id" ref="sign.sign_item_type_signature"/>
+        <field name="responsible_id" ref="sign.sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.561</field>
+        <field name="posY" type="float">0.675</field>
+        <field name="width" type="float">0.249</field>
+        <field name="height" type="float">0.037</field>
+    </record>
+    
+</odoo>

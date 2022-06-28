@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="basic_salary_tree_view" model="ir.ui.view">
+        <field name="name">hr.basic.salary.view.tree</field>
+        <field name="model">hr.basic.salary</field>
+        <field name="arch" type="xml">
+            <tree string="Basic Salary" editable="bottom" decoration-muted="active == False" decoration-info="active == True">
+                <field name="period" required='1'/>
+                <field name="basic_salary_old" required='1'/>
+                <field name="basic_salary_new" required='1'/>
+                <field name="change_percent"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_basic_salary" model="ir.actions.act_window">
+        <field name="name">Basic Salary</field>
+        <field name="res_model">hr.basic.salary</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <menuitem id="menu_hr_payslip_basic_salary_view" action="action_view_basic_salary" parent="hr_payroll.menu_hr_salary_configuration" name="Basic Salary" sequence="45"/>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sign_send_request_inherit_wizard" model="ir.ui.view">
+        <field name="name">sign.send.request.inherit.wizard</field>
+        <field name="model">sign.send.request</field>
+        <field name="inherit_id" ref="sign.sign_send_request_view_form"/>
+        <field name="arch" type="xml">
+            <field name="signer_ids" position="before">
+                <group>
+                    <field name="contrato" required="1" options="{'no_open': True, 'no_create': True}"  />
+                    <field name="grupo" required="1" options="{'no_open': True, 'no_create': True}" />
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>

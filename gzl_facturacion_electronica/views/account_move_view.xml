@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+    <record id="view_account_move_filter_document_nombre" model="ir.ui.view">
+        <field name="name">account.move.filter.document.name</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="name" string="Factura" filter_domain="['|', '|' , '|', '|',  '|' ,('name', 'ilike', self), ('invoice_origin', 'ilike', self),('ref', 'ilike', self),('invoice_payment_ref', 'ilike', self),('partner_id', 'child_of', self), ('nombre_mostrar', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
+
+
+
+
+    
+    <record id="acount_move_tributacion" model="ir.ui.view">
+        <field name="name">acount.move.tributacion</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='ref']" position="after">
+
+                    <field name="dominio" invisible="1"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                     <field name="is_group_cobranza" invisible="1"/>
+                    <field name="contrato_id"  domain="[('cliente', '=', partner_id)]" attrs="{'invisible': [('type', 'not in', ['out_invoice','in_invoice'])], 'readonly': [('state','!=','draft')]}"  options="{'no_open': True, 'no_create': True}" />
+                    <field name="contrato_estado_cuenta_ids"  domain="[('contrato_id','=',contrato_id),('estado_pago','=','pendiente'),('factura_id','=',False),('programado','=',False)]" attrs="{'invisible': ['|',('type', '!=', 'out_invoice'),('contrato_id', '=', False)], 'readonly': [('state','!=','draft')]}">
+                    <tree editable="bottom">
+                        <field name="numero_cuota"/>
+                        <field name="cuota_adm"  class="oe_edit_only"/>
+                        <field name="iva_adm"  class="oe_edit_only"/>
+                        <field name="cuota_capital"  class="oe_edit_only"/>
+                        <field name="seguro"  class="oe_edit_only"/>
+                        <field name="rastreo"  class="oe_edit_only"/>
+                        <field name="otro"  class="oe_edit_only"/>
+                        <field name="saldo" sum="Total"/>
+                  
+                    </tree>
+                    </field>
+                </xpath>
+ 
+            <xpath expr="//button[@name='action_invoice_register_payment']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt', 'liq_purchase','out_debit'))]}
+                    </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_reverse']" position="attributes">
+                <attribute name="string">Agregar Nota de Crédito</attribute> 
+            </xpath>
+
+
+
+
+            <xpath expr="//button[@name='action_reverse']" position="after">
+                <button name="procesoComprobanteElectronico" string="Facturación Electrónica" class="oe_highlight" type="object"  invisible="1"   />
+            <!--    <button name="agregar_retencion" string="Agregar Retencion" class="oe_highlight" type="object"  attrs="{'invisible': ['|',('state','=','draft'),('type','!=','out_invoice')]}"   />
+
+-->
+            </xpath>
+
+
+            <xpath expr="//h1" position="inside">
+                    <span attrs="{'invisible': ['|', '|', ('type', '!=', 'liq_purchase'), ('state', '!=', 'draft'), ('name', '!=', '/')]}">Liquidacion de compra en borrador</span>
+                    <span attrs="{'invisible': ['|', '|', ('type', '!=', 'in_debit'), ('state', '!=', 'draft'), ('name', '!=', '/')]}">Nota de debito en borrador</span>
+                    <span attrs="{'invisible': ['|', '|', ('type', '!=', 'out_debit'), ('state', '!=', 'draft'), ('name', '!=', '/')]}">Nota de debito en borrador</span>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date']" position="attributes">
+                <attribute name="attrs">{'required': [('type', '!=', 'entry')], 'invisible': [('type', '=', 'entry')]}</attribute>
+                <!-- <attribute name="attrs">{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt', 'in_debit', 'out_debit', 'liq_purchase'))]}</attribute> -->
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/group" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt', 'in_debit', 'out_debit', 'liq_purchase'))]}
+                </attribute> 
+            </xpath>
+
+
+
+            <xpath expr="//field[@name='ref']" position="after">
+                <field string="Número de factura" name="debit_origin_id" attrs="{'invisible': [('type', 'not in', ('in_debit','out_debit'))],'readonly': [('state', '!=', 'draft')],'required':[('type','=','out_debit'),('is_electronic','=',True)]}" domain="[('partner_id','=',partner_id),('type','=',tipo_referencia),('state','=','posted')]"/>
+                <field string="Documento de reembolso" name="documento_reembolso_id" attrs="{'invisible': [('type', 'not in', ('liq_purchase'))],'readonly': [('state', '!=', 'draft')], 'required': [('type','=','liq_purchase')]}" domain="[('type','=','in_invoice')]"/>
+
+
+            </xpath>
+            
+            <xpath expr="//group[@id='header_left_group']/div" position="replace">
+                <div class="o_td_label">
+                    <label for="partner_id" string="Cliente" style="font-weight:bold;"
+                            attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'out_receipt', 'out_debit'))]}"/>
+                    <label for="partner_id" string="Proveedor" style="font-weight:bold;"
+                            attrs="{'invisible': [('type', 'not in', ('in_invoice', 'in_refund', 'in_receipt', 'in_debit', 'liq_purchase'))]}"/>
+                </div>
+            </xpath>
+            <xpath expr="//group[@id='header_left_group']/field[@name='partner_id']" position="replace">
+                <field name="partner_id" widget="res_partner_many2one" nolabel="1" context="{'res_partner_search_mode': (context.get('default_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt', 'out_debit') and 'customer') or (context.get('default_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt', 'in_debit', 'liq_purchase') and 'supplier') or False, 'show_address': 1, 'default_is_company': True, 'show_vat': True}" options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True}" attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt','out_debit','in_debit','liq_purchase'))]}"  domain="dominio"/>
+            </xpath>
+
+
+
+            <field name="invoice_date" position="after">
+                <field name="sustento_del_comprobante" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')], 'invisible':[('type','=','entry')], 'required': [('type','!=','entry')]}" />
+                <field name="method_payment" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')], 'invisible':[('type','=','entry')],'required':[('is_electronic','=',True),('type','in',['out_debit','out_refund','out_invoice','liq_purchase'])]}"/>
+                <field name="initial_balance" invisible="1"/>
+            </field>
+
+            
+
+            <field name="invoice_incoterm_id" position="after">
+
+                <h1 attrs="{'invisible':[('type','not in','liq_purchase')]}">Máquina Fiscal</h1>
+                <field name="marca" attrs="{'invisible':[('type','not in','liq_purchase')]}" />
+                <field name="modelo" attrs="{'invisible':[('type','not in','liq_purchase')]}"/>
+                <field name="serie" attrs="{'invisible':[('type','not in','liq_purchase')]}"/>
+            </field>
+
+
+
+
+
+
+
+            <xpath expr="//page[@name='other_info']" position="after">
+
+
+                <page string="Tributación" attrs="{'invisible': [('type','!=','in_invoice')]}">
+                    <group>
+                        <group>
+                            <field name="email_fe2" string="Email Cliente" placeholder="Ingresar los email separado por comas" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+
+
+
+                    <group id="info_adicional">
+                        <group  >
+                            <field name="campos_adicionales_facturacion_prove" string="Información Adicional" attrs="{'readonly':[('state','!=','draft')]}" >
+                                <tree editable="bottom">
+                                    <field name="nombre"/>
+                                    <field name="valor"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="nombre"/>
+                                            <field name="valor"/>
+                                        </group>                       
+                                    </group>
+
+                                </form>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+
+
+
+                <page string="Tributación" name="tributacion" 
+                attrs="{'invisible': [('is_electronic','!=',True)]}">
+                    <group>
+                        <group>
+                            <field name="email_fe" string="Email Cliente" placeholder="Ingresar los email separado por comas" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+
+
+
+                    <group id="info_adicional">
+                        <group  >
+
+                            <field name="campos_adicionales_facturacion" string="Información Adicional">
+                                <tree editable="bottom">
+                                    <field name="nombre"/>
+                                    <field name="valor"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="nombre"/>
+                                            <field name="valor"/>
+                                        </group>                       
+                                    </group>
+
+                                </form>
+
+                            </field>
+
+                        </group>
+
+                    </group>
+
+
+
+
+
+
+
+                    <group id="tributacion_group">
+                        <group string="Punto de Emisión" name="punto_emision_group" invisible="0">
+                            <field name="establecimiento" options="{'no_open': True}" attrs="{'required': [('type', 'in', ['out_invoice','out_debit'])], 'readonly': [('state', '!=', 'draft')], 'invisible': [('type', 'not in', ['out_invoice','out_debit'])],}" domain="[('type_id', 'in', [l10n_latam_document_type_id])]" />
+                            <field name="l10n_latam_document_number" readonly="1" string="Secuencial"/>
+                        </group>
+                        <group string="Respuesta SRI" name="respuesta_sri_group" >
+
+                            <field name="bitacora_id" readonly="1" />
+                            <field name="respuesta_sri" readonly="1"/>
+                            <field name="clave_acceso_sri" readonly="1"/>
+                            <field name="numero_autorizacion_sri" readonly="1"/>
+                            <field name="fecha_autorizacion_sri" readonly="1"/>
+                            <field name="estado_autorizacion_sri" readonly="1"/>
+                            <field name="type_environment" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+
+
+
+
+
+
+
+
+
+
+                
+                <page string="Guias de remision" attrs="{'invisible': [('type','=','entry')]}">
+                    <field name="guia_ids">
+                    <tree>
+                        <field name="name"/>
+                    </tree>
+                    </field>
+                </page>
+                
+                <page string="Retenciones"  attrs="{'invisible': [('has_retention','=',True),('type','not in',('in_invoice'))]}"><!--'in_refund','in_debit'-->
+                    <header>
+                        <button name="button_validate" string="Validar" class="oe_highlight" type="object"  attrs="{'invisible': [('ret_state','!=','draft')]}"/>
+                        <button name="print_retention" string="Retención Pdf" class="oe_highlight" type="object" attrs="{'invisible': [('ret_state','!=','done')]}"/>
+                        <field name="ret_state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ret_name" class="oe_inline" required="0"/>
+                        </h1> 
+                    </div>
+                    <group>
+                        
+                        <group>
+                            <label for="ret_manual_establishment" attrs="{'invisible': [('ret_state','!=','draft')]}"/>
+                            <div class="d-flex"  attrs="{'invisible': [('ret_state','!=','draft')]}">
+                                <field name="ret_manual_establishment" readonly="0" placeholder="001" force_save="1"/>
+                                <span class="o_form_label mx-1 oe_edit_only" >-</span>
+                                <field name="ret_manual_referral_guide" readonly="0" placeholder="001"  force_save="1"/>
+                                <span class="o_form_label mx-1 oe_edit_only">-</span>
+                                <field name="ret_manual_sequence" readonly="0" placeholder="1452" force_save="1" attrs="{'required': [('ret_is_manual_sequence', '=', True),('state','=','posted'),('has_retention','=',True)]}"/>
+                            </div>
+                            <field name="ret_auth_number"/>
+                            <field name="has_retention" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="ret_auth_id"/>
+                            <field name="retention_id" invisible="1"/>
+                            <field name="ret_is_electronic" readonly="0" invisible="1"/>
+                            <field name="ret_is_manual_sequence" readonly="0" invisible="1" />
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                            <page string="Impuestos">
+                                <field name="ret_tax_ids" nolabel="1">
+                                    <tree string="Impuestos Aplicados">
+                                        <field name="fiscal_year"/>
+                                        <field name="group_id"/>
+                                        <field name="code"/>
+                                        <field name="base_ret"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="ret_amount_total" widget="monetary" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
+                            <page string="Facturacion Electronica" attrs="{'invisible': [('is_electronic','!=',True)]}">
+                                <group>
+                                    <group>
+                                        <field name="ret_clave_acceso_sri"/>
+                                        <field name="ret_numero_autorizacion_sri"/>
+                                        <field name="ret_fecha_autorizacion_sri"/>
+                                        <field name="ret_estado_autorizacion_sri"/>
+                                    </group>
+                                </group>
+                            </page>
+                    </notebook>
+                    </sheet>    
+                </page>
+                    
+                
+            </xpath>
+
+
+
+
+            <xpath expr="//form/sheet/notebook/page[@name='other_info']" position="attributes">
+                <attribute name="attrs">{'invisible': [('type', 'not in', ('out_debit','out_invoice', 'out_refund', 'in_invoice', 'in_refund','liq_purchase'))]}</attribute>                          
+            </xpath>
+
+            <xpath expr="//group[@name='accounting_info_group']" position="attributes">
+                <attribute name="attrs">{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund','out_debit','liq_purchase'))]}</attribute>                          
+            </xpath>
+
+
+            <xpath expr="//form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='analytic_account_id']" position="replace">
+                <field name="analytic_account_id" domain="['|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]" groups="analytic.group_analytic_accounting" />
+            </xpath>
+            <field name="fiscal_position_id" position="after">
+                <field name="is_electronic" readonly="0" invisible="1"  />
+                <field name="is_manual_sequence" readonly="0" />
+            </field>
+            <field name="journal_id" position="after">
+                <field name="l10n_latam_document_type_id" attrs="{'invisible': [('l10n_latam_use_documents', '=', False)], 'required': [('type', '!=', 'entry')], 'readonly': [('state', '!=', 'draft')]}"
+                    domain="[('id', 'in', l10n_latam_available_document_type_ids)]" options="{'no_open': True, 'no_create': True}"/>
+            </field>  
+            <field name="ref" position="after">
+                <field name="auth_number" attrs="{'invisible': [('type','=','entry')]}"/>
+                <field name="l10n_latam_document_number" attrs="{'readonly': [('state','in',['posted'])], 'invisible': [('type','=','entry')]}" string="Número de Documento" placeholder="001002000001234"/>
+                <label for="manual_establishment"  attrs="{'invisible': ['|',('type','=','entry'),('state','=','posted')]}"/>
+                <div class="d-flex" attrs="{'invisible': [('type','=','entry')]}" >
+                    <field name="manual_establishment" readonly="0" placeholder="001" attrs="{'required': [('type','in',['in_invoice'])],'invisible': [('state','=','posted')]}"/>
+                    <span class="o_form_label mx-1 oe_edit_only" >-</span>
+                    <field name="manual_referral_guide" readonly="0" placeholder="001" attrs="{'required': [('type','in',['in_invoice'])], 'invisible': [('state','=','posted')]}"/>
+                    <span class="o_form_label mx-1 oe_edit_only">-</span>
+                    <field name="manual_sequence" readonly="0" placeholder="1452" attrs="{'required': ['|',('is_manual_sequence','=',True),('type','in',['in_invoice'])],'invisible': [('state','=','posted')]}"/>
+                </div>
+            </field>     
+          
+        </field>
+    </record>
+
+    <record id="acount_move_tributacion_tree" model="ir.ui.view">
+        <field name="name">acount.move.tributacion.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[7]" position="attributes">
+                <attribute name="string">
+                    Fecha de Factura
+                </attribute>
+                <attribute name="invisible">
+                    context.get('default_type') not in ('in_invoice', 'out_invoice')
+                </attribute>                
+            </xpath>
+            
+            <xpath expr="//field[8]" position="attributes">
+                <attribute name="string">
+                    Fecha de Emisión
+                </attribute>
+                <attribute name="invisible">
+                    context.get('default_type') not in ('in_refund', 'out_refund','out_debit','in_debit')
+                </attribute>                
+            </xpath>
+            <xpath expr="//field[8]" position="after">
+                <field name="invoice_date" optional="show" invisible="context.get('default_type') not in ('in_receipt', 'out_receipt')" string="Fecha de Recepción"/>
+            
+            </xpath>            
+            
+            <xpath expr="//field[8]" position="before">
+                <field name="invoice_date" string="Fecha de Pago" optional="show" invisible="context.get('default_type','entry') not in ('liq_purchase')" />
+            
+            </xpath>         
+            
+            
+            
+            <field name="invoice_date" position="after">
+                <field name="l10n_latam_document_number"  />
+            </field>
+
+            
+        </field>
+    </record>
+    
+   </odoo>

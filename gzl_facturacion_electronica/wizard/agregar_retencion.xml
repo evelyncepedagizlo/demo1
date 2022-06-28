@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="wizard_crear_retencion_form" model="ir.ui.view">
+            <field name="name">wizard.crear.retencion.form</field>
+            <field name="model">wizard.agregar.retencion</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Crear Retencion">
+                    <group >                     
+                      <group >                     
+                          <field name="group_id" required="1"/>
+                          <field name="tax_id" required="1" widget="many2many_tags" domain="[('tax_group_id','=',group_id)]"/>
+                          <field name="invoice_id"/>
+                      </group>
+                    </group>
+
+
+                    <footer>
+                        <button name="crear_retenciones" type="object" string="Crear Retencion"/>
+                        <button special='cancel' string="Cancelar"/>
+                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_crear_retencion" model="ir.actions.act_window">
+            <field name="name">Crear Retencion</field>
+            <field name="res_model">wizard.agregar.retencion</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

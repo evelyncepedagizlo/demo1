@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_planned_action_age" model="ir.cron">
+        <field name="name">Planned action to calculate age</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_hr_employee_children"/>
+        <field name="code">model.planned_action_age()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

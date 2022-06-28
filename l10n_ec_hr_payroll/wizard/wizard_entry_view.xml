@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+
+        <record id="hr_entry_work_eject" model="ir.ui.view">
+            <field name="name">hr.entry.work.eject</field>
+            <field name="model">wizard.entry</field>
+            <field name="arch" type="xml">
+                <form>
+                    <h2>Proceso Entrada de Trabajo</h2>
+                    
+                    <group col="4">
+                        <field name="employee_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <footer>
+                        <button name="generar_work_entry"  string="Ejecutar Horarios" type="object" class="btn btn-primary" icon="fa-print"/>
+                        <button name="generar_alimentacion"  string="Ejecutar Pago Alimentacion" type="object" class="btn btn-primary" icon="fa-print"/>
+
+
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_entry_work_eject_action" model="ir.actions.act_window">
+            <field name="name">Proceso Entrada de Trabajo</field>
+            <field name="res_model">wizard.entry</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_entry_work_eject"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_hr_entry_work_eject" name="Ejecutar Entrada de Trabajo" action="hr_entry_work_eject_action"
+            parent="hr_payroll.menu_hr_payroll_configuration" sequence="2" groups="hr_payroll.group_hr_payroll_manager"/>
+    </data>
+</odoo>

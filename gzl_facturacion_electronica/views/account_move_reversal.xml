@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="acount_move_reversal_wizard" model="ir.ui.view">
+        <field name="name">acount.move.reversal.wizard</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reason']" position="after">
+                <label for="manual_establishment"/>
+                <div class="d-flex">
+                    <field name="manual_establishment" readonly="0" placeholder="001" force_save="1" required="1"/>
+                    <span class="o_form_label mx-1 oe_edit_only" >-</span>
+                    <field name="manual_referral_guide" readonly="0" placeholder="001"  force_save="1" required="1"/>
+                    <span class="o_form_label mx-1 oe_edit_only">-</span>
+                    <field name="manual_sequence" readonly="0" placeholder="1452" force_save="1" required="1"/>
+                </div>                    
+            </xpath>
+
+            <xpath expr="//field[@name='reason']" position="after">
+                <field name="move_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

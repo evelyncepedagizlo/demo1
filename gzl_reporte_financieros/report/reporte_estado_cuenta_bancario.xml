@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <report
+          id="repote_estado_cuenta_bancario_pdf_id"
+          model="reporte.estado.cuenta.bancario"
+          string="Reporte de Estado de Cuenta Bancario"
+          report_type="qweb-pdf"
+          name="gzl_reporte_financieros.template_estado_cuenta_bancario_pdf_id"
+          file="gzl_reporte_financieros.template_estado_cuenta_bancario_pdf_id"
+          menu="False"
+          attachment_use="False"
+          attachment="('Reporte Estado de Cuenta Bancario.pdf')"
+        />
+
+
+</odoo>

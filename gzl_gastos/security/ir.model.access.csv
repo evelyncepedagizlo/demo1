@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_expense_sheet_line,hr.expense.sheet.line,model_hr_expense_sheet_line,,1,1,1,1
+hr_expense_sheet_line_active,hr.expense.sheet.line.active,model_hr_expense_sheet_line_active,,1,1,1,1

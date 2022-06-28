@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+    <record id="view_configuracion_adicional_form" model="ir.ui.view">
+        <field name="name">view.configuracion.adicional.form</field>
+        <field name="model">configuracion.adicional.template</field>
+        <field name="arch" type="xml">
+            <form string="Configuracion Adicional">
+
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name"/>
+
+
+                        </group>
+                    </group>
+                            <field name="requisitosPoliticasCredito" widget="html"/>
+
+                </sheet>
+
+
+                
+            </form >
+        </field>
+    </record>
+
+
+</odoo>

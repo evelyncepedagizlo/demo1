@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="informe_credito_cobranza_form" model="ir.ui.view">
+            <field name="name">informe.credito.cobranza.form</field>
+            <field name="model">informe.credito.cobranza</field>
+            <field name="arch" type="xml">
+                <form string="Informe Credito y Cobranza">
+                    <group>
+                        <group col="2">
+                            <field name="entrega_vehiculo_id" required="1"   options="{'no_open': True, 'no_create': True}" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_informe_credito_cobranza_form" model="ir.actions.act_window">
+            <field name="name">Informe Credito y Cobranza</field>
+            <field name="res_model">informe.credito.cobranza</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem 
+        id = "menu_action_informe_credito_cobranza_form"
+        name = "Informe Credito y Cobranza"  
+        parent="menu_reporte" 
+        sequence="1" 
+        action="action_informe_credito_cobranza_form"/>
+
+
+</odoo>

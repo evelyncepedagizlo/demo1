@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_ventas_form" model="ir.ui.view">
+            <field name="name">report.ventas.form</field>
+            <field name="model">report.ventas</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de ventas">
+                    <group>
+                        <group col="2">
+
+                            <field name="month" required="1"/>
+                            <field name="year_date" required="1"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or                        
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ventas_report" model="ir.actions.act_window">
+            <field name="name">Reporte Ventas</field>
+            <field name="res_model">report.ventas</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_reporte_ventas" name="Reporte Ventas" parent="gzl_facturacion_electronica.menu_impuestos_informe" sequence="6" action="action_ventas_report"/>
+
+
+</odoo>

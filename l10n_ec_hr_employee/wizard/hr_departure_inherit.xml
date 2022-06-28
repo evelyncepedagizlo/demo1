@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="hr_departure_wizard_view_form_inherit" model="ir.ui.view">
+            <field name="model">hr.departure.wizard</field>
+            <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+            <field name="arch" type="xml">
+
+              <field name="departure_reason" position="after">
+                <field name="fecha_salida" />
+                <field name="monto_liquidacion" />
+                  
+              </field>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

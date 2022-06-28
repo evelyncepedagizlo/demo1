@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_crear_valores_form" model="ir.ui.view">
+        <field name="name">wizard.crear.valores.form</field>
+        <field name="model">actualizacion.contrato.valores</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Ingrese la modificación del contrato"> 
+
+
+                        <field name="monto_financiamiento" string="Nuevo Monto Financiamiento" required="1"/>
+                        <field name="observacion"/>
+
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Ejecutar Cambio" class="oe_highlight" type="object" name="ejecutar_cambio"/><!-- attrs="{'invisible': [('ejecutado', '=', True)]}"/-->
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_budget_inherit" model="ir.ui.view">
+        <field name="name">account.budget.inherit</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+        <field name="arch" type="xml">
+            <field name="theoritical_amount" position="replace">
+                <field name="theoritical_amount" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="apuntes_analiticos_inherit" model="ir.ui.view">
+        <field name="name">apuntes.analiticos.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="debito" sum="Total"/>
+                <field name="credito" sum="Total"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

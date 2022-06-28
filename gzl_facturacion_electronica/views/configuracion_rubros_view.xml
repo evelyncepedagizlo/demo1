@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="configuracion_rubros_tree" model="ir.ui.view">
+        <field name="name">configuracion.rubros.tree</field>
+        <field name="model">rubros.contratos</field>
+        <field name="arch" type="xml">
+            <tree string="Configuración Rubros Contratos" delete="0">
+                <field name="name"/>
+                <field name="cuenta_id"/>
+                <field name="journal_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="configuracion_rubros_form" model="ir.ui.view">
+        <field name="name">configuracion.rubros.tree</field>
+        <field name="model">rubros.contratos</field>
+        <field name="arch" type="xml">
+            <form string="Configuración Rubros Contratos">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="cuenta_id"/>
+                        <field name="journal_id"/>
+                   </group> 
+                    </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="configuracion_rubros_action" model="ir.actions.act_window">
+        <field name="name">Configuración Rubros Contratos</field>
+        <field name="res_model">rubros.contratos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <menuitem name="Configuración Rubros Contratos" 
+            action="configuracion_rubros_action" 
+            id="menu_rubros" 
+            parent="gzl_facturacion_electronica.menu_contabilidad_tributacion" 
+            sequence="1"/>
+
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_thirteenth_salary_form" model="ir.ui.view">
+            <field name="name">Décimo Tercer Sueldo</field>
+            <field name="model">report.thirteenth.salary</field>
+            <field name="arch" type="xml">
+                <form string="Décimo Tercer Sueldo">
+                    <group>
+                        <group col="2">
+                            <field name="date"/>
+                            <field name="year_date" required="1"/>
+                        </group>                    
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_thirteenth_salary" model="ir.actions.act_window">
+            <field name="name">Décimo Tercer Sueldo</field>
+            <field name="res_model">report.thirteenth.salary</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_thirteenth_salary" 
+                  id="menu_action_report_thirteenth_salary" 
+                  parent="hr_payroll.menu_hr_payroll_report" 
+                  sequence="2"/>
+</odoo>

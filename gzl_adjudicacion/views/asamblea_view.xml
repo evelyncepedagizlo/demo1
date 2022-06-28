@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_new_asamblea_tree" model= "ir.ui.view">
+        <field name="name">view.new.asamblea.tree</field>
+        <field name="model">asamblea</field>
+        <field name="arch" type="xml">
+            <tree string="Asamblea">
+                <field name="secuencia" />
+                <field name="tipo_asamblea"/>
+                <field name="descripcion" />
+                <field name="state" />
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_new_asamblea_form" model="ir.ui.view">
+        <field name="name">view.new.asamblea.form</field>
+        <field name="model">asamblea</field>
+        <field name="arch" type="xml">
+            <form string="Asamblea">
+                <header>
+                    <button name="cambio_estado_boton_precierre" string="Pre cierre" type="object" states="inicio" class="oe_highlight"/>
+                    <button name="cambio_estado_boton_cerrado" string="Cerrado" type="object" states="pre_cierre"   class="oe_highlight"/>
+
+
+                    <field name="state" widget="statusbar" statusbar_visible="inicio,pre_cierre,cerrado"/>
+                </header>
+
+                <sheet>
+                    <div states="borrador,inicio,en_curso,pre_cierre,cerrado">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="secuencia" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tipo_asamblea"  required="1" options="{'no_open': True, 'no_create': True}"  attrs="{'readonly': [('state', '=', 'cerrado')]}" />
+                                <field name="descripcion"  attrs="{'readonly': [('state', '=', 'cerrado')]}"/>
+                                <field name="fecha_inicio" required="1" attrs="{'readonly': [('state', '=', 'cerrado')]}"/>
+                                <field name="fecha_fin" required="1" attrs="{'readonly': [('state', '=', 'cerrado')]}"/>
+                                <field name="active" invisible="1 "/>
+                                <field name="codigo_tipo_contrato" invisible="1"/>
+                                <field name="recuperacionCartera" invisible="0"/>
+                                <field name="adjudicados" invisible="0"/>
+                                <field name="fondos_mes" invisible="0"/>
+                                
+                                <field name="invertir_licitacion" invisible="0"/>
+                                <field name="evaluacion" invisible="0"/>
+                                <field name="programo" invisible="0"/>
+                                <field name="licitaciones" invisible="0"/>
+                                
+                                <field name="saldo" invisible="0"/>
+
+                                
+
+
+
+
+
+
+
+
+
+                            </group>
+                        </group>
+
+                            <group attrs="{'readonly': [('state', '=', 'cerrado')],'invisible': [('state', 'not in', ['pre_cierre','cerrado'])]}">
+                                <field name="ganadores" nolabel="1" attrs="{'readonly': [('state', '=', 'cerrado')]}">
+                                    <tree string="Ganadores" editable="top">
+                                        <field name="grupo_adjudicado_id"/>
+                                        <field name="contrato_id" readonly="1" invisible="0"/>
+
+                                        <field name="adjudicado_id"/>
+                                        <field name="fecha_antiguedad" widget="date"/>
+                                        <field name="plazo_meses" readonly="1" invisible="0"/>
+                                        <field name="monto_financiamiento" readonly="1"/>
+                                        <field name="cuota" readonly="1" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+                                        <field name="monto_adjudicar" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+                                        <field name="puntos" string="Cuotas Licitadas" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+                                        <field name="nro_cuotas_adelantadas" string="Cuotas Pagadas" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', 'not in',['ahorro','evaluacion'] )]}"/>
+
+                                        <field name="total_cuotas" string="Total Cuotas" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+                                        <field name="cuota_capital" string="Cuota Capital" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+                                        <field name="total_or" string="OR" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'ahorro')]}"/>
+
+
+
+                                        <field name="calificacion" invisible="1" string="Calificación" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'programo')]}"/>
+                                         <field name="monto_programado" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', '!=', 'programo')]}"/>
+                                        
+                                        
+                                        
+
+
+                                    </tree>
+                                </field>
+                            </group>
+
+
+
+
+                        <group  >
+                            <group string="Integrantes de la Asamblea">
+                                <field name="integrantes"  context="{'default_tipo_contrato':tipo_asamblea}" nolabel="1" attrs="{'readonly': [('state', '=', 'cerrado')],'invisible':[('tipo_asamblea','=',False)]}"  >
+                                    <tree string="Integrantes" >
+                                        <field name="grupo_adjudicado_id" string="Grupo Participante"/>
+                                        <field name="recuperacionCartera"  />
+
+
+                                    </tree>
+                                    <form>
+                                        <group>
+
+                                            <field name="grupo_adjudicado_id" options="{'no_open': True, 'no_create': True}" required="1" string="Grupo Participante"/>
+                                            <field name="tipo_contrato" options="{'no_open': True, 'no_create': True}" invisible="1" required="1"/>
+                                            <field name="codigo_tipo_contrato" />
+                                            <field name="recuperacionCartera"  />
+
+
+                                        </group>
+
+                                        <field name="integrantes_g" nolabel="1" context="{'default_grupo_cliente':grupo_adjudicado_id}">
+                                            <tree string="Integrantes" editable="top">
+                                                <field name="dominio" invisible="1"/>
+                                                <field name="grupo_cliente" invisible="1"/>
+
+                                                <field name="adjudicado_id" options="{'no_open': True, 'no_create': True}" domain="dominio" required="1" />
+                                                <field name="nro_cuota_licitar" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', 'in', ['evaluacion','programo'])],'required': [('parent.codigo_tipo_contrato', '=', 'ahorro')]}" required="1"/>
+                                                <field name="carta_licitacion" attrs="{'column_invisible': [('parent.codigo_tipo_contrato', 'in', ['evaluacion','programo'])],'required': [('parent.codigo_tipo_contrato', '=', 'ahorro')]}"/>
+                                            </tree>
+                                        </field>
+
+
+
+                                    </form>
+                                </field>
+                            </group>
+
+
+
+
+
+
+                            <group string="Junta" >
+                                <field name="junta" nolabel="1" attrs="{'readonly': [('state', '=', 'cerrado')]}">
+                                    <tree string="Junta" editable="top">
+                                        <field name="asamblea_id" invisible="1"/>
+                                        <field name="empleado_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </div>
+                </sheet>
+                <!-- Attachment preview -->
+                <div class="o_attachment_preview" />
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+                
+            </form >
+        </field>
+    </record>
+
+
+    <record id="action_new_asamblea_form" model="ir.actions.act_window">
+        <field name="name">Asamblea</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asamblea</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_new_asamblea" action="action_new_asamblea_form" parent="menu_socio_proceso_adjudicacion" sequence="7" />
+</odoo>

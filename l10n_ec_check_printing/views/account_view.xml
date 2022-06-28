@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_journal_check_form" model="ir.ui.view">
+            <field name="name">view.account.journal.check</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <field name="outbound_payment_method_ids" position="after">
+                    <field name="check_report_id" options="{'no_create':True}" domain="[('model','in',['account.payment','account.payment.payroll'])]"/>
+                </field>
+                <xpath expr="//field[@name='bank_id']" position="attributes">
+                    <attribute name="attrs">{'required':[('type','=','bank')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_third_party_form" model="ir.ui.view">
+            <field name="name">view.account.payment.third.party</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="gzl_account.account_payment_inherit" />
+            <field name="arch" type="xml">
+
+
+
+                <field name="journal_id" position="attributes">
+                    <attribute name="string">Banco</attribute>
+                </field>
+                <field name="communication" position="attributes">
+                    <attribute name="string">Referencia</attribute>
+                </field>
+                <field name="payment_method_id" position="after">
+                    <field name="invoice_id" invisible="1" />
+                    <field name="es_nota_credito" invisible="0" />
+                    <field name="has_payment_line" invisible="1"/>
+
+                    <field name="to_third_party" attrs="{'invisible': [('payment_method_code','!=','check_printing')]}"/>
+                    <field name="third_party_name"
+                           attrs="{'invisible': [('to_third_party','=',False)], 'required' :[('to_third_party','=',True)]}"/>
+                </field>
+                <group position="after">
+                    <separator string="Informacion del Cheque"
+                               attrs="{'invisible': [('payment_method_code','not in',['check_printing','batch_payment'])]}"/>
+                    <group col="2" colspan="2" attrs="{'invisible': [('payment_method_code','not in',['check_printing','batch_payment'])]}">
+                        <field name="date_to" attrs="{'required':[('payment_method_code','in',['batch_payment'])], 'readonly':[('state','not in','draft')], 'invisible':[('payment_method_code','in',['check_printing'])]}"/>
+                        <field name="date_to" string="Fecha de Pago" attrs="{'required':[('payment_method_code','in',['check_printing'])], 'readonly':[('state','not in','draft')], 'invisible':[('payment_method_code','in',['batch_payment'])]}"/>
+                        <field name="number" attrs="{'required':[('payment_method_code','in',['batch_payment'])], 'readonly':[('state','not in','draft')],'invisible': [('payment_method_code','not in',['batch_payment'])]}"/>
+                        <field name="bank" attrs="{'required':[('payment_method_code','in',['check_printing','batch_payment'])], 'readonly':[('state','not in','draft')]}"/>
+                        <field name="check_type" attrs="{'required':[('payment_method_code','in',['check_printing','batch_payment'])], 'readonly':[('state','not in','draft')]}"/>
+                        <field name="account_check_id" readonly="1" attrs="{'invisible':[('payment_method_code','not in',['check_printing','batch_payment'])]}"/>
+                        
+                    </group>
+
+
+                    <xpath expr="//group" position="after">
+                        <group>
+                            <group>
+                                <field name="selected_inv_total" invisible="1"/>
+                            </group>
+                            
+                        </group>
+                    </xpath>
+
+
+
+                   <!--   <separator string="Cuentas Contables" attrs="{'invisible': [ ('is_third_name','!=',True)] }"/>
+                      <field name="account_payment_account_ids" nolabel="1" attrs="{'invisible': [('is_third_name','!=',True)]}"> -->
+                    <separator string="Cuentas Contables"/>
+
+                    <field name="account_payment_account_ids" nolabel="1">
+                        <tree string="Pagos" editable="bottom"  >
+                            <field name="cuenta"  domain="[('deprecated', '=', False), ('user_type_id.type', 'not in', ('receivable', 'payable')), ('company_id', '=', parent.company_id)]"  required="1"/>
+
+
+                            <field name="name" required="1" />
+                            <field name="cuenta_analitica" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"   optional="show"/>
+
+                            <field name="analytic_tag_ids" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"  optional="show" widget="many2many_tags"/>
+
+
+                            <field name="debit"   />
+                            <field name="credit" />
+
+                        </tree>
+
+
+                    </field>
+
+                    <separator string="Pagos de Varias Facturas" attrs="{'invisible': ['|',('partner_id', '=', False),('payment_difference', '&lt;',0)],'readonly':[('state','in',['done','reconciled'])]}"/>
+                    <field name="payment_line_ids" nolabel="1" attrs="{'invisible': ['|',('partner_id', '=', False),('payment_difference', '&lt;',0)],'readonly':[('state','in',['done','reconciled'])]}">
+                        <tree string="Pagos" editable="bottom" create="0" delete="0" >
+                            <field name="pagar" />
+                            <field name="document_number" readonly="1" invisible="1"/>
+                            <field name="invoice_id" readonly="1" force_save="1"/>
+                            <field name="date_due" readonly="0" force_save="1"/>
+                            <field name="currency_id" readonly="1" invisible="1"/>
+                            <field name="amount_total"  invisible="1" readonly="1" widget="monetary" force_save="1"/>
+                            <field name="actual_amount"  invisible="1" readonly="1" widget="monetary" force_save="1"/>
+                            <field name="residual"  invisible="1" readonly="1" widget="monetary" force_save="1"/>
+                            <field name="monto_pendiente_pago"  invisible="1" readonly="0" widget="monetary" force_save="1" />
+                            <field name="amount" readonly="0" sum="amount" widget="monetary" force_save="1" />
+                            
+                        </tree>
+                    </field>
+
+                    <field name="estado_anticipo" invisible="1"/>
+
+                    <separator string="Aplicación de Anticipos" attrs="{'invisible':['|',('tipo_transaccion','!=','Anticipo'),('estado_anticipo','=','draft')]}"/>
+
+
+                    <field name="anticipo_ids" nolabel="1" readonly="1"  attrs="{'invisible':['|',('tipo_transaccion','!=','Anticipo'),('estado_anticipo','=','draft')]}" >
+                        <tree string="Anticipos" editable="bottom" create="0" delete="0">
+                            <field name="invoice_id" readonly="1" force_save="1"/>
+                            <field name="amount" readonly="0" force_save="1"/>
+                        </tree>
+                    </field>
+
+                    <field name="aplicacion_anticipo_ids" nolabel="1" readonly="1"  attrs="{'invisible':['|',('tipo_transaccion','!=','Anticipo'),('estado_anticipo','=','draft')]}" >
+                        <tree string="Anticipos" editable="bottom" create="0" delete="0">
+                            <field name="aplicacion_anticipo" readonly="0" force_save="1"/>
+                        </tree>
+                    </field>
+
+
+
+
+                    <separator string="Pagos Relacionados" attrs="{'invisible':['|',('tipo_transaccion','!=','Anticipo'),('estado_anticipo','=','draft')]}" />
+
+
+                    <field name="pagos_relacionadas" nolabel="1" attrs="{'invisible':['|',('tipo_transaccion','!=','Anticipo'),('estado_anticipo','=','draft')]}" >
+                        <tree string="Anticipos" editable="bottom" create="0" delete="0">
+                            <field name="name" />
+                        </tree>
+                    </field>
+
+
+
+                </group>
+
+
+
+
+                <button name="action_draft" position="after">
+                    <button name="aplicar_anticipo_pagos" class="oe_highlight" type="object" string="Aplicar Anticipo" attrs="{'invisible': ['|',('estado_anticipo','!=','anticipo'),('amount_residual','=','0')]}"/>
+                </button>
+
+                <field name="amount" position="after">
+                    <field name="amount_residual" attrs="{'invisible': [('tipo_transaccion','!=','Anticipo')]}"/>
+                    <field name="fecha_aplicacion_anticipo" attrs="{'invisible': [('tipo_transaccion','!=','Anticipo')],'required':['|',('tipo_transaccion','=','Anticipo'),('state','=','anticipo')]}"/>
+                    <field name="parent_id" readonly="1" attrs="{'invisible': [('parent_id','=','False')]}"/>
+
+                </field>
+
+
+
+
+
+            </field>
+        </record>
+
+
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--    Secuencia para Asamblea  -->
+        <record id="sequence_asamblea" model="ir.sequence">
+            <field name="name">Secuencia para Asamblea</field>
+            <field name="code">asamblea</field>
+            <field name="prefix">Asamblea - </field>
+            <field name="padding">8</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <!--    Secuencia para Entrega Vehiculo  -->
+        <record id="sequence_entrega_vehiculo" model="ir.sequence">
+            <field name="name">Secuencia para Entrega Vehiculo</field>
+            <field name="code">entrega.vehiculo</field>
+            <field name="prefix">Entrega Vehiculo - </field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <!--    Secuencia para Grupo Adjudicado  -->
+        <record id="sequence_grupo_adjudicado" model="ir.sequence">
+            <field name="name">Secuencia para Grupo Adjudicado</field>
+            <field name="code">grupo.adjudicado</field>
+            <field name="prefix">Grupo Adjudicado - </field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <!--    Secuencia para Contrato -->
+        <record id="sequence_contrato" model="ir.sequence">
+            <field name="name">Secuencia para Contrato</field>
+            <field name="code">contrato</field>
+            <field name="prefix">Contrato - </field>
+            <field name="padding">8</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <!--  Secuencia para Integrantes en el Grupo Adjudicado -->
+        <record id="sequence_integrante_grupo_adjudicado" model="ir.sequence">
+            <field name="name">Secuencia para Integrantes en el Grupo Adjudicado</field>
+            <field name="code">integrantes.grupo.adjudicado</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+
+        <!--  Secuencia para Devoluciones -->
+        <record id="sequence_integrante_grupo_adjudicado" model="ir.sequence">
+            <field name="name">Secuencia para Devolucion de Monto</field>
+            <field name="code">devolucion.adjudicado</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+
+
+
+
+    </data>
+</odoo>

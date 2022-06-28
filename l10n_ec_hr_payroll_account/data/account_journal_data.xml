@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+       <record id="l10n_ec_hr_payroll_account.journal_payroll" model="account.journal">
+           <field name="name">Nomina</field>
+           <field name="type">general</field>
+           <field name="code">ROL</field>
+       </record>
+        <record id="l10n_ec_hr_payroll_account.journal_forthnight" model="account.journal">
+           <field name="name">Anticipo de Nomina</field>
+           <field name="type">general</field>
+           <field name="code">ANROL</field>
+       </record>
+
+    </data>
+</odoo>

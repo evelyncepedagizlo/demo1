@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="mrp_cost_structure" inherit_id="mrp_account_enterprise.mrp_cost_structure">
+            
+            <xpath expr="//table[@class='table table-sm o_mrp_report_table'][1]/tbody/tr[2]/td/strong" position="replace">
+                <strong>Costo Total de Componentes</strong>
+            </xpath>
+            
+            <xpath expr="//table[@class='table table-sm o_mrp_report_table'][1]/tbody/tr[2]" position="after">
+                <tr>
+                    <td colspan="4" class="text-right">
+                        <strong>Costo Unitario de Componentes</strong>
+                    </td>
+                    <td class="text-right">
+                        <strong t-esc="line['total_cost']/line['mo_qty']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </td>
+                </tr>
+            </xpath>
+            
+            <xpath expr="//div[@class='row']" position="before">
+                <div class="row">
+                    <div class="col-6 offset-6">
+                        <table class="table table-sm o_mrp_report_table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-right" style="padding-right: 18%;">
+                                        <strong>Costo Unitario de Operaciones</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong t-esc="opcost/line['mo_qty']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+            
+            <xpath expr="//div[@class='col-6 offset-6']/table/tr[2]" position="after">
+                <tr>
+                    <td class="text-right">
+                        <strong>Margen Bruto</strong>
+                    </td>
+                    <td class="text-right">
+                        <strong t-esc="line['product'].list_price*(line['total_cost']+opcost)/line['mo_qty']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </td>        
+                </tr>
+                
+                <tr>
+                    <td class="text-right">
+                        <strong>Utilidad</strong>
+                    </td>
+                    <td class="text-right">
+                        <strong t-esc="(line['product'].list_price*(line['total_cost']+opcost)/line['mo_qty'])*line['mo_qty']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </td> 
+                </tr>
+            </xpath>
+            
+        </template>
+    </data>
+</odoo>

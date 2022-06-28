@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_paginas_de_control_tree" model= "ir.ui.view">
+        <field name="name">view.paginas.de.control.tree</field>
+        <field name="model">paginas.de.control</field>
+        <field name="arch" type="xml">
+            <tree string="Paginas de control" editable="top">
+                <field name="nombre" />
+                <field name="descripcion" />
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="action_paginas_de_control" model="ir.actions.act_window">
+        <field name="name">Páginas de control</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">paginas.de.control</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+    </record>
+
+
+
+    <menuitem id="menu_paginas_de_control" action="action_paginas_de_control" 
+    parent="menu_configuracion_adjudicaciones" sequence="5" />
+
+
+
+
+</odoo>

@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <template id="template_saldo_clientes_prov">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Reporte de Saldo Agrupado</h1></center></span><br/><br/>
+                    <span><strong>Fecha de Corte: </strong></span> <span t-esc="o.date_to"/><br/>
+
+
+                    <table class="table table-condensed">
+                        <thead style="text-align: center; margin-bottom: 10px ">
+                            <th>Empresa</th>
+                            <th>Saldo</th>
+                        </thead>
+                        <tbody>
+                        <tr t-foreach="o.obtenerDatosAgrupado()" t-as="saldo">
+                            <td><span t-esc="saldo.numero_documento" /></td>
+                            <td><span t-esc="'%.2f' %(saldo.monto_adeudado)"  /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <span><h3>Resumen Tipo de Transaccion</h3></span><br/><br/>
+
+
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr t-foreach="o.obtenerDatosAgrupado(True)" t-as="tipo">
+                            <td><span t-esc="tipo.tipo_invoice" /></td>
+                            <td><span t-esc="tipo.numero_documento" /></td>
+                            <td><span t-esc="'%.2f' %(tipo.monto_adeudado)"  t-if="tipo.reglon != 'titulo'" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+
+
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Reporte de Saldo Detallado</h1></center></span><br/><br/>
+                    <span><strong>Fecha de Corte: </strong></span> <span t-esc="o.date_to"/><br/>
+
+
+                    <table class="table table-condensed">
+                        <thead style="text-align: center; margin-bottom: 10px ">
+                            <th>Tipo</th>
+                            <th>Documento</th>
+                            <th>Secuencia</th>
+                            <th>Fc. Emisión</th>
+                            <th>Fc.Vencimiento</th>
+                            <th>Saldo</th>
+                            <th>Observaciones</th>
+                        </thead>
+                        <tbody>
+                        <tr t-foreach="o.obtenerDatosSaldoDetallado()" t-as="saldo">
+                            <td><span t-esc="saldo.tipo_invoice" /></td>
+                            <td><span t-esc="saldo.numero_documento" /></td>
+                            <td><span t-esc="saldo.secuencia" /></td>
+                            <td><span t-esc="saldo.fecha_emision" /></td>
+                            <td><span t-esc="saldo.fecha_vencimiento" /></td>
+                            <td><span t-esc="'%.2f' %(saldo.monto_adeudado)"  t-if="saldo.reglon != 'titulo'" /></td>
+                            <td><span t-esc="saldo.observaciones" /></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <span><h3>Resumen Tipo de Transaccion</h3></span><br/><br/>
+
+
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr t-foreach="o.obtenerDatosAgrupado(True)" t-as="tipo">
+                            <td><span t-esc="tipo.tipo_invoice" /></td>
+                            <td><span t-esc="tipo.numero_documento" /></td>
+                            <td><span t-esc="'%.2f' %(tipo.monto_adeudado)"  t-if="tipo.reglon != 'titulo'" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

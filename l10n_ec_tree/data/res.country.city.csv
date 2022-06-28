@@ -1,0 +1,141 @@
+id,nombre_ciudad,provincia_id/id
+state_g_01,Guayaquil,l10n_ec_tree.state_ec_09
+state_g_02,Alfredo Baquerizo Moreno,l10n_ec_tree.state_ec_09
+state_g_03,Balao,l10n_ec_tree.state_ec_09
+state_g_04,Balzar,l10n_ec_tree.state_ec_09
+state_g_05,Colimes,l10n_ec_tree.state_ec_09
+state_g_06,Daule,l10n_ec_tree.state_ec_09
+state_g_07,Duran,l10n_ec_tree.state_ec_09
+state_g_08,Empalme,l10n_ec_tree.state_ec_09
+state_g_09,El Triunfo,l10n_ec_tree.state_ec_09
+state_g_10,Milagro,l10n_ec_tree.state_ec_09
+state_g_11,Naranjal,l10n_ec_tree.state_ec_09
+state_g_12,Naranjito,l10n_ec_tree.state_ec_09
+state_g_13,Palestina,l10n_ec_tree.state_ec_09
+state_g_14,Pedro Carbo,l10n_ec_tree.state_ec_09
+state_g_15,Salinas,l10n_ec_tree.state_ec_09
+state_g_16,Samborondon,l10n_ec_tree.state_ec_09
+state_g_17,Santa Elena,l10n_ec_tree.state_ec_09
+state_g_18,Santa Lucia,l10n_ec_tree.state_ec_09
+state_g_19,Salitre,l10n_ec_tree.state_ec_09
+state_g_20,San Jacinto de Yaguachi,l10n_ec_tree.state_ec_09
+state_g_21,Playas,l10n_ec_tree.state_ec_09
+state_g_22,Simon VBolívar,l10n_ec_tree.state_ec_09
+state_g_23,Coronel Marcelino Maridueña,l10n_ec_tree.state_ec_09
+state_g_24,Lomas de Sargentillo,l10n_ec_tree.state_ec_09
+state_g_25,Nobol,l10n_ec_tree.state_ec_09
+state_g_26,La Libertad,l10n_ec_tree.state_ec_09
+state_g_27,General Antonio Elizalde,l10n_ec_tree.state_ec_09
+state_g_28,Isidro Ayora,l10n_ec_tree.state_ec_09
+state_g_29,QUITO-BELISARIO QUEVEDO,l10n_ec_tree.state_ec_17
+state_g_30,QUITO-CARCELÉN,l10n_ec_tree.state_ec_17
+state_g_31,QUITO-CENTRO HISTÓRICO,l10n_ec_tree.state_ec_17
+state_g_32,QUITO-COCHAPAMBA,l10n_ec_tree.state_ec_17
+state_g_33,QUITO-COMITÉ DEL PUEBLO,l10n_ec_tree.state_ec_17
+state_g_34,QUITO-COTOCOLLAO,l10n_ec_tree.state_ec_17
+state_g_35,QUITO-CHILIBULO,l10n_ec_tree.state_ec_17
+state_g_36,QUITO-CHILLOGALLO,l10n_ec_tree.state_ec_17
+state_g_37,QUITO-CHIMBACALLE,l10n_ec_tree.state_ec_17
+state_g_38,QUITO-EL CONDADO,l10n_ec_tree.state_ec_17
+state_g_39,QUITO-GUAMANÍ,l10n_ec_tree.state_ec_17
+state_g_40,QUITO-IÑAQUITO,l10n_ec_tree.state_ec_17
+state_g_41,QUITO-ITCHIMBÍA,l10n_ec_tree.state_ec_17
+state_g_42,QUITO-JIPIJAPA,l10n_ec_tree.state_ec_17
+state_g_43,QUITO-KENNEDY,l10n_ec_tree.state_ec_17
+state_g_44,QUITO-LA ARGELIA,l10n_ec_tree.state_ec_17
+state_g_44,QUITO-LA CONCEPCIÓN,l10n_ec_tree.state_ec_17
+state_g_45,QUITO-LA ECUATORIANA,l10n_ec_tree.state_ec_17
+state_g_46,QUITO-LA FERROVIARIA,l10n_ec_tree.state_ec_17
+state_g_47,QUITO-LA LIBERTAD,l10n_ec_tree.state_ec_17
+state_g_48,QUITO-LA MAGDALENA,l10n_ec_tree.state_ec_17
+state_g_49,QUITO-LA MENA,l10n_ec_tree.state_ec_17
+state_g_50,QUITO-MARISCAL SUCRE,l10n_ec_tree.state_ec_17
+state_g_51,QUITO-PONCEANO,l10n_ec_tree.state_ec_17
+state_g_52,QUITO-PUENGASÍ,l10n_ec_tree.state_ec_17
+state_g_53,QUITO-QUITUMBE,l10n_ec_tree.state_ec_17
+state_g_54,QUITO-RUMIPAMBA,l10n_ec_tree.state_ec_17
+state_g_55,QUITO-SAN BARTOLO,l10n_ec_tree.state_ec_17
+state_g_56,QUITO-SAN ISIDRO DEL INCA,l10n_ec_tree.state_ec_17
+state_g_57,QUITO-SAN JUAN,l10n_ec_tree.state_ec_17
+state_g_58,QUITO-SOLANDA,l10n_ec_tree.state_ec_17
+state_g_59,QUITO-TURUBAMBA,l10n_ec_tree.state_ec_17
+state_g_60,QUITO-QUITO-DISTRITO METROPOLITANO,l10n_ec_tree.state_ec_17
+state_g_61,QUITO-ALANGASÍ,l10n_ec_tree.state_ec_17
+state_g_62,QUITO-AMAGUAÑA,l10n_ec_tree.state_ec_17
+state_g_63,QUITO-ATAHUALPA,l10n_ec_tree.state_ec_17
+state_g_64,QUITO-CALACALÍ,l10n_ec_tree.state_ec_17
+state_g_65,QUITO-CALDERÓN,l10n_ec_tree.state_ec_17
+state_g_66,QUITO-CONOCOTO,l10n_ec_tree.state_ec_17
+state_g_67,QUITO-CUMBAYÁ,l10n_ec_tree.state_ec_17
+state_g_68,QUITO-CHAVEZPAMBA,l10n_ec_tree.state_ec_17
+state_g_69,QUITO-CHECA,l10n_ec_tree.state_ec_17
+state_g_70,QUITO-EL QUINCHE,l10n_ec_tree.state_ec_17
+state_g_71,QUITO-GUALEA,l10n_ec_tree.state_ec_17
+state_g_72,QUITO-GUANGOPOLO,l10n_ec_tree.state_ec_17
+state_g_73,QUITO-GUAYLLABAMBA,l10n_ec_tree.state_ec_17
+state_g_74,QUITO-LA MERCED,l10n_ec_tree.state_ec_17
+state_g_75,QUITO-LLANO CHICO,l10n_ec_tree.state_ec_17
+state_g_76,QUITO-LLOA,l10n_ec_tree.state_ec_17
+state_g_78,QUITO-MINDO,l10n_ec_tree.state_ec_17
+state_g_79,QUITO-NANEGAL,l10n_ec_tree.state_ec_17
+state_g_80,QUITO-NANEGALITO,l10n_ec_tree.state_ec_17
+state_g_81,QUITO-NAYÓN,l10n_ec_tree.state_ec_17
+state_g_82,QUITO-NONO,l10n_ec_tree.state_ec_17
+state_g_83,QUITO-PACTO,l10n_ec_tree.state_ec_17
+state_g_84,QUITO-PEDRO VICENTE MALDONADO,l10n_ec_tree.state_ec_17
+state_g_85,QUITO-PERUCHO,l10n_ec_tree.state_ec_17
+state_g_86,QUITO-PIFO,l10n_ec_tree.state_ec_17
+state_g_87,QUITO-PÍNTAG,l10n_ec_tree.state_ec_17
+state_g_88,QUITO-POMASQUI,l10n_ec_tree.state_ec_17
+state_g_89,QUITO-PUÉLLARO,l10n_ec_tree.state_ec_17
+state_g_90,QUITO-PUEMBO,l10n_ec_tree.state_ec_17
+state_g_91,QUITO-SAN ANTONIO,l10n_ec_tree.state_ec_17
+state_g_92,QUITO-SAN JOSÉ DE MINAS,l10n_ec_tree.state_ec_17
+state_g_93,QUITO-SAN MIGUEL DE LOS BANCOS,l10n_ec_tree.state_ec_17
+state_g_94,QUITO-TABABELA,l10n_ec_tree.state_ec_17
+state_g_95,QUITO-TUMBACO,l10n_ec_tree.state_ec_17
+state_g_96,QUITO-YARUQUÍ,l10n_ec_tree.state_ec_17
+state_g_97,QUITO-ZAMBIZA,l10n_ec_tree.state_ec_17
+state_g_98,QUITO-PUERTO QUITO,l10n_ec_tree.state_ec_17
+state_g_99,CAYAMBE-AYORA,l10n_ec_tree.state_ec_17
+state_g_100,CAYAMBE-CAYAMBE,l10n_ec_tree.state_ec_17
+state_g_101,CAYAMBE-JUAN MONTALVO,l10n_ec_tree.state_ec_17
+state_g_102,CAYAMBE-CAYAMBE,l10n_ec_tree.state_ec_17
+state_g_103,CAYAMBE-ASCÁZUBI,l10n_ec_tree.state_ec_17
+state_g_104,CAYAMBE-CANGAHUA,l10n_ec_tree.state_ec_17
+state_g_105,CAYAMBE-OLMEDO (PESILLO),l10n_ec_tree.state_ec_17
+state_g_106,CAYAMBE-OTÓN,l10n_ec_tree.state_ec_17
+state_g_107,CAYAMBE-SANTA ROSA DE CUZUBAMBA,l10n_ec_tree.state_ec_17
+state_g_108,MEJIA-MACHACHI,l10n_ec_tree.state_ec_17
+state_g_109,MEJIA-ALÓAG,l10n_ec_tree.state_ec_17
+state_g_110,MEJIA-ALOASÍ,l10n_ec_tree.state_ec_17
+state_g_111,MEJIA-CUTUGLAHUA,l10n_ec_tree.state_ec_17
+state_g_112,MEJIA-EL CHAUPI,l10n_ec_tree.state_ec_17
+state_g_113,MEJIA-MANUEL CORNEJO ASTORGA (TANDAPI),l10n_ec_tree.state_ec_17
+state_g_114,MEJIA-TAMBILLO,l10n_ec_tree.state_ec_17
+state_g_115,MEJIA-UYUMBICHO,l10n_ec_tree.state_ec_17
+state_g_116,PEDRO MONCAYO-TABACUNDO,l10n_ec_tree.state_ec_17
+state_g_117,PEDRO MONCAYO-LA ESPERANZA,l10n_ec_tree.state_ec_17
+state_g_118,PEDRO MONCAYO-MALCHINGUÍ,l10n_ec_tree.state_ec_17
+state_g_119,PEDRO MONCAYO-TOCACHI,l10n_ec_tree.state_ec_17
+state_g_120,PEDRO MONCAYO-TUPIGACHI,l10n_ec_tree.state_ec_17
+state_g_121,RUMIÑAHUI-SANGOLQUÍ,l10n_ec_tree.state_ec_17
+state_g_122,RUMIÑAHUI-SAN PEDRO DE TABOADA,l10n_ec_tree.state_ec_17
+state_g_123,RUMIÑAHUI-SAN RAFAEL,l10n_ec_tree.state_ec_17
+state_g_124,RUMIÑAHUI-SANGOLQUI,l10n_ec_tree.state_ec_17
+state_g_125,RUMIÑAHUI-COTOGCHOA,l10n_ec_tree.state_ec_17
+state_g_126,RUMIÑAHUI-RUMIPAMBA,l10n_ec_tree.state_ec_17
+state_g_127,SAN MIGUEL DE LOS BANCOS-SAN MIGUEL DE LOS BANCOS,l10n_ec_tree.state_ec_17
+state_g_128,SAN MIGUEL DE LOS BANCOS-MINDO,l10n_ec_tree.state_ec_17
+state_g_129, SAN MIGUEL DE LOS BANCOS-PEDRO VICENTE MALDONADO,l10n_ec_tree.state_ec_17
+state_g_130, SAN MIGUEL DE LOS BANCOS-PUERTO QUITO,l10n_ec_tree.state_ec_17
+state_g_131, PEDRO VICENTE MALDONADO PEDRO VICENTE MALDONADO,l10n_ec_tree.state_ec_17
+state_g_132, PUERTO QUITO-PUERTO QUITO,l10n_ec_tree.state_ec_17
+state_g_133,MANTA-LOS ESTEROS,l10n_ec_tree.state_ec_13
+state_g_134,MANTA-MANTA,l10n_ec_tree.state_ec_13
+state_g_135,MANTA-SAN MATEO,l10n_ec_tree.state_ec_13
+state_g_136,MANTA-TARQUI,l10n_ec_tree.state_ec_13
+state_g_137,MANTA-ELOY ALFARO,l10n_ec_tree.state_ec_13
+state_g_138,MANTA-MANTA,l10n_ec_tree.state_ec_13
+state_g_139,MANTA-SAN LORENZO,l10n_ec_tree.state_ec_13
+state_g_140,MANTA-SANTA MARIANITA (BOCA DE PACOCHE),l10n_ec_tree.state_ec_13

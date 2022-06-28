@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model='ir.ui.view' id='view_informe_dinamico_form'>
+        <field name="name">view.informe.dinamico.form</field>
+        <field name="model">plantillas.dinamicas.informes</field>
+        <field name="arch" type="xml">
+            <form string="Informe">
+                <sheet>
+                    <separator string="Informe"/>
+                    <field name="name" />
+                     <group>
+                        <group>
+
+
+
+                            <field name="directorio" invisible="0"/>
+                            <field name="directorio_out" invisible="0"/>
+
+
+
+                        </group>
+                    </group>
+
+
+
+
+                    <!--<group>  -->
+
+                        <!--<group>  -->
+
+
+
+
+                            <separator string="Identificadores para Informe generado" />
+                            <field name="campos_ids">
+                                <tree >
+                                    <field name="name"/>
+                                    <field name="fila"/>
+                                    <field name="columna"/>
+                                    <field name="identificar_docx"/>
+                                    <field name="label"/>
+                                    <field name="hoja_excel"/>
+
+                                </tree>
+
+
+                                <form >
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="fila"/>
+                                            <field name="columna"/>
+                                            <field name="identificar_docx"/>
+                                            <field name="label"/>
+                                            <field name="hoja_excel"/>
+
+
+                                        </group>
+                                    </group>
+
+
+                                    <field name="child_ids">
+                                        <tree >
+                                            <field name="name"/>
+                                            <field name="fila"/>
+                                            <field name="columna"/>
+                                            <field name="identificar_docx"/>
+                                        </tree>
+                                        <form >
+                                            <field name="name"/>
+                                            <field name="fila"/>
+                                            <field name="columna"/>
+                                            <field name="identificar_docx"/>
+                                        </form>
+
+
+
+                                    </field>
+                                </form>
+
+                            </field>
+
+
+
+
+
+                        <!-- </group>  -->
+                    <!-- </group> -->
+
+                    <group>
+                        <group>
+                            <field name="identificador_clave" required="1"/>
+
+                        </group>
+                    </group> 
+
+
+
+
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_informe_dinamico_tree">
+        <field name="name">view.informe.dinamico.tree</field>
+        <field name="model">plantillas.dinamicas.informes</field>
+        <field name="arch" type="xml">
+            <tree string="tipo_informe">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+    <record model='ir.actions.act_window' id='action_informe_dinamico'>
+        <field name="name">Plantillas</field>
+        <field name="res_model">plantillas.dinamicas.informes</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_plantillas_corporativas" parent="menu_ajustes_documentos_corporativos" name="Plantillas" action="action_informe_dinamico"/>
+
+
+
+</odoo>

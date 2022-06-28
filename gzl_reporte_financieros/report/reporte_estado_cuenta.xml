@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <report
+          id="repote_estado_cuenta_pdf_id"
+          model="reporte.estado.cuenta"
+          string="Reporte de Estado de Cuenta"
+          report_type="qweb-pdf"
+          name="gzl_reporte_financieros.template_estado_cuenta_reporte"
+          file="gzl_reporte_financieros.template_estado_cuenta_reporte"
+          menu="False"
+          attachment_use="False"
+          attachment="('Reporte Estado de Cuenta.pdf')"
+        />
+
+
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_devolucion_tree" model= "ir.ui.view">
+        <field name="name">view.devolucion.monto.tree</field>
+        <field name="model">devolucion.monto</field>
+        <field name="arch" type="xml">
+            <tree string="Devolucion de Monto">
+                <field name="contrato_id" />
+                <field name="monto" />
+            </tree>
+        </field>
+    </record>
+        <record id="view_devolucion_form" model="ir.ui.view">
+            <field name="name">view.devolucion.form</field>
+            <field name="model">devolucion.monto</field>
+            <field name="arch" type="xml">
+                
+                <form string="Devolucion de Monto">
+                
+                    <sheet>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="secuencia" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+
+
+                    <group>
+
+
+
+                        <field name="contrato_id"/>
+                        <field name="fsolicitud" string="Fecha Solicitud"/>
+                        <field name="monto" string="Monto"/>
+
+                    </group>
+                    </sheet>
+                <!-- Attachment preview -->
+                <div class="o_attachment_preview" />
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        
+
+
+        <record id="action_devolucion" model="ir.actions.act_window">
+            <field name="name">Devolucion de Monto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">devolucion.monto</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Crear una nueva devolucion
+              </p>
+            </field>
+        </record>
+    
+        <record id="action_devolucion_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_devolucion_form"/>
+            <field name="act_window_id" ref="action_devolucion"/>
+        </record>
+    
+        <record id="action_devolucion_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_devolucion_tree"/>
+            <field name="act_window_id" ref="action_devolucion"/>
+        </record>
+
+    <menuitem id="devolucion_menu" action="action_devolucion" parent="menu_socio_proceso_adjudicacion" sequence="7" />
+
+</odoo>

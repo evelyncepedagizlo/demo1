@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_company_sri" model="ir.ui.view">
+        <field name="name">res.company.sri</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[1]" position="after">
+                <page string="Tributación" name="tributacion">
+                    <group>
+                        <field name="type_environment" required="1"/>
+                        <field name="numerical_code" required="1"/> 
+                        <field name="is_withholding_agent" required="1"/> 
+                    </group>
+                    <group>
+                        <field name="is_special_contributor" required="1"/>
+                        <field name="num_special_contributor" required="1"/> 
+                        <field name="emission_code" required="1"/> 
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

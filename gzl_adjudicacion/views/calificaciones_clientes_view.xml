@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_calificador_socio_tree" model= "ir.ui.view">
+        <field name="name">view.calificador.socio.tree</field>
+        <field name="model">calificador.cliente</field>
+        <field name="arch" type="xml">
+            <tree string="Calificador" editable="bottom">
+                <field name="partner_id" />
+                <field name="motivo" />
+                <field name="calificacion"/>
+
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_calificador_cliente" model="ir.actions.act_window">
+        <field name="name">Calificaciones de Cliente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">calificador.cliente</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_action_calificador_cliente" action="action_calificador_cliente" parent="menu_configuracion_adjudicaciones" sequence="7" />
+</odoo>

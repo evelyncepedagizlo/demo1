@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_fact_electronica" model="ir.ui.view">
+        <field name="name">res.partner.fact.electronica</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_aduana" />
+                <field name="is_transporter" />
+                <field name="license_number" attrs="{'invisible': [('is_transporter', '!=', True)]}" />
+                <field name="is_cont_especial" />
+                <field name="is_rise" />
+            </xpath>
+
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="page_ats" string="ATS">
+                    <group name="ats">
+                        <field name="ats_residente_code" invisible="1"/>
+                        <field name="ats_regimen_fiscal_code" invisible="1"/>
+                        <field name="ats_residente" options="{'no_open': True, 'no_create': True}" />
+                        <field name="ats_regimen_fiscal" options="{'no_open': True, 'no_create': True}" />
+                        <field name="ats_country" attrs="{ 'invisible': [('ats_residente_code', 'in', ['01',False])]}"/> 
+                        <field name="ats_country_efec_gen" attrs="{ 'invisible': ['|', ('ats_residente_code', 'in', ['01',False]),('ats_regimen_fiscal_code', 'in', ['02','03',False])]}"/>
+                        <field name="ats_country_efec_parfic" attrs="{ 'invisible': ['|',('ats_residente_code', 'in', ['01',False]),('ats_regimen_fiscal_code', 'in', ['01','03',False])]}"/>
+                    </group>
+                    <group>
+                        <field name="ats_doble_trib" attrs="{ 'invisible': [('ats_residente_code', 'in', ['01',False])]}"/>
+                        <field name="denopago" attrs="{ 'invisible': [('ats_regimen_fiscal_code', 'in', ['01','02',False])]}"/>
+                        <field name="pag_ext_suj_ret_nor_leg" attrs="{ 'invisible': [('ats_doble_trib', '=', False)]}"/>
+                        <field name="pago_reg_fis" attrs="{ 'invisible': [('ats_regimen_fiscal_code', 'in', ['01','02',False])]}"/>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='property_account_position_id']" position="after">
+                <field name="method_payment" />
+            </xpath>
+
+
+        </field>
+    </record>
+
+   </odoo>

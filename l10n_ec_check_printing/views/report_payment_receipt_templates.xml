@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_document" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//div[@class='page']" position="replace">
+            
+            <div class="page">
+
+                <t t-set="facturas" t-value="o.obtener_facturas_conciliadas()"/>
+
+
+                <h3><strong>Recibo de Pago: <span t-field="o.name"/></strong></h3>
+                <div class="row ">
+                    <div class="col-6" t-if="o.payment_date">
+                        <strong>Fecha de Pago: </strong> <span t-field="o.payment_date"/>
+                    </div>
+                    <div class="col-6" >
+                        <strong>Método de Pago: </strong><span t-field="o.payment_method_id.name"/>
+                    </div>
+                </div>
+                
+                <div class="row ">
+                    <div class="col-6" t-if="o.bank">
+                        <strong>Banco: </strong><span t-field="o.bank.name"/>
+                    </div>
+                    <div class="col-6" >
+                        <strong>Cuenta: </strong><span t-field="o.journal_id.bank_account_id.acc_number"/>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6" t-if="o.partner_type">
+                        <t t-if="o.partner_type == 'customer'">
+                            <strong>Recibido De Cliente: </strong>
+                        </t>
+                        <t t-if="o.partner_type == 'supplier'">
+                            <strong>Recibido De Proveedor: </strong>
+                        </t><span t-field="o.partner_id"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>CED/RUC: </strong>
+                        <span t-field="o.partner_id.vat"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6" t-if="o.amount">
+                        <strong>Monto: </strong><span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                     </div>
+                    <div class="col-6" t-if="o.check_amount_in_words">
+                        <strong>La suma de: </strong><span t-field="o.check_amount_in_words"/>
+                    </div>
+                </div>
+                
+                <div class="row ">
+                    <div class="col-6" t-if="o.check_number">
+                        <strong>Número de cheque: </strong><span t-field="o.check_number"/>
+                     </div>
+                    <div class="col-6" t-if="o.communication">
+                        <strong>Referencia: </strong><span t-field="o.communication"/>
+                     </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6" t-if="facturas">
+                        <strong>Facturas: </strong><span t-esc="facturas"/>
+                     </div>
+                </div>
+                
+
+                <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Código</th>
+                        <th>Cuenta</th>
+                        <th>Cuenta Analitica</th>
+                        <th>Referencia</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.asientos_contables()" t-as="asiento">
+                            <td><span t-esc="asiento.account_id.code"/></td>
+                            <td><span t-esc="asiento.account_id.name"/></td>
+                            <td><span t-esc="asiento.analytic_account_id.name"/></td>
+                            <td><span t-esc="asiento.name"/></td>
+                            <td style="text-align: right"><span t-esc="'%.2f' %(asiento.debit)"/></td>
+                            <td style="text-align: right"><span t-esc="'%.2f' %(asiento.credit)"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+                <br/><br/><br/>
+                <div class="row">
+                    <div class="col-2" style="border-top: 1px solid black;">
+                        <span><center>Elaborado  Por</center></span>
+                        <span t-field="o.create_uid.name"></span>
+                    </div>
+
+                    <div class="col-1"/>
+                    <div class="col-2" style="border-top: 1px solid black;">
+                        <span><center>Revisado  Por</center></span>
+                    </div>
+
+                    <div class="col-1"/>
+                    <div class="col-2" style="border-top: 1px solid black;">
+                        <span><center>Autorizado  Por</center></span>
+                    </div>
+                    
+                    <div class="col-1"/>
+                    <div class="col-2" style="border-top: 1px solid black;">
+                        <span><center>Recibido Por</center></span><br/>
+                        <span>C.I</span>
+                    </div>
+                </div>
+
+            </div>
+        </xpath>
+    </template>
+</odoo>

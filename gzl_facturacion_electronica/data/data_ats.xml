@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- -->
+        <!-- SUSTENTO DEL COMPROBANTE SEGUN EL SRI -->
+        <!-- -->
+        <record id="suc_no_aplica" model="ats.sustento.comprobante">
+            <field name="type">No aplica</field>
+            <field name="code">00</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_credito_tributario" model="ats.sustento.comprobante">
+            <field name="type">Crédito Tributario para declaración de IVA (servicios y bienes distintos de inventarios y activos fijos)</field>
+            <field name="code">01</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_costo_o_gasto" model="ats.sustento.comprobante">
+            <field name="type">Costo o Gasto para declaración de IR (servicios y bienes distintos de inventarios y activos fijos)</field>
+            <field name="code">02</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_actfi_declaracion_iva" model="ats.sustento.comprobante">
+            <field name="type">Activo Fijo - Crédito Tributario para declaración de IVA</field>
+            <field name="code">03</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_actfi_declaracion_ir" model="ats.sustento.comprobante">
+            <field name="type">Activo Fijo - Costo o Gasto para declaración de IR</field>
+            <field name="code">04</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_liquidacion_gastos" model="ats.sustento.comprobante">
+            <field name="type">Liquidación Gastos de Viaje, hospedaje y alimentación Gastos IR (a nombre de empleados y no de la empresa)</field>
+            <field name="code">05</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_inv_declaracion_iva" model="ats.sustento.comprobante">
+            <field name="type">Inventario - Crédito Tributario para declaración de IVA</field>
+            <field name="code">06</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_inv_declaracion_ir" model="ats.sustento.comprobante">
+            <field name="type">Inventario - Costo o Gasto para declaración de IR</field>
+            <field name="code">07</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_valor_pagado" model="ats.sustento.comprobante">
+            <field name="type">Valor pagado para solicitar Reembolso de Gasto (intermediario)</field>
+            <field name="code">08</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_reembolso_por_siniestros" model="ats.sustento.comprobante">
+            <field name="type">Reembolso por Siniestros</field>
+            <field name="code">09</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_distribucion_dividendos" model="ats.sustento.comprobante">
+            <field name="type">Distribución de Dividendos</field>
+            <field name="code">10</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_convenio_debito" model="ats.sustento.comprobante">
+            <field name="type">Convenios de débito o recaudación para IFI´s</field>
+            <field name="code">11</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_impuestos_y_retenciones" model="ats.sustento.comprobante">
+            <field name="type">Impuestos y retenciones presuntivos</field>
+            <field name="code">12</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_valores_reconocidos" model="ats.sustento.comprobante">
+            <field name="type">Valores reconocidos por entidades del sector público a favor de sujetos pasivos</field>
+            <field name="code">13</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="suc_valores_facturados" model="ats.sustento.comprobante">
+            <field name="type">Valores facturados por socios a operadoras de transporte (que no constituyen gasto de dicha operadora)</field>
+            <field name="code">14</field>
+            <field name="active">1</field>
+        </record>
+
+        <!-- -->
+        <!-- FORMAS DE PAGO SEGUN EL SRI -->
+        <!-- -->
+        <record id="fp_sin_utilizacion_del_sistema" model="account.epayment">
+            <field name="name">SIN UTILIZACION DEL SISTEMA FINANCIERO</field>
+            <field name="code">01</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_cheque_propio" model="account.epayment">
+            <field name="name">CHEQUE PROPIO</field>
+            <field name="code">02</field>
+            <field name="active">1</field>
+        </record>
+        
+        <record id="fp_cheque_certificado" model="account.epayment">
+            <field name="name">CHEQUE CERTIFICADO</field>
+            <field name="code">03</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_cheque_gerencia" model="account.epayment">
+            <field name="name">CHEQUE DE GERENCIA</field>
+            <field name="code">04</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_cheque_exterior" model="account.epayment">
+            <field name="name">CHEQUE DEL EXTERIOR</field>
+            <field name="code">05</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_debito_cta" model="account.epayment">
+            <field name="name">DÉBITO DE CUENTA</field>
+            <field name="code">06</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_transf_propio_banco" model="account.epayment">
+            <field name="name">TRANSFERENCIA PROPIO BANCO</field>
+            <field name="code">07</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_trans_otro_banco_nacional" model="account.epayment">
+            <field name="name">TRANSFERENCIA OTRO BANCO NACIONAL</field>
+            <field name="code">08</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_trans_banco_exterior" model="account.epayment">
+            <field name="name">TRANSFERENCIA BANCO EXTERIOR</field>
+            <field name="code">09</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_tarjeta_credito_nacional" model="account.epayment">
+            <field name="name">TARJETA DE CRÉDITO NACIONAL</field>
+            <field name="code">10</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_tarjeta_credito_internacional" model="account.epayment">
+            <field name="name">TARJETA DE CRÉDITO INTERNACIONAL</field>
+            <field name="code">11</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_giro" model="account.epayment">
+            <field name="name">GIRO</field>
+            <field name="code">12</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_deposito_en_cta" model="account.epayment">
+            <field name="name">DEPOSITO EN CUENTA (CORRIENTE/AHORROS)</field>
+            <field name="code">13</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_endoso_de_inversion" model="account.epayment">
+            <field name="name">ENDOSO DE INVERSIÓN</field>
+            <field name="code">14</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_compensacion_deudas" model="account.epayment">
+            <field name="name">COMPENSACIÓN DE DEUDAS</field>
+            <field name="code">15</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_tarjeta_credito" model="account.epayment">
+            <field name="name">TARJETA DE DÉBITO</field>
+            <field name="code">16</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_dinero_electronico" model="account.epayment">
+            <field name="name">DINERO ELECTRÓNICO</field>
+            <field name="code">17</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_tarjeta_prepago" model="account.epayment">
+            <field name="name">TARJETA PREPAGO</field>
+            <field name="code">18</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_tarjeta_credito" model="account.epayment">
+            <field name="name">TARJETA DE CRÉDITO</field>
+            <field name="code">19</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_otros_con_utilizacion_del_sistema" model="account.epayment">
+            <field name="name">OTROS CON UTILIZACION DEL SISTEMA FINANCIERO</field>
+            <field name="code">20</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="fp_endoso_de_titulos" model="account.epayment">
+            <field name="name">ENDOSO DE TÍTULOS</field>
+            <field name="code">21</field>
+            <field name="active">1</field>
+        </record>
+
+
+        <!-- PAGO RESIDENTE SEGUN EL SRI -->
+        <record id="pago_residente" model="ats.pago.residente">
+            <field name="name">PAGO A RESIDENTE/ESTABLECIMIENTO PERMANENTE</field>
+            <field name="code">01</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="pago_no_residente" model="ats.pago.residente">
+            <field name="name">PAGO A NO RESIDENTE</field>
+            <field name="code">02</field>
+            <field name="active">1</field>
+        </record>
+
+
+        <!-- REGIMEN FISCAL SEGUN EL SRI -->
+        <record id="rf_regimen_general" model="ats.regimen.fiscal">
+            <field name="name">Regimen General</field>
+            <field name="code">01</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="rf_paraiso_fiscal" model="ats.regimen.fiscal">
+            <field name="name">Paraiso Fiscal</field>
+            <field name="code">02</field>
+            <field name="active">1</field>
+        </record>
+
+        <record id="rf_regimen_fiscal_preferente" model="ats.regimen.fiscal">
+            <field name="name">Régimen fiscal preferente o jurisdicción de menor imposición</field>
+            <field name="code">03</field>
+            <field name="active">1</field>
+        </record>
+
+    </data>
+</odoo>

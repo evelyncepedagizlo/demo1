@@ -1,0 +1,110 @@
+<odoo>
+    <data>
+        <template id="template_estado_de_cuenta_reporte">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 14px">
+                    <table>
+                        <tbody>
+
+                            <tr>
+                                <td colspan="2" style = "width:75% !important; text-align: left"><span t-esc="o.env.company.city" style="text-transform: uppercase;"/><span> - </span><span t-esc="o.env.company.country_id.name"/></td>
+                                <td style = "text-align: left; width:25% !important; "><span t-esc="o.contrato_id.ciudad.nombre_ciudad"/><span> - </span><span t-esc="o.contrato_id.fecha_contrato.strftime('%d-%m-%Y')"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left"><span t-esc="o.env.company.vat"/></td>
+                                <td style = "text-align: left; width:25% !important; font-weight: bold;"><span>No. </span><span t-esc="o.contrato_id.secuencia"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><span><center><h3 style = "font-weight: bold;">ESTADO DE CUENTA DE APORTES</h3></center></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left; width:75% !important;"><span>Cliente: </span> <span t-esc="o.contrato_id.cliente.name"/></td>
+                                <td style="text-align: left; width:25% !important;"><span>Ced/RUC: </span> <span t-esc="o.contrato_id.cliente.vat"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left"><span>Dirección: </span><span style="text-transform: uppercase;" t-esc="o.contrato_id.cliente.street"/></td>
+                                <td><span>Telefono: </span><span t-esc="o.contrato_id.cliente.phone"/><text> - </text><span t-esc="o.contrato_id.cliente.mobile"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: left"><span>Grupo: </span><text>[</text><span t-esc="o.contrato_id.grupo.codigo"/><text>] </text><span t-esc="o.contrato_id.grupo.name"/></td>
+                                <td><span>Tipo de contrato: </span> <span style="text-transform: uppercase;" t-esc="o.contrato_id.tipo_de_contrato.name"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" t-if="o.contrato_id.state != 'adjudicar' " style="text-align: left"><span>Estado: </span><span style="text-transform: uppercase;" t-esc="o.contrato_id.state"/></td>
+                                <td colspan="2" t-if="o.contrato_id.state == 'adjudicar' and o.contrato_id.fecha_adjudicado" style="text-align: left">
+                                    <span>Fecha Adjudicado: </span>
+                                        <span style="text-transform: uppercase;" t-esc="o.contrato_id.state"/>
+                                        <span>(</span><span t-esc="o.contrato_id.fecha_adjudicado"/>
+                                        <span>)</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style = "text-align: left"><span>Valor Inscripción: </span><span t-esc="o.contrato_id.monto_financiamiento"/></td>
+                                <td style = "text-align: left"><span>Monto financiamiento: </span><span t-esc="o.contrato_id.monto_financiamiento"/></td>
+                                <td style = "text-align: left"><span>Plazo: </span><span t-esc="o.contrato_id.plazo_meses.numero"/><span> Meses</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/><br/>
+                    <table class="table table-condensed">
+                        <thead style="text-align: center; margin-bottom: 10px; font-weight: bold;">
+                            <th>CUOTA</th>
+                            <th>FECHA PAGO</th>
+                            <th>CUOTA CAPITAL</th>
+                            <th>CUOTA ADM.</th>
+                            <th>IVA</th>
+                            <th>SEGURO</th>
+                            <th>RASTREO</th>
+                            <th>OTRO</th>
+                            <th>SALDO CUOTA CAPITAL</th>
+                            <th>SALDO PROGRAMADO</th>
+                            <th>SALDO SEGURO</th>
+                            <th>SALDO RASTREO</th>
+                            <th>SALDO OTRO</th>
+                            <th>SALDO</th>
+                        </thead>
+                        <tfoot style="margin-bottom: 10px; ">
+                            <tr style="text-transform: uppercase; font-weight: bold;">
+                                <td  colspan="2" >totales:</td>
+                                <td t-esc="round(sum(m.cuota_capital for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.cuota_adm for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.iva_adm for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.seguro for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.rastreo for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.otro for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo_cuota_capital for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo_programado for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo_seguro for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo_rastreo for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo_otros for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                                <td t-esc="round(sum(m.saldo for m in o.contrato_id.estado_de_cuenta_ids), 2)"></td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr t-foreach="o.contrato_id.estado_de_cuenta_ids" t-as="estado_cuenta">
+                            <td><span t-esc="estado_cuenta.numero_cuota"/></td>
+                            <td><span t-esc="estado_cuenta.fecha"/></td>
+                            <td><span t-esc="estado_cuenta.cuota_capital"/></td>
+                            <td><span t-esc="estado_cuenta.cuota_adm"/></td>
+                            <td><span t-esc="estado_cuenta.iva_adm"/></td>
+                            <td><span t-esc="estado_cuenta.seguro"/></td>
+                            <td><span t-esc="estado_cuenta.rastreo"/></td>
+                            <td><span t-esc="estado_cuenta.otro"/></td>
+                            <td><span t-esc="estado_cuenta.saldo_cuota_capital"/></td>
+                            <td><span t-esc="estado_cuenta.saldo_programado"/></td>
+                            <td><span t-esc="estado_cuenta.saldo_seguro"/></td>
+                            <td><span t-esc="estado_cuenta.saldo_rastreo"/></td>
+                            <td><span t-esc="estado_cuenta.saldo_otros"/></td>
+                            <td><span t-esc="estado_cuenta.saldo"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

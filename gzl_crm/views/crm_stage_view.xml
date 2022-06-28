@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="crm_stage_form_inherit" model="ir.ui.view">
+        <field name="name">crm.stage.form.inherit</field>
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="modificacion_solo_equipo"/>
+                <field name="colocar_venta_como_ganada"/>
+                <field name="restringir_movimiento"/>
+                <field name="stage_anterior_id" attrs="{'invisible':[('restringir_movimiento','=',False)]}"/>
+                <field name="stage_siguiente_id" attrs="{'invisible':[('restringir_movimiento','=',False)]}"/>
+                <field name="solicitar_adjunto_documento"/>
+                <field name="rol"/>
+                <field name="crear_reunion_en_calendar"/>
+                <field name="notificar_delegado"/>
+                <field name="notificar_postvneta"/>
+                <field name="notificar_facturacion"/>
+                <field name="crear_factura"/>
+                <field name="notificar_nomina"/>
+                <field name="generar_cotizacion"/>
+                <field name="crear_contrato"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="crm_stage_tree_inherit" model="ir.ui.view">
+        <field name="name">crm.stage.tree.inherit</field>
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+
+                <field name="rol"/>
+
+
+                
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>

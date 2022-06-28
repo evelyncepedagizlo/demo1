@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_adelantar_cuotas_form" model="ir.ui.view">
+        <field name="name">wizard.adelantar.cuotas.form</field>
+        <field name="model">wizard.adelantar.cuotas</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Indique el numero de Cuotas"> 
+
+
+                        <field name="monto_a_pagar" required="1"/>
+                        <field name="numero_cuotas" required="1"/>
+                        <field name="diferencia" required="1"/>
+                        <field name="contrato_id" invisible="1"/>
+                        <field name="journal_id" required="1"/>
+                        <field name="payment_method_id" widget="radio" required="1" /> 
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Validar Pago" class="oe_highlight" type="object" name="validar_pago"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_adelantar_cuotas_readonly_form" model="ir.ui.view">
+        <field name="name">wizard.adelantar.cuotas.readonly.form</field>
+        <field name="model">wizard.adelantar.cuotas</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Indique el numero de Cuotas"> 
+
+
+                        <field name="monto_a_pagar" readonly="1"/>
+                        <field name="numero_cuotas" required="1"/>
+                        <field name="diferencia" required="1"/>
+                        <field name="contrato_id" invisible="1"/>
+                        <field name="journal_id" required="1"/>
+                        <field name="payment_method_id" widget="radio" required="1" /> 
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Validar Pago" class="oe_highlight" type="object" name="validar_pago"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+
+
+
+
+
+</odoo>

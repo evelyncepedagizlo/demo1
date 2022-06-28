@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_estado_de_cuenta_form" model="ir.ui.view">
+            <field name="name">reporte.estado.de.cuenta.form</field>
+            <field name="model">reporte.estado.de.cuenta</field>
+            <field name="arch" type="xml">
+                <form string="Reporte Estado de Cuenta">
+                    <group>
+                        <group col="2">
+                            <field name="contrato_id" required="1"  />
+                        </group>
+
+                    </group>
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button name="print_report_pdf"
+                                string="Imprimir PDF"
+                                type="object"
+                                class="oe_highlight btn btn-danger" />
+                        or
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_estado_de_cuenta_form" model="ir.actions.act_window">
+            <field name="name">Estado de Cuenta</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">reporte.estado.de.cuenta</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+        id = "menu_action_reporte_estado_de_cuenta_form"
+        name = "Reporte Estado de Cuenta"
+        parent="menu_reporte"
+        sequence="1"
+        action="action_reporte_estado_de_cuenta_form"/>
+
+</odoo>

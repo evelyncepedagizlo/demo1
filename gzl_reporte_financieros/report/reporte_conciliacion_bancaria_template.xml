@@ -1,0 +1,473 @@
+<odoo>
+    <data>
+        <template id="template_bank_statement_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Conciliacion Bancaria</h1></center></span><br/><br/>
+                    <span><strong>Año: </strong></span> <span t-esc="o.year_date"/><br/>
+                    <span><strong>Mes: </strong></span> <span t-esc="o.capturar_anio()"/><br/>
+                    <span><strong>Cuenta: </strong></span> <span t-esc="o.journal_id.name"/><br/>
+                    <span><strong>Nro. Cuenta: </strong></span> <span t-esc="o.journal_id.bank_account_id.acc_number"/><br/>
+                    <span><strong>Saldo Estado de cuenta Inicial: </strong></span> <span t-esc="o.saldo_cuenta"/><br/>
+                    <span><strong>Saldo Según Libros: </strong></span> <span t-esc="o.saldo_libros"/><br/>
+                    <span><strong>Diferencia: </strong></span> <span t-esc="o.diferencia_total"/><br/>
+                    <span><strong>Cheques No Cobrados: </strong></span> <span t-esc="o.subtotal_cheques_no_cobrados"/><br/>
+                    <span><strong>N/D No Incluídas en estado de cuenta: </strong></span> <span t-esc="o.subtotal_debitos_no_cobrados"/><br/>
+                    <span><strong>Depósitos No Incluídos en estado de cuenta: </strong></span> <span t-esc="o.subtotal_depositos_no_cobrados"/><br/>
+                    <span><strong>N/C No Incluídos en estado de cuenta: </strong></span> <span t-esc="o.subtotal_creditos_no_cobrados"/><br/>
+
+                    <span><strong>N/D (No Contabilizadas): </strong></span> <span t-esc="o.subtotal_debitos_no_cobrados_no_cont"/><br/>
+                    <span><strong>Cheques No Contabilizados:  </strong></span> <span t-esc="o.subtotal_cheques_no_cobrados_no_cont"/><br/>
+                    <span><strong>N/C (No Contabilizadas): </strong></span> <span t-esc="o.subtotal_creditos_no_cobrados_no_cont"/><br/>
+                    <span><strong>Depósitos No Contabilizado: </strong></span> <span t-esc="o.subtotal_depositos_no_cobrados_no_cont"/><br/>
+
+                    <span><strong>Diferencia No Conciliada: </strong></span> <span t-esc="o.diferencia_no_conciliada"/><br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SALDO SEGUN ESTADO DE CUENTA</strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.saldo_cuenta"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <span><strong>(+) Depositos No Incluídos en estado de cuenta</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Deposito</th>
+                        <th>Fec. Deposito</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('deposito')" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (+) Depositos No Incluidos </strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_depositos_no_cobrados"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <span><strong>(+) N/C No Incluídos en estado de cuenta</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Documento</th>
+                        <th>Fecha</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('credito')" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (+) Creditos No Incluidos</strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_creditos_no_cobrados"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <span><strong>(-) Chq Girados y No Cobrados</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Cheque</th>
+                        <th>Fec. Chq</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('cheque')" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (-) Chq Girados y No Cobrados </strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_cheques_no_cobrados"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <span><strong>(-) N/D No Incluídos en estado de cuenta</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Doc.</th>
+                        <th>Fecha</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('debito')" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (-) Debitos No Incluidos </strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.subtotal_debitos_no_cobrados"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SALDO ESTADO CUENTA</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.diferencia"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SALDO CONTABLE</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.saldo_libros"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- No Contabilizado -->
+
+                    <span><strong>(+) Depositos No Contabilizados</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Deposito</th>
+                        <th>Fec. Deposito</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('deposito',False,False)" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (+) Depositos No Contabilizados </strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_depositos_no_cobrados_no_cont"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <span><strong>(+) N/C No Contabilizados</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Documento</th>
+                        <th>Fecha</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('credito',False,False)" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (+) Creditos No Contabilizados</strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_creditos_no_cobrados_no_cont"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <span><strong>(-) Chq Girados y  No Contabilizados</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Cheque</th>
+                        <th>Fec. Chq</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('cheque',False,False)" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (-) Chq Girados y  No Contabilizados </strong></td>
+                                        <td  class="text-right">
+                                            <span t-esc="o.subtotal_cheques_no_cobrados_no_cont"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <span><strong>(+) N/D No Contabilizados</strong></span><br/>
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Nro. Doc.</th>
+                        <th>Fecha</th>
+                        <th>Empresa</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.body_report('debito',False,False)" t-as="reconciled">
+                        <td><span t-esc="reconciled.numero_documento" /></td>
+                        <td><span t-esc="reconciled.fecha_emision" /></td>
+                        <td><span t-esc="reconciled.empresa" /></td>
+                        <td><span t-esc="reconciled.referencia" /></td>
+                        <td style="text-align: right"><span t-esc="'%.2f' %(reconciled.monto)" /></td>
+                    </tr>
+                    </tbody>
+
+
+                    </table>
+
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>SubTotal  (-) Debitos No Contabilizados </strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.subtotal_debitos_no_cobrados_no_cont"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+
+                                    <tr class="border-black o_total">
+                                        <td ><strong>TOTAL</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.diferencia_libros"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

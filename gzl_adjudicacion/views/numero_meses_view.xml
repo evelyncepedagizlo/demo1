@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_numero_meses_tree" model= "ir.ui.view">
+        <field name="name">view.numero.meses.tree</field>
+        <field name="model">numero.meses</field>
+        <field name="arch" type="xml">
+            <tree string="Numero de meses" editable="bottom">
+                <field name="numero" />
+                <field name="active"/>
+
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_numero_meses" model="ir.actions.act_window">
+        <field name="name">Número de Meses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">numero.meses</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_action_numero_meses" action="action_numero_meses" parent="menu_configuracion_adjudicaciones" sequence="7" />
+</odoo>

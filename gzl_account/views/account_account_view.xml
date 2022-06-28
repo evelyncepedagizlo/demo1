@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="acount_account_nivel" model="ir.ui.view">
+        <field name="name">acount.account.nivel</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="nivel" />
+                <!--field name="naturaleza" />
+                <field name="agregado" /-->
+                <field name="tipo_cuenta" />
+                <field name="tipo_estado" />
+                <field name="signo" />
+            </xpath>
+            <xpath expr="//field[@name='group_id']" position="after">
+                <field name="analytic_account" />
+            </xpath>
+        </field>
+    </record>
+    <!-- acunalema -->
+        <menuitem
+            id="menu_action_move_out_invoice_type_fact"
+            name="Facturas"
+            action="account.action_move_out_invoice_type"
+            parent="sale.menu_sale_invoicing"
+            sequence="1"/>
+        <menuitem
+            id="menu_action_move_out_invoice_type_compra"
+            name="Facturas"
+            action="account.action_move_out_invoice_type"
+            parent="purchase.purchase_report"
+            sequence="2"/>
+   </odoo>

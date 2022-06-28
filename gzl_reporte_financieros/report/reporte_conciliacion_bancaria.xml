@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <report
+          id="bank_statement_report"
+          model="bank.statement.report"
+          string="Reporte de Conciliacion Bancaria"
+          report_type="qweb-pdf"
+          name="gzl_reporte_financieros.template_bank_statement_report"
+          file="gzl_reporte_financieros.template_bank_statement_report"
+          menu="False"
+          attachment_use="False"
+          attachment="('Conciliacion_Bancaria.pdf')"
+        />
+
+        <record id="bank_statement_report_form" model="ir.ui.view">
+            <field name="name">Reporte de Concilacion Bancaria</field>
+            <field name="model">bank.statement.report</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group >
+                        <group >
+                            <field name="journal_id" required="1" options="{'no_create':True, 'no_open':True}" domain="[('type', '=', 'bank')]" />
+                            
+                            <field name="month" required="1"  />
+                            <field name="year_date" required="1" />
+                            <p>Saldo según último extracto del mes, si selecciona un extracto se toma el balance final del mismo.</p>
+
+                            <field name="saldo_cuenta" required="1" invisible='0'/>
+                            <field name="fecha_inicio" invisible='1'/>
+                            <field name="fecha_fin" invisible='1' />
+
+
+                            <field name="date" required="0" invisible='1'/>
+                        </group>
+                    </group>
+
+                    <group >
+                        <group >
+                            <field name="extracto_saldo" string="Estado de Cuenta (Extracto)" options="{'no_create':True, 'no_open':True}" required="0"  domain="[('journal_id.id', '=', journal_id),('date','&gt;=',fecha_inicio),('date','&lt;=',fecha_fin)]"/>
+                        </group>
+                    </group>
+
+
+                </sheet>
+                <footer>
+                    <button name="print_report" string="Imprimir Pdf" type="object" context="{'month': month, 'year_date':year_date}"  class="btn btn-primary"/>
+                    <button name="print_report_xls" string="Imprimir Excel" type="object" context="{'month': month, 'year_date':year_date}" invisible="0" class="btn btn-primary"/>
+
+                    
+                    <button name="saldo_cuenta_nueva" string="Saldo" context="{'month': month, 'year_date':year_date}" type="object" class="btn btn-primary" invisible='1' />
+
+
+
+                    
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="bank_statemnet_report_action" model="ir.actions.act_window">
+            <field name="name">Reporte de Conciliacion Bancaria</field>
+            <field name="res_model">bank.statement.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="bank_statement_report_menu" action="bank_statemnet_report_action" parent="bi_account_cheque.menu_conciliacion_bancaria"/>
+</odoo>

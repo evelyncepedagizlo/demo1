@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crossovered_budget_inherit" model="ir.ui.view">
+        <field name="name">crossovered.budget.inherit</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="utilidad_bruta" />
+                <field name="utilidad_neta" />
+            </field>
+            <field name="company_id" position="after">
+                <field name="analytic_account_id" required="1"/>
+            </field>
+            <field name="general_budget_id" position="before">
+                <field name="tipo_presupuesto" required="1"/>
+            </field>
+            <xpath expr="//field[@name='general_budget_id']" position="attributes">
+                <attribute name="domain">[('tipo_presupuesto','=',tipo_presupuesto)]</attribute>
+            </xpath>
+            <xpath expr="//sheet/notebook/page/field[@name='crossovered_budget_line']/tree/field[@name='analytic_account_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/notebook/page/field[@name='crossovered_budget_line']/tree/field[@name='theoritical_amount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/notebook/page/field[@name='crossovered_budget_line']/tree/field[@name='theoritical_amount']" position="after">
+                <field name="difference" readonly="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="account_budget_post_inherit" model="ir.ui.view">
+        <field name="name">account.budget.post.inherit</field>
+        <field name="model">account.budget.post</field>
+        <field name="inherit_id" ref="account_budget.view_budget_post_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="tipo_presupuesto" required="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crossovered_budget_lines_inherit" model="ir.ui.view">
+        <field name="name">crossovered.budget.lines.inherit</field>
+        <field name="model">crossovered.budget.lines</field>
+        <field name="inherit_id" ref="account_budget.view_crossovered_budget_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="theoritical_amount" position="replace">
+                <field name="difference"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="line_budget_action" model="ir.actions.act_window">
+        <field name="name">Líneas de Presupuestos</field>
+        <field name="res_model">crossovered.budget.lines</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--menuitem 
+        name="Líneas de Presupuestos" 
+        action="line_budget_action" 
+        id="menu_lineas_presupuesto" 
+        parent="account.menu_finance_entries_management" 
+        sequence="61"
+    /-->
+
+
+</odoo>

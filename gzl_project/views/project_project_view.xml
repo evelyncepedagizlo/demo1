@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_project_heredado" model="ir.ui.view">
+        <field name="name">project.project.heredado</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='emails']" position="after">
+                <page name="beneficiary" string="Beneficiario">
+                    <group >
+                        <group>
+                            <field name="beneficiary_name"/>
+                            <field name="beneficiary_ced"/>
+                            <field name="beneficiary_birthday"/>
+                        </group>
+                        <group>
+                            <field name="beneficiary_email"/>
+                            <field name="beneficiary_address"/>
+                            <field name="beneficiary_movil"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

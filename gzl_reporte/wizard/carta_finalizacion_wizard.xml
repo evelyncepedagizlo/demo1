@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="carta_finalizacion_report_reporte_form" model="ir.ui.view">
+            <field name="name">carta.finalizacion.reportform</field>
+            <field name="model">carta.finalizacion.report</field>
+            <field name="arch" type="xml">
+                <form string="Carta de Finalizacion">
+                    <group>
+                         <group col="2">
+
+                            <field name="partner_id" required="1" invisible="1"  options="{'no_open': True, 'no_create': True}" />
+                            <field name="contrato_id" required="1"   options="{'no_open': True, 'no_create': True}" />
+                            <field name="vehiculo_id" required="1" invisible="1"  options="{'no_open': True, 'no_create': True}" />
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Word"
+                                type="object"
+                                class="oe_highlight" />
+                                               
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_carta_finalizacion_form" model="ir.actions.act_window">
+            <field name="name">Carta de Finalizacion</field>
+            <field name="res_model">carta.finalizacion.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem 
+        id = "menu_carta_finalizacion_report_reporte_form"
+        name = "Carta de Finalizacion"  
+        parent="menu_reporte" 
+        sequence="1" 
+        action="action_carta_finalizacion_form"/>
+
+
+</odoo>

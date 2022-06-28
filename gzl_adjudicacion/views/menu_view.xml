@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <menuitem id="menu_principal_adjudicaciones" name="Adjudicaciones"
+                sequence="10" web_icon="gzl_adjudicacion,static/description/icon.png"/>
+
+    <menuitem id="menu_configuracion_adjudicaciones" name="Configuraciones"
+                sequence="10" parent="menu_principal_adjudicaciones"/>
+
+    <menuitem id="menu_socio_proceso_adjudicacion" name="Socios"
+                sequence="1" parent="menu_principal_adjudicaciones"/>
+
+</odoo>

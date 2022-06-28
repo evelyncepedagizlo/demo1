@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+        <record id="wizard_mantenedor_importacion_masiva_view" model="ir.ui.view">
+            <field name="name">wizard.import.documents.masiva</field>
+            <field name="model">mantenedor.importacion.masiva</field>
+            <field name="arch" type="xml">
+				<tree editable="bottom">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="active" />
+
+				</tree>
+            </field>
+        </record>
+
+		<record id="action_wizard_mantenedor_importacion_masiva" model="ir.actions.act_window">
+            <field name="name">Mantenedor Importación Masiva</field>
+            <field name="res_model">mantenedor.importacion.masiva</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="wizard_mantenedor_importacion_masiva_view"/>
+           <field name="target">current</field>
+        </record>
+
+        <menuitem id="menu_wizard_mantenedor_importacion_masiva" parent="account.menu_finance_reports" action="action_wizard_mantenedor_importacion_masiva" sequence="100"/>
+
+    </data>
+</odoo> 

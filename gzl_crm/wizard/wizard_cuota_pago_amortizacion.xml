@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_pago_cuota_amortizaciones" model="ir.ui.view">
+        <field name="name">wizard.pago.cuota.amortizacion</field>
+        <field name="model">wizard.pago.cuota.amortizacion</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Seleccione Diario y Método de Pago"> 
+                        <field name="tabla_amortizacion_id" invisible="1"/>
+                        <field name="journal_id" required="1"/>
+                        <field name="payment_method_id" widget="radio" required="1" /> 
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Validar Pago" class="oe_highlight" type="object" name="validar_pago"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="grupo_usuario_adjudicaciones" model="res.groups">
+            <field name="name">Usuario Adjudicaciones</field>
+            <field name="users" eval="[(4,ref('base.user_admin'))]"/>
+
+
+            
+        </record>
+        <record id="grupo_admin_adjudicaciones" model="res.groups">
+            <field name="name">Administrador</field>
+            <field name="users" eval="[(4,ref('base.user_admin'))]"/>
+
+
+        </record>
+
+    </data>
+</odoo>

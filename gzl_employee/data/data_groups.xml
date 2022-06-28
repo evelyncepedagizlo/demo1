@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="res.groups" id="data_grupo_fabricacion">
+            <field name="name">Fabricación</field>
+        </record>
+
+        <record model="res.groups" id="data_grupo_contabilidad">
+            <field name="name">Contabilidad</field>
+        </record>
+
+    </data>
+</odoo>

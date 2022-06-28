@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_comisionistas_form" model="ir.ui.view">
+            <field name="name">Reporte de Comisionistas</field>
+            <field name="model">report.comisionistas</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Comisionistas">
+                    <group>
+                        <group col="2">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>                    
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_comisionistas" model="ir.actions.act_window">
+            <field name="name">Reporte de Comisionistas</field>
+            <field name="res_model">report.comisionistas</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_comisionistas" 
+                  id="menu_action_report_comisionistas" 
+                  parent="l10n_ec_hr_payroll.menu_hr_payroll_report" 
+                  sequence="12"/>
+</odoo>

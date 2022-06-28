@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="hr_employee_datos" model="ir.ui.view">
+        <field name="name">hr.employee.datos</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='address_home_id']" position="after">
+                <field name="direccion" />
+                <field name="correo" />
+            </xpath>
+
+            <xpath expr="//field[@name='address_home_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='private_email']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="observation" />
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']/group" position="inside">
+                <group string="Datos Bancarios">
+                    <field name="res_bank_id" string="Banco" />
+                    <field name="account_type" />
+                    <field name="number_bank" />
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='children']" position="replace">
+                <group>
+                    <field name="children_id" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="employee_id" invisible="1"/>
+                            <field name="name" required="1"/>
+                            <field name="date_birth" required="1"/>
+                            <field name="age" readonly="1"/>
+                            <field name="gender" />
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

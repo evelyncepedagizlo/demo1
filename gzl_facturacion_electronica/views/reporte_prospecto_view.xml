@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_prospecto_form" model="ir.ui.view">
+            <field name="name">Reporte de prospecto</field>
+            <field name="model">report.crm.prospecto</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de prospecto">
+                    <group>
+                        <group col="2">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>                    
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_prospecto" model="ir.actions.act_window">
+            <field name="name">Reporte de prospecto</field>
+            <field name="res_model">report.crm.prospecto</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_prospecto" 
+                  id="menu_action_report_prospecto" 
+                  parent="crm.crm_menu_report" 
+                  sequence="13"/>
+</odoo>

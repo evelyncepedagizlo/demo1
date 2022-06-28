@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_surcursal_tree" model= "ir.ui.view">
+        <field name="name">view.surcursal.tree</field>
+        <field name="model">surcursal</field>
+        <field name="arch" type="xml">
+            <tree string="Surcursal"  >
+                <field name="name" />
+                <field name="codigo"/>
+                <field name="provincia_id"/>
+                <field name="ciudad_id"/>
+                <field name="grupo_id"  options="{'no_create_edit': True, 'no_open': True}"/>                
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_surcursal" model="ir.actions.act_window">
+        <field name="name">Surcursal</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">surcursal</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_action_surcursal" action="action_surcursal" parent="crm.menu_crm_config_lead" sequence="7" />
+</odoo>

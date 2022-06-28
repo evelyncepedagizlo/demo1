@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="importar_archivo_cuentas_form" model="ir.ui.view">
+            <field name="name">importar.archivo.cuentas.form</field>
+            <field name="model">importar.archivo.cuentas</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Anticipo">
+                    <sheet>
+                        <group>
+                            <field name="diario" />
+                            <field name="cuenta_origin"  />
+                            <field name="cuenta_destino"  />
+                            <field name="active"  />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="cambio_cuentas"
+                                string="Cambiar"
+                                type="object"
+                                class="oe_highlight" />
+
+                    </footer>
+
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="importar_archivo_cuentas_tree" model="ir.ui.view">
+            <field name="name">importar.archivo.cuentas.tree</field>
+            <field name="model">importar.archivo.cuentas</field>
+            <field name="arch" type="xml">
+                <tree string="Reporte de Anticipo">
+                    <field name="diario" />
+                    <field name="cuenta_origin"  />
+                    <field name="cuenta_destino"  />
+                            <field name="active"  />
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="action_importar_archivo_cuentas" model="ir.actions.act_window">
+            <field name="name">Cambiar Cuentas</field>
+            <field name="res_model">importar.archivo.cuentas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_importar_archivo_cuentas"  parent="account_reports.account_reports_partners_reports_menu" sequence="5" action="action_importar_archivo_cuentas"/>
+
+
+</odoo>

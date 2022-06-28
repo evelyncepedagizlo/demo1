@@ -1,0 +1,72 @@
+<odoo>
+    <template id="report_devolucion_monto">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    
+                    <br/><br/>
+                    <div class="page">
+                        <h3>
+                            <div class="col-12" t-if="o.contrato_id">
+                                <strong>Devolución de Monto: <span t-field="o.contrato_id.secuencia"/></strong>
+                            </div>
+                        </h3>
+                        <div class="row mt64">
+                            <div class="col-6" t-if="o.fsolicitud">
+                                <strong>Fecha de solicitud: </strong> <span t-field="o.fsolicitud"/>
+                                <strong>Monto: </strong> <span t-field="o.monto"/>
+                                <strong>Contrato: </strong> <span t-field="o.contrato_id"/>
+                            </div>
+                        </div>
+
+
+
+                        
+                        <br/><br/>
+                        <div class="row">
+                            <div class="col-2"/>
+                            <div class="col-3" style="border-top: 1px solid black;">
+                                <span><center>Elaborado  Por</center></span>
+                                <span t-field="o.create_uid.name"></span>
+                            </div>
+
+                            <div class="col-2"/>
+                            <div class="col-3" style="border-top: 1px solid black;">
+                                <span><center>Revisado  Por</center></span>
+                            </div>
+
+                            <div class="col-2"/>
+                        </div>
+
+                        <br/><br/><br/><br/>
+                        <div class="row">
+                            <div class="col-2"/>
+                            <div class="col-3" style="border-top: 1px solid black;">
+                                <span><center>Autorizado  Por</center></span>
+                            </div>
+                            
+                            <div class="col-2"/>
+                            <div class="col-3" style="border-top: 1px solid black;">
+                                <span><center>Recibido Por</center></span><br/>
+                                <span>C.I</span>
+                            </div>
+
+                            <div class="col-2"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="action_report_devolucion_monto"
+        string="Devolución de Monto"
+        model="devolucion.monto"
+        report_type="qweb-pdf"
+        menu="True"
+        name="gzl_adjudicacion.report_devolucion_monto"
+        file="gzl_adjudicacion.report_devolucion_monto"
+    />
+
+</odoo>

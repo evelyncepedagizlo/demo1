@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_crear_adendum_form" model="ir.ui.view">
+        <field name="name">wizard.crear.adendum.form</field>
+        <field name="model">wizard.contrato.adendum</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Ingrese la modificación del contrato"> 
+
+
+                        <field name="contrato_id" required="1"/>
+                        <field name="socio_id" invisible="1"/>
+                        <field name="monto_financiamiento" required="1"/>
+                        <field name="plazo_meses" invisible="0"/>
+                        <field name="observacion" invisible="0"/>
+
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Ejecutar Cambio" class="oe_highlight" type="object" name="ejecutar_cambio"/><!-- attrs="{'invisible': [('ejecutado', '=', True)]}"/-->
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

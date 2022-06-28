@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_vacationse_form" model="ir.ui.view">
+            <field name="name">report.vacations.form</field>
+            <field name="model">report.vacations</field>
+            <field name="arch" type="xml">
+                <form string="Control de Vacaciones">
+                    <group>
+                        <p>Reporte de Control de Vacaciones</p>                   
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="IMPRIMIR"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="CANCELAR"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_vacations" model="ir.actions.act_window">
+            <field name="name">Control de Vacaciones</field>
+            <field name="res_model">report.vacations</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_vacations" 
+                  id="menu_action_report_vacations" 
+                  parent="hr_payroll.menu_hr_payroll_report" 
+                  sequence="4"/>
+</odoo>

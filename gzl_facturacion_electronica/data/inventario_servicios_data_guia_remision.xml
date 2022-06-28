@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="url_servicio_procesar_guia_remision" model="inventario.servicio">
+            <field name="name">Procesar Guia Remision</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/guiaRemision/v2.0/</field>
+            <field name="link">procesar</field>
+            <field name="description">Servicio asincrono para procesar Guia de Remision</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_procesar_guia_remision</field>
+
+
+        </record>
+
+        <record id="url_servicio_validar_guia_remision" model="inventario.servicio">
+            <field name="name">Validar Guia de Remision</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/guiaRemision/v2.0/</field>
+            <field name="link">validar</field>
+            <field name="description">Servicio validar guia de remision</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_validar_guia_remision</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_ride_guia_remision" model="inventario.servicio">
+            <field name="name">Descargar RIDE Guia de Remision</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/guiaRemision/v2.0/</field>
+            <field name="link">descargarRide</field>
+            <field name="description">Servicio para descargar RIDE Guia de remision</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_ride_guia_remision</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_xml_guia_remision" model="inventario.servicio">
+            <field name="name">Descargar XML Guia de Remision</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/guiaRemision/v2.0/</field>
+            <field name="link">descargarXml</field>
+            <field name="description">Servicio para descargar XML Guia de remision</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_xml_guia_remision</field>
+
+
+        </record>
+
+
+    </data>
+</odoo>

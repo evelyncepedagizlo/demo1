@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_calculo_comision_form" model="ir.ui.view">
+            <field name="name">Calculo de Comision</field>
+            <field name="model">calcula.comision</field>
+            <field name="arch" type="xml">
+                <form string="Calculo de Comision">
+                    <group>
+                        <group col="2">
+                            <field name="name"/>
+                            <field name="fechaInicio"/>
+                            <field name="fechaFin"/>
+
+
+                            <field name="comision"/>
+                        </group>      
+                        
+                    </group>   
+                     <field name="det" widget="section_and_note_one2many" >
+                         <tree delete="false" editable="false" create="false" string="Journal Items">
+                             <field name="name" readonly="1"/>
+                             <field name="planned_revenue" readonly="1"/>
+                             <field name="porcentaje_comision" readonly="0"/>
+                             <field name="comision" readonly="1"/>
+
+
+                        </tree>
+                    </field>
+                    <footer>
+                        <!--button name="calculo_comision"
+                                string="Consultar"
+                                type="object"
+                                class="oe_highlight" /-->
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_calculo_comision" model="ir.actions.act_window">
+            <field name="name">Calculo de Comision</field>
+            <field name="res_model">calcula.comision</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <!--record id="report_calculo_comision_detalle_form" model="ir.ui.view">
+            <field name="name">Calculo de Comision Detalle</field>
+            <field name="model">detalle.oportunidades</field>
+            <field name="arch" type="xml">
+                <form string="Calculo de Comision detalle">
+                    <group>
+                        <group col="2">
+                            <field name="crmlead" />
+                            
+                        </group>                    
+                    </group>                        
+                    <footer>
+                        <button name="calculo_comision"
+                                string="Consultar"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_calculo_comision_detalle_crm" model="ir.actions.act_window">
+            <field name="name">Calculo de Comision detalle</field>
+            <field name="res_model">detalle.oportunidades</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{}</field>
+        </record-->
+        <menuitem action="action_calculo_comision" 
+                  id="menu_action_calculo_comision" 
+                  parent="hr_payroll.menu_hr_payroll_report" 
+                  sequence="2"/>
+</odoo>

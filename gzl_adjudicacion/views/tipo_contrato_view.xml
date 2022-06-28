@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_tipo_contrato_tree" model= "ir.ui.view">
+        <field name="name">view.tipo.contrato.tree</field>
+        <field name="model">tipo.contrato.adjudicado</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo de Contrato" editable="top">
+                <field name="name" />
+                <field name="descripcion" />
+                <field name="numero_ganadores" />
+                <field name="numero_suplentes" />
+                <field name="code" />
+
+
+                
+
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    
+
+    <record id="action_tipo_contrato" model="ir.actions.act_window">
+        <field name="name">Tipo de Contrato</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tipo.contrato.adjudicado</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+    </record>
+
+
+
+     <menuitem id="menu_tipo_contrato" action="action_tipo_contrato" 
+        parent="menu_configuracion_adjudicaciones" sequence="5"  />
+
+
+
+</odoo>

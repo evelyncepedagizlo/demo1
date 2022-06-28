@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_debts_due_form_view" model="ir.ui.view">
+        <field name="name">report.debts.due.form</field>
+        <field name="model">report.debts.due</field>
+        <field name="arch" type="xml">
+            <form string="Reporte Deudas Vencidas">
+                <group>
+                    <group>
+                        <field name="type"/>
+                        <field name="partner_id" attrs="{'invisible':[('type','=','payable')], 'required':[('type','=','receivable')]}"/>
+                        <field name="supplier_id" attrs="{'invisible':[('type','=','receivable')], 'required':[('type','=','payable')]}"/>
+                    </group>
+                    <group>
+                        <field name="date_at"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print" type="object" string="IMPRIMIR" class="btn-primary"/>
+                    <button string="CANCELAR" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="report_debts_due_act_window" model="ir.actions.act_window">
+        <field name="name">Reporte Deudas Vencidas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.debts.due</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem parent="bi_account_cheque.menu_informes_tesoreria" action="report_debts_due_act_window" name="Reporte Deudas Vencidas" id="financial_parms_menu"/>
+</odoo>

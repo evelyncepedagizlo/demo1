@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_cotizaciones_crm" model="ir.ui.view">
+        <field name="name">wizard.cotizaciones.crm</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Seleccione la cotización para crearle la factura"> 
+                        <field name="cotizaciones_ids">
+                            <tree string="Cotizaciones" edit="false" create="false" delete="false">
+                                <field name="oportunidad_id" invisible="1"/>
+                                <field name="name" />
+                                <field name="date_order"/>
+                                <field name="amount_total"/>
+                            </tree>
+                        </field>
+                    </group>
+                    
+                </sheet>
+                <footer>
+                    <button string="Crear Factura" class="oe_highlight" type="object" name="validate"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
