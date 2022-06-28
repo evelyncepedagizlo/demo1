@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta, date
 from odoo.exceptions import ValidationError
 import calendar
-import numpy_financial as npf
+#import numpy_financial as npf
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'

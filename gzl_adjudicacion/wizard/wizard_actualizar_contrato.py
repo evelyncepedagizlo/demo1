@@ -4,7 +4,7 @@ from odoo import api, fields, models, tools, SUPERUSER_ID
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, timedelta, date
 from odoo.exceptions import ValidationError
-import numpy_financial as npf
+#import numpy_financial as npf
 import math
 
 
