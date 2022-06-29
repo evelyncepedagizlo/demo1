@@ -699,378 +699,378 @@ class account_payment(models.Model):
             if rec.payment_type in ('inbound', 'outbound'):
                 # ==== 'inbound' / 'outbound' ====    
 
-                if rec.payment_type=='inbound':
-                    valor_pago_cliente=0
-                    cuota_capital_obj = self.env['rubros.contratos'].search([('name','=','cuota_capital')])
-                    seguro_obj = self.env['rubros.contratos'].search([('name','=','seguro')])
-                    otros_obj = self.env['rubros.contratos'].search([('name','=','otros')])
-                    rastreo_obj = self.env['rubros.contratos'].search([('name','=','rastreo')])
-                    lista_diarios=[]
+                # if rec.payment_type=='inbound':
+                #     valor_pago_cliente=0
+                #     cuota_capital_obj = self.env['rubros.contratos'].search([('name','=','cuota_capital')])
+                #     seguro_obj = self.env['rubros.contratos'].search([('name','=','seguro')])
+                #     otros_obj = self.env['rubros.contratos'].search([('name','=','otros')])
+                #     rastreo_obj = self.env['rubros.contratos'].search([('name','=','rastreo')])
+                #     lista_diarios=[]
                     
-                    move_credito=''
-                    if cuota_capital_obj:
-                        lista_diarios.append(cuota_capital_obj.journal_id.id)
-                    if seguro_obj:
-                        lista_diarios.append(seguro_obj.journal_id.id)
-                    if otros_obj:
-                        lista_diarios.append(otros_obj.journal_id.id)
-                    if rastreo_obj:
-                        lista_diarios.append(rastreo_obj.journal_id.id)
+                #     move_credito=''
+                #     if cuota_capital_obj:
+                #         lista_diarios.append(cuota_capital_obj.journal_id.id)
+                #     if seguro_obj:
+                #         lista_diarios.append(seguro_obj.journal_id.id)
+                #     if otros_obj:
+                #         lista_diarios.append(otros_obj.journal_id.id)
+                #     if rastreo_obj:
+                #         lista_diarios.append(rastreo_obj.journal_id.id)
 
                     
-                    lista=[]
-                    lista_ids=[]
-                    lista_movimientos=[]
-                    for x in rec.move_line_ids:
-                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id and x.credit==rec.valor_deuda:
-                            valor_pago_cliente+=x.credit
-                            move_credito=x.id
-                            for y in x.matched_debit_ids:
-                                lista_ids.append(y.debit_move_id.id)
-                                lista_movimientos.append({'debit_move_id':y.debit_move_id.id,'amount':y.amount})
-                    lista_seg=[]
-                    lista_pagos=[]
-                    lista_ras=[]
-                    lista_otro=[]
-                    lista_dct=[]
-                    if rec.abono_contrato:
-                        for y in rec.contrato_estado_cuenta_payment_ids:
-                            if y.monto_pagar:
-                                if y.programado:
-                                    cuota_id=self.env['contrato.estado.cuenta'].search([('contrato_id','=',rec.contrato_id.id),
-                                                                    ('numero_cuota','=',y.numero_cuota),('saldo_programado','=',y.programado)])[0]
-                                else:                                         
-                                    cuota_id=self.env['contrato.estado.cuenta'].search([('contrato_id','=',rec.contrato_id.id),
-                                                                    ('numero_cuota','=',y.numero_cuota),('programado','=',False)])
+                #     lista=[]
+                #     lista_ids=[]
+                #     lista_movimientos=[]
+                #     for x in rec.move_line_ids:
+                #         if x.account_id.id==rec.partner_id.property_account_receivable_id.id and x.credit==rec.valor_deuda:
+                #             valor_pago_cliente+=x.credit
+                #             move_credito=x.id
+                #             for y in x.matched_debit_ids:
+                #                 lista_ids.append(y.debit_move_id.id)
+                #                 lista_movimientos.append({'debit_move_id':y.debit_move_id.id,'amount':y.amount})
+                #     lista_seg=[]
+                #     lista_pagos=[]
+                #     lista_ras=[]
+                #     lista_otro=[]
+                #     lista_dct=[]
+                #     if rec.abono_contrato:
+                #         for y in rec.contrato_estado_cuenta_payment_ids:
+                #             if y.monto_pagar:
+                #                 if y.programado:
+                #                     cuota_id=self.env['contrato.estado.cuenta'].search([('contrato_id','=',rec.contrato_id.id),
+                #                                                     ('numero_cuota','=',y.numero_cuota),('saldo_programado','=',y.programado)])[0]
+                #                 else:                                         
+                #                     cuota_id=self.env['contrato.estado.cuenta'].search([('contrato_id','=',rec.contrato_id.id),
+                #                                                     ('numero_cuota','=',y.numero_cuota),('programado','=',False)])
                             
-                                if y.cuota_capital_pagar:
-                                    cuota_id.saldo_cuota_capital=cuota_id.saldo_cuota_capital-y.cuota_capital_pagar
-                                    transacciones=self.env['transaccion.grupo.adjudicado']
-                                    transacciones.create({
-                                            'grupo_id':cuota_id.contrato_id.grupo.id,
-                                            'haber':y.cuota_capital_pagar,
-                                            'adjudicado_id':cuota_id.contrato_id.cliente.id,
-                                            'contrato_id':cuota_id.contrato_id.id,
-                                            'state':cuota_id.contrato_id.state
-                                            })
-                                if y.rastreo_pagar:
-                                    cuota_id.saldo_rastreo=cuota_id.saldo_rastreo-y.rastreo_pagar
+                #                 if y.cuota_capital_pagar:
+                #                     cuota_id.saldo_cuota_capital=cuota_id.saldo_cuota_capital-y.cuota_capital_pagar
+                #                     transacciones=self.env['transaccion.grupo.adjudicado']
+                #                     transacciones.create({
+                #                             'grupo_id':cuota_id.contrato_id.grupo.id,
+                #                             'haber':y.cuota_capital_pagar,
+                #                             'adjudicado_id':cuota_id.contrato_id.cliente.id,
+                #                             'contrato_id':cuota_id.contrato_id.id,
+                #                             'state':cuota_id.contrato_id.state
+                #                             })
+                #                 if y.rastreo_pagar:
+                #                     cuota_id.saldo_rastreo=cuota_id.saldo_rastreo-y.rastreo_pagar
 
-                                if y.otro_pagar:
-                                    cuota_id.saldo_otros=cuota_id.saldo_otros-y.otro_pagar
-                                if y.seguro_pagar:
-                                    cuota_id.saldo_seguro=cuota_id.saldo_seguro-y.seguro_pagar
-                                if y.entrada_pagar:
-                                    cuota_id.saldo_programado=cuota_id.saldo_programado-y.entrada_pagar
-                                    transacciones=self.env['transaccion.grupo.adjudicado']
-                                    transacciones.create({
-                                                'grupo_id':cuota_id.contrato_id.grupo.id,
-                                                'haber':y.entrada_pagar,
-                                                'adjudicado_id':cuota_id.contrato_id.cliente.id,
-                                                'contrato_id':cuota_id.contrato_id.id,
-                                                'state':cuota_id.contrato_id.state
-                                                })
-                                cuota_id.saldo=cuota_id.saldo-y.monto_pagar
-                                pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':cuota_id.id,'pago_id':rec.id,
-                                                                                                                'monto_pagado':rec.amount,'valor_asociado':y.monto_pagar})
+                #                 if y.otro_pagar:
+                #                     cuota_id.saldo_otros=cuota_id.saldo_otros-y.otro_pagar
+                #                 if y.seguro_pagar:
+                #                     cuota_id.saldo_seguro=cuota_id.saldo_seguro-y.seguro_pagar
+                #                 if y.entrada_pagar:
+                #                     cuota_id.saldo_programado=cuota_id.saldo_programado-y.entrada_pagar
+                #                     transacciones=self.env['transaccion.grupo.adjudicado']
+                #                     transacciones.create({
+                #                                 'grupo_id':cuota_id.contrato_id.grupo.id,
+                #                                 'haber':y.entrada_pagar,
+                #                                 'adjudicado_id':cuota_id.contrato_id.cliente.id,
+                #                                 'contrato_id':cuota_id.contrato_id.id,
+                #                                 'state':cuota_id.contrato_id.state
+                #                                 })
+                #                 cuota_id.saldo=cuota_id.saldo-y.monto_pagar
+                #                 pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':cuota_id.id,'pago_id':rec.id,
+                #                                                                                                 'monto_pagado':rec.amount,'valor_asociado':y.monto_pagar})
                                 
-                                if cuota_id.saldo==0:
-                                    cuota_id.estado_pago='pagado'
+                #                 if cuota_id.saldo==0:
+                #                     cuota_id.estado_pago='pagado'
                     
 
 
 
 
 
-                    for y in rec.invoice_ids:
-                        for cuota_id in y.contrato_estado_cuenta_ids:                            
-                            acumulado_cuota=0
-                            if valor_pago_cliente:
-                                if cuota_id.saldo_cuota_capital:
-                                    movimientos_cuota=self.env['account.move'].search([('journal_id','=',cuota_capital_obj.journal_id.id),('ref','=',y.name)])
-                                    for x in movimientos_cuota.invoice_line_ids:
-                                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
-                                            if x.id in lista_ids:
-                                                i=0
-                                                for mov in lista_movimientos:
-                                                    if x.id==mov['debit_move_id']:
-                                                        if valor_pago_cliente>=cuota_id.saldo_cuota_capital:
-                                                            mov['amount']+=cuota_id.saldo_cuota_capital
-                                                            acumulado_cuota+=cuota_id.saldo_cuota_capital
-                                                            valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_cuota_capital
-                                                        else:
-                                                            mov['amount']+=valor_pago_cliente
-                                                            acumulado_cuota+=valor_pago_cliente
-                                                            valor_pago_cliente=0
-                                                        monto_cruzado=mov['amount']
-                                                        if lista:
-                                                            for z in lista:
-                                                                if z[2]['debit_move_id']==x.id:
-                                                                    z[2]['amount']=mov['amount']
-                                                        else:
-                                                            tupla=(0, 0, {
-                                                                    'debit_move_id': x.id,
-                                                                    'credit_move_id':  move_credito,
-                                                                    'amount': monto_cruzado,
-                                                                    'amount_currency': '',
-                                                                    'currency_id':  '',
-                                                                    'company_currency_id': 2,
-                                                                    'company_id': 1,
-                                                                    })
-                                                            lista.append(tupla) 
+                #     for y in rec.invoice_ids:
+                #         for cuota_id in y.contrato_estado_cuenta_ids:                            
+                #             acumulado_cuota=0
+                #             if valor_pago_cliente:
+                #                 if cuota_id.saldo_cuota_capital:
+                #                     movimientos_cuota=self.env['account.move'].search([('journal_id','=',cuota_capital_obj.journal_id.id),('ref','=',y.name)])
+                #                     for x in movimientos_cuota.invoice_line_ids:
+                #                         if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
+                #                             if x.id in lista_ids:
+                #                                 i=0
+                #                                 for mov in lista_movimientos:
+                #                                     if x.id==mov['debit_move_id']:
+                #                                         if valor_pago_cliente>=cuota_id.saldo_cuota_capital:
+                #                                             mov['amount']+=cuota_id.saldo_cuota_capital
+                #                                             acumulado_cuota+=cuota_id.saldo_cuota_capital
+                #                                             valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_cuota_capital
+                #                                         else:
+                #                                             mov['amount']+=valor_pago_cliente
+                #                                             acumulado_cuota+=valor_pago_cliente
+                #                                             valor_pago_cliente=0
+                #                                         monto_cruzado=mov['amount']
+                #                                         if lista:
+                #                                             for z in lista:
+                #                                                 if z[2]['debit_move_id']==x.id:
+                #                                                     z[2]['amount']=mov['amount']
+                #                                         else:
+                #                                             tupla=(0, 0, {
+                #                                                     'debit_move_id': x.id,
+                #                                                     'credit_move_id':  move_credito,
+                #                                                     'amount': monto_cruzado,
+                #                                                     'amount_currency': '',
+                #                                                     'currency_id':  '',
+                #                                                     'company_currency_id': 2,
+                #                                                     'company_id': 1,
+                #                                                     })
+                #                                             lista.append(tupla) 
                                             
-                                            else:
-                                                if valor_pago_cliente>=cuota_id.saldo_cuota_capital:
-                                                    monto_cruzado=cuota_id.saldo_cuota_capital
-                                                else:
-                                                    monto_cruzado=valor_pago_cliente
-                                                acumulado_cuota+=monto_cruzado
-                                                valor_pago_cliente=valor_pago_cliente-monto_cruzado
-                                                lista_ids.append(x.id)
-                                                lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
-                                                tupla=(0, 0, {
-                                                    'debit_move_id': x.id,
-                                                    'credit_move_id':  move_credito,
-                                                    'amount': monto_cruzado,
-                                                    'amount_currency': '',
-                                                    'currency_id':  '',
-                                                    'company_currency_id': 2,
-                                                    'company_id': 1,
-                                                    })
+                #                             else:
+                #                                 if valor_pago_cliente>=cuota_id.saldo_cuota_capital:
+                #                                     monto_cruzado=cuota_id.saldo_cuota_capital
+                #                                 else:
+                #                                     monto_cruzado=valor_pago_cliente
+                #                                 acumulado_cuota+=monto_cruzado
+                #                                 valor_pago_cliente=valor_pago_cliente-monto_cruzado
+                #                                 lista_ids.append(x.id)
+                #                                 lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
+                #                                 tupla=(0, 0, {
+                #                                     'debit_move_id': x.id,
+                #                                     'credit_move_id':  move_credito,
+                #                                     'amount': monto_cruzado,
+                #                                     'amount_currency': '',
+                #                                     'currency_id':  '',
+                #                                     'company_currency_id': 2,
+                #                                     'company_id': 1,
+                #                                     })
 
-                                                lista.append(tupla)
+                #                                 lista.append(tupla)
                             
-                            if valor_pago_cliente:
-                                if cuota_id.saldo_seguro:
-                                    movimientos_seguro=self.env['account.move'].search([('journal_id','=',seguro_obj.journal_id.id),('ref','=',y.name)])
-                                    for x in movimientos_seguro.invoice_line_ids:
-                                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
-                                            if x.id in lista_ids:
-                                                i=0
-                                                for mov in lista_movimientos:
-                                                    if x.id==mov['debit_move_id']:
-                                                        if valor_pago_cliente>=cuota_id.saldo_seguro:
-                                                            mov['amount']+=cuota_id.saldo_seguro
-                                                            acumulado_cuota+=cuota_id.saldo_seguro
-                                                            valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_seguro
-                                                        else:
-                                                            mov['amount']+=valor_pago_cliente
-                                                            valor_pago_cliente=0
-                                                            acumulado_cuota+=valor_pago_cliente
-                                                        valor_pago_cliente=valor_pago_cliente-monto_cruzado
-                                                        monto_cruzado=mov['amount']
-                                                        if lista:
-                                                            for z in lista:
-                                                                if z[2]['debit_move_id']== x.id:
-                                                                    z[2]['amount']=monto_cruzado
-                                                        else:
-                                                            tupla=(0, 0, {
-                                                                    'debit_move_id': x.id,
-                                                                    'credit_move_id':  move_credito,
-                                                                    'amount': monto_cruzado,
-                                                                    'amount_currency': '',
-                                                                    'currency_id':  '',
-                                                                    'company_currency_id': 2,
-                                                                    'company_id': 1,
-                                                                    })
-                                                            lista.append(tupla) 
-                                            else:
-                                                if valor_pago_cliente>=cuota_id.cuota_id.saldo_seguro:
-                                                    monto_cruzado=cuota_id.cuota_id.saldo_seguro
-                                                else:
-                                                    monto_cruzado=valor_pago_cliente
-                                                acumulado_cuota+=monto_cruzado
-                                                valor_pago_cliente=valor_pago_cliente-monto_cruzado
-                                                lista_ids.append(x.id)
-                                                lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
-                                                tupla=(0, 0, {
-                                                    'debit_move_id': x.id,
-                                                    'credit_move_id':  move_credito,
-                                                    'amount': monto_cruzado,
-                                                    'amount_currency': '',
-                                                    'currency_id':  '',
-                                                    'company_currency_id': 2,
-                                                    'company_id': 1,
-                                                    })
+                #             if valor_pago_cliente:
+                #                 if cuota_id.saldo_seguro:
+                #                     movimientos_seguro=self.env['account.move'].search([('journal_id','=',seguro_obj.journal_id.id),('ref','=',y.name)])
+                #                     for x in movimientos_seguro.invoice_line_ids:
+                #                         if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
+                #                             if x.id in lista_ids:
+                #                                 i=0
+                #                                 for mov in lista_movimientos:
+                #                                     if x.id==mov['debit_move_id']:
+                #                                         if valor_pago_cliente>=cuota_id.saldo_seguro:
+                #                                             mov['amount']+=cuota_id.saldo_seguro
+                #                                             acumulado_cuota+=cuota_id.saldo_seguro
+                #                                             valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_seguro
+                #                                         else:
+                #                                             mov['amount']+=valor_pago_cliente
+                #                                             valor_pago_cliente=0
+                #                                             acumulado_cuota+=valor_pago_cliente
+                #                                         valor_pago_cliente=valor_pago_cliente-monto_cruzado
+                #                                         monto_cruzado=mov['amount']
+                #                                         if lista:
+                #                                             for z in lista:
+                #                                                 if z[2]['debit_move_id']== x.id:
+                #                                                     z[2]['amount']=monto_cruzado
+                #                                         else:
+                #                                             tupla=(0, 0, {
+                #                                                     'debit_move_id': x.id,
+                #                                                     'credit_move_id':  move_credito,
+                #                                                     'amount': monto_cruzado,
+                #                                                     'amount_currency': '',
+                #                                                     'currency_id':  '',
+                #                                                     'company_currency_id': 2,
+                #                                                     'company_id': 1,
+                #                                                     })
+                #                                             lista.append(tupla) 
+                #                             else:
+                #                                 if valor_pago_cliente>=cuota_id.cuota_id.saldo_seguro:
+                #                                     monto_cruzado=cuota_id.cuota_id.saldo_seguro
+                #                                 else:
+                #                                     monto_cruzado=valor_pago_cliente
+                #                                 acumulado_cuota+=monto_cruzado
+                #                                 valor_pago_cliente=valor_pago_cliente-monto_cruzado
+                #                                 lista_ids.append(x.id)
+                #                                 lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
+                #                                 tupla=(0, 0, {
+                #                                     'debit_move_id': x.id,
+                #                                     'credit_move_id':  move_credito,
+                #                                     'amount': monto_cruzado,
+                #                                     'amount_currency': '',
+                #                                     'currency_id':  '',
+                #                                     'company_currency_id': 2,
+                #                                     'company_id': 1,
+                #                                     })
 
-                                                lista.append(tupla)
-                            if valor_pago_cliente: 
-                                if cuota_id.saldo_rastreo:
-                                    movimientos_rastreo=self.env['account.move'].search([('journal_id','=',rastreo_obj.journal_id.id),('ref','=',y.name)])
-                                    for x in movimientos_rastreo.invoice_line_ids:
-                                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
-                                            if x.id in lista_ids:
-                                                i=0
-                                                for mov in lista_movimientos:
-                                                    if x.id==mov['debit_move_id']:
-                                                        if valor_pago_cliente>=cuota_id.saldo_rastreo:
-                                                            mov['amount']+=cuota_id.saldo_rastreo
-                                                            acumulado_cuota+=cuota_id.saldo_rastreo
-                                                            valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_rastreo
-                                                        else:
-                                                            mov['amount']+=valor_pago_cliente
-                                                            acumulado_cuota+=valor_pago_cliente
-                                                            valor_pago_cliente=0
+                #                                 lista.append(tupla)
+                #             if valor_pago_cliente: 
+                #                 if cuota_id.saldo_rastreo:
+                #                     movimientos_rastreo=self.env['account.move'].search([('journal_id','=',rastreo_obj.journal_id.id),('ref','=',y.name)])
+                #                     for x in movimientos_rastreo.invoice_line_ids:
+                #                         if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
+                #                             if x.id in lista_ids:
+                #                                 i=0
+                #                                 for mov in lista_movimientos:
+                #                                     if x.id==mov['debit_move_id']:
+                #                                         if valor_pago_cliente>=cuota_id.saldo_rastreo:
+                #                                             mov['amount']+=cuota_id.saldo_rastreo
+                #                                             acumulado_cuota+=cuota_id.saldo_rastreo
+                #                                             valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_rastreo
+                #                                         else:
+                #                                             mov['amount']+=valor_pago_cliente
+                #                                             acumulado_cuota+=valor_pago_cliente
+                #                                             valor_pago_cliente=0
                                                         
-                                                        monto_cruzado=mov['amount']
-                                                        if lista:
-                                                            for z in lista:
-                                                                if z[2]['debit_move_id']== x.id:
-                                                                    z[2]['amount']=monto_cruzado
-                                                        else:
-                                                            tupla=(0, 0, {
-                                                                    'debit_move_id': x.id,
-                                                                    'credit_move_id':  move_credito,
-                                                                    'amount': monto_cruzado,
-                                                                    'amount_currency': '',
-                                                                    'currency_id':  '',
-                                                                    'company_currency_id': 2,
-                                                                    'company_id': 1,
-                                                                    })
-                                                            lista.append(tupla) 
-                                            else:
-                                                if valor_pago_cliente>=cuota_id.cuota_id.saldo_rastreo:
-                                                    monto_cruzado=cuota_id.cuota_id.saldo_rastreo
-                                                else:
-                                                    monto_cruzado=valor_pago_cliente
-                                                acumulado_cuota+=monto_cruzado
-                                                valor_pago_cliente=valor_pago_cliente-monto_cruzado
-                                                lista_ids.append(x.id)
-                                                lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
-                                                tupla=(0, 0, {
-                                                    'debit_move_id': x.id,
-                                                    'credit_move_id':  move_credito,
-                                                    'amount': monto_cruzado,
-                                                    'amount_currency': '',
-                                                    'currency_id':  '',
-                                                    'company_currency_id': 2,
-                                                    'company_id': 1,
-                                                    })
+                #                                         monto_cruzado=mov['amount']
+                #                                         if lista:
+                #                                             for z in lista:
+                #                                                 if z[2]['debit_move_id']== x.id:
+                #                                                     z[2]['amount']=monto_cruzado
+                #                                         else:
+                #                                             tupla=(0, 0, {
+                #                                                     'debit_move_id': x.id,
+                #                                                     'credit_move_id':  move_credito,
+                #                                                     'amount': monto_cruzado,
+                #                                                     'amount_currency': '',
+                #                                                     'currency_id':  '',
+                #                                                     'company_currency_id': 2,
+                #                                                     'company_id': 1,
+                #                                                     })
+                #                                             lista.append(tupla) 
+                #                             else:
+                #                                 if valor_pago_cliente>=cuota_id.cuota_id.saldo_rastreo:
+                #                                     monto_cruzado=cuota_id.cuota_id.saldo_rastreo
+                #                                 else:
+                #                                     monto_cruzado=valor_pago_cliente
+                #                                 acumulado_cuota+=monto_cruzado
+                #                                 valor_pago_cliente=valor_pago_cliente-monto_cruzado
+                #                                 lista_ids.append(x.id)
+                #                                 lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
+                #                                 tupla=(0, 0, {
+                #                                     'debit_move_id': x.id,
+                #                                     'credit_move_id':  move_credito,
+                #                                     'amount': monto_cruzado,
+                #                                     'amount_currency': '',
+                #                                     'currency_id':  '',
+                #                                     'company_currency_id': 2,
+                #                                     'company_id': 1,
+                #                                     })
 
-                                            lista.append(tupla)
-                            if valor_pago_cliente: 
-                                if cuota_id.saldo_otros:
-                                    movimientos_otro=self.env['account.move'].search([('journal_id','=',otros_obj.journal_id.id),('ref','=',y.name)])
-                                    for x in movimientos_otro.invoice_line_ids:
-                                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
-                                            if x.id in lista_ids:
-                                                i=0
-                                                for mov in lista_movimientos:
-                                                    if x.id==mov['debit_move_id']:
-                                                        if valor_pago_cliente>=cuota_id.saldo_otros:
-                                                            mov['amount']+=cuota_id.saldo_otros
-                                                            acumulado_cuota+=cuota_id.saldo_otros
-                                                            valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_otros
-                                                        else:
-                                                            mov['amount']+=valor_pago_cliente
-                                                            acumulado_cuota+=valor_pago_cliente
-                                                            valor_pago_cliente=0
-                                                        monto_cruzado=mov['amount']
-                                                        if lista:
-                                                            for z in lista:
-                                                                if z[2]['debit_move_id']== x.id:
-                                                                    z[2]['amount']=monto_cruzado
-                                                        else:
-                                                            tupla=(0, 0, {
-                                                                    'debit_move_id': x.id,
-                                                                    'credit_move_id':  move_credito,
-                                                                    'amount': monto_cruzado,
-                                                                    'amount_currency': '',
-                                                                    'currency_id':  '',
-                                                                    'company_currency_id': 2,
-                                                                    'company_id': 1,
-                                                                    })
-                                                            lista.append(tupla) 
-                                            else:
-                                                if valor_pago_cliente>=cuota_id.cuota_id.saldo_otros:
-                                                    monto_cruzado=cuota_id.cuota_id.saldo_otros
-                                                else:
-                                                    monto_cruzado=valor_pago_cliente
-                                                acumulado_cuota+=monto_cruzado
-                                                valor_pago_cliente=valor_pago_cliente-monto_cruzado
-                                                lista_ids.append(x.id)
-                                                lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
-                                                tupla=(0, 0, {
-                                                    'debit_move_id': x.id,
-                                                    'credit_move_id':  move_credito,
-                                                    'amount': monto_cruzado,
-                                                    'amount_currency': '',
-                                                    'currency_id':  '',
-                                                    'company_currency_id': 2,
-                                                    'company_id': 1,
-                                                    })
+                #                             lista.append(tupla)
+                #             if valor_pago_cliente: 
+                #                 if cuota_id.saldo_otros:
+                #                     movimientos_otro=self.env['account.move'].search([('journal_id','=',otros_obj.journal_id.id),('ref','=',y.name)])
+                #                     for x in movimientos_otro.invoice_line_ids:
+                #                         if x.account_id.id==rec.partner_id.property_account_receivable_id.id:
+                #                             if x.id in lista_ids:
+                #                                 i=0
+                #                                 for mov in lista_movimientos:
+                #                                     if x.id==mov['debit_move_id']:
+                #                                         if valor_pago_cliente>=cuota_id.saldo_otros:
+                #                                             mov['amount']+=cuota_id.saldo_otros
+                #                                             acumulado_cuota+=cuota_id.saldo_otros
+                #                                             valor_pago_cliente=valor_pago_cliente-cuota_id.saldo_otros
+                #                                         else:
+                #                                             mov['amount']+=valor_pago_cliente
+                #                                             acumulado_cuota+=valor_pago_cliente
+                #                                             valor_pago_cliente=0
+                #                                         monto_cruzado=mov['amount']
+                #                                         if lista:
+                #                                             for z in lista:
+                #                                                 if z[2]['debit_move_id']== x.id:
+                #                                                     z[2]['amount']=monto_cruzado
+                #                                         else:
+                #                                             tupla=(0, 0, {
+                #                                                     'debit_move_id': x.id,
+                #                                                     'credit_move_id':  move_credito,
+                #                                                     'amount': monto_cruzado,
+                #                                                     'amount_currency': '',
+                #                                                     'currency_id':  '',
+                #                                                     'company_currency_id': 2,
+                #                                                     'company_id': 1,
+                #                                                     })
+                #                                             lista.append(tupla) 
+                #                             else:
+                #                                 if valor_pago_cliente>=cuota_id.cuota_id.saldo_otros:
+                #                                     monto_cruzado=cuota_id.cuota_id.saldo_otros
+                #                                 else:
+                #                                     monto_cruzado=valor_pago_cliente
+                #                                 acumulado_cuota+=monto_cruzado
+                #                                 valor_pago_cliente=valor_pago_cliente-monto_cruzado
+                #                                 lista_ids.append(x.id)
+                #                                 lista_movimientos.append({'debit_move_id':x.id,'amount':monto_cruzado})
+                #                                 tupla=(0, 0, {
+                #                                     'debit_move_id': x.id,
+                #                                     'credit_move_id':  move_credito,
+                #                                     'amount': monto_cruzado,
+                #                                     'amount_currency': '',
+                #                                     'currency_id':  '',
+                #                                     'company_currency_id': 2,
+                #                                     'company_id': 1,
+                #                                     })
 
-                                                lista.append(tupla)
+                #                                 lista.append(tupla)
 
                       
 
-                            total_cuota=0
-                            if acumulado_cuota:
-                                if acumulado_cuota>=cuota_id.saldo_cuota_capital:
-                                    total_cuota+=cuota_id.saldo_cuota_capital
-                                    acumulado_cuota=acumulado_cuota-cuota_id.saldo_cuota_capital
-                                    cuota_id.saldo_cuota_capital=0
-                                else:
-                                    total_cuota+=acumulado_cuota
-                                    cuota_id.saldo_cuota_capital=cuota_id.saldo_cuota_capital-acumulado_cuota
-                                    acumulado_cuota=0
-                            if acumulado_cuota:
-                                if acumulado_cuota>=cuota_id.saldo_seguro:
-                                    total_cuota+=cuota_id.saldo_seguro
-                                    acumulado_cuota=acumulado_cuota-cuota_id.saldo_seguro
-                                    cuota_id.saldo_seguro=0
-                                else:
-                                    total_cuota+=acumulado_cuota
-                                    cuota_id.saldo_seguro=cuota_id.saldo_seguro-acumulado_cuota
-                                    acumulado_cuota=0
-                            if acumulado_cuota:
-                                if acumulado_cuota>=cuota_id.saldo_rastreo:
-                                    total_cuota+=cuota_id.saldo_rastreo
-                                    acumulado_cuota=acumulado_cuota-cuota_id.saldo_rastreo
-                                    cuota_id.saldo_rastreo=0
-                                else:
-                                    total_cuota+=acumulado_cuota
-                                    cuota_id.saldo_rastreo=cuota_id.saldo_rastreo-acumulado_cuota
-                                    acumulado_cuota=0
-                            if acumulado_cuota:
-                                if acumulado_cuota>=cuota_id.saldo_otros:
-                                    total_cuota+=cuota_id.saldo_otros
-                                    acumulado_cuota=acumulado_cuota-cuota_id.saldo_otros
-                                    cuota_id.saldo_otros=0
-                                else:
-                                    total_cuota+=acumulado_cuota
-                                    cuota_id.saldo_otros=cuota_id.saldo_otros-acumulado_cuota
-                                    acumulado_cuota=0
+                #             total_cuota=0
+                #             if acumulado_cuota:
+                #                 if acumulado_cuota>=cuota_id.saldo_cuota_capital:
+                #                     total_cuota+=cuota_id.saldo_cuota_capital
+                #                     acumulado_cuota=acumulado_cuota-cuota_id.saldo_cuota_capital
+                #                     cuota_id.saldo_cuota_capital=0
+                #                 else:
+                #                     total_cuota+=acumulado_cuota
+                #                     cuota_id.saldo_cuota_capital=cuota_id.saldo_cuota_capital-acumulado_cuota
+                #                     acumulado_cuota=0
+                #             if acumulado_cuota:
+                #                 if acumulado_cuota>=cuota_id.saldo_seguro:
+                #                     total_cuota+=cuota_id.saldo_seguro
+                #                     acumulado_cuota=acumulado_cuota-cuota_id.saldo_seguro
+                #                     cuota_id.saldo_seguro=0
+                #                 else:
+                #                     total_cuota+=acumulado_cuota
+                #                     cuota_id.saldo_seguro=cuota_id.saldo_seguro-acumulado_cuota
+                #                     acumulado_cuota=0
+                #             if acumulado_cuota:
+                #                 if acumulado_cuota>=cuota_id.saldo_rastreo:
+                #                     total_cuota+=cuota_id.saldo_rastreo
+                #                     acumulado_cuota=acumulado_cuota-cuota_id.saldo_rastreo
+                #                     cuota_id.saldo_rastreo=0
+                #                 else:
+                #                     total_cuota+=acumulado_cuota
+                #                     cuota_id.saldo_rastreo=cuota_id.saldo_rastreo-acumulado_cuota
+                #                     acumulado_cuota=0
+                #             if acumulado_cuota:
+                #                 if acumulado_cuota>=cuota_id.saldo_otros:
+                #                     total_cuota+=cuota_id.saldo_otros
+                #                     acumulado_cuota=acumulado_cuota-cuota_id.saldo_otros
+                #                     cuota_id.saldo_otros=0
+                #                 else:
+                #                     total_cuota+=acumulado_cuota
+                #                     cuota_id.saldo_otros=cuota_id.saldo_otros-acumulado_cuota
+                #                     acumulado_cuota=0
 
-                            #cuota_id.saldo=cuota_id.saldo-total_cuota
-                            if total_cuota:
-                                pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':cuota_id.id,'pago_id':rec.id,
-                                                                                                                'monto_pagado':rec.amount,'valor_asociado':total_cuota})
+                #             #cuota_id.saldo=cuota_id.saldo-total_cuota
+                #             if total_cuota:
+                #                 pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':cuota_id.id,'pago_id':rec.id,
+                #                                                                                                 'monto_pagado':rec.amount,'valor_asociado':total_cuota})
                         
 
                             
-                            if cuota_id.saldo==0:
-                                cuota_id.estado_pago='pagado'
-                                transacciones=self.env['transaccion.grupo.adjudicado']
-                                dct={
-                                        'grupo_id':cuota_id.contrato_id.grupo.id,
-                                        'haber':cuota_id.cuota_capital+cuota_id.seguro+cuota_id.otro+cuota_id.rastreo+cuota_id.iva_adm,
-                                        'adjudicado_id':cuota_id.contrato_id.cliente.id,
-                                        'contrato_id':cuota_id.contrato_id.id,
-                                        'state':cuota_id.contrato_id.state
-                                        }
-                                transacciones.create(dct)
+                #             if cuota_id.saldo==0:
+                #                 cuota_id.estado_pago='pagado'
+                #                 transacciones=self.env['transaccion.grupo.adjudicado']
+                #                 dct={
+                #                         'grupo_id':cuota_id.contrato_id.grupo.id,
+                #                         'haber':cuota_id.cuota_capital+cuota_id.seguro+cuota_id.otro+cuota_id.rastreo+cuota_id.iva_adm,
+                #                         'adjudicado_id':cuota_id.contrato_id.cliente.id,
+                #                         'contrato_id':cuota_id.contrato_id.id,
+                #                         'state':cuota_id.contrato_id.state
+                #                         }
+                #                 transacciones.create(dct)
 
-                    for x in rec.move_line_ids:
-                        if x.account_id.id==rec.partner_id.property_account_receivable_id.id and round(x.credit,2)==round(rec.valor_deuda,2):
-                            x.update({'matched_debit_ids':lista})
-                            pass                     
+                #     for x in rec.move_line_ids:
+                #         if x.account_id.id==rec.partner_id.property_account_receivable_id.id and round(x.credit,2)==round(rec.valor_deuda,2):
+                #             x.update({'matched_debit_ids':lista})
+                #             pass                     
 
-                    (moves[0] + y).line_ids \
-                        .filtered(lambda line: not line.reconciled and line.account_id == rec.destination_account_id and not (line.account_id == line.payment_id.writeoff_account_id and line.name == line.payment_id.writeoff_label))\
-                        .reconcile()
+                #     (moves[0] + y).line_ids \
+                #         .filtered(lambda line: not line.reconciled and line.account_id == rec.destination_account_id and not (line.account_id == line.payment_id.writeoff_account_id and line.name == line.payment_id.writeoff_label))\
+                #         .reconcile()
                         
-                if rec.payment_type=='inbound':
+                # if rec.payment_type=='inbound':
                     if rec.invoice_ids:
                         (moves[0] + rec.invoice_ids).line_ids \
                             .filtered(lambda line: not line.reconciled and line.account_id == rec.destination_account_id and not (line.account_id == line.payment_id.writeoff_account_id and line.name == line.payment_id.writeoff_label))\

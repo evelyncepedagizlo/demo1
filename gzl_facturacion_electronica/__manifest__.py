@@ -46,9 +46,9 @@
         'views/inventario_servicios_view.xml',
         'views/bitacora_consumo_servicios_view.xml',
         'views/tipo_proveedor_reembolso_view.xml',
-        'views/configuracion_rubros_view.xml',
-        "views/reporte_ventas_view.xml",
-        "views/reporte_prospecto_view.xml",
+        #'views/configuracion_rubros_view.xml',
+        #"views/reporte_ventas_view.xml",
+        #"views/reporte_prospecto_view.xml",
 
         'wizard/wizard_ats_view.xml',
         'wizard/wizard_import_documents_view.xml',
@@ -58,8 +58,8 @@
         'wizard/mantenedor_importacion_masiva_view.xml',
         'wizard/importacion_masiva_view.xml',
         
-        'report/certificado_aporte.xml',
-        'views/account_payment_view.xml'
+        #'report/certificado_aporte.xml',
+        #'views/account_payment_view.xml'
 
         
     ],

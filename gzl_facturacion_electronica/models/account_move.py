@@ -37,87 +37,87 @@ class AccountMove(models.Model):
 
     email_fe2 = fields.Char(string='Email Factura Electronica')
 
-    contrato_id = fields.Many2one('contrato', string='Contrato')
+    #contrato_id = fields.Many2one('contrato', string='Contrato')
 
-    contrato_estado_cuenta_ids = fields.Many2many('contrato.estado.cuenta', copy=False,string='Estado de Cuenta de Aportes',)
+    #contrato_estado_cuenta_ids = fields.Many2many('contrato.estado.cuenta', copy=False,string='Estado de Cuenta de Aportes',)
     
-    is_group_cobranza = fields.Boolean(string='Es Cobranza',compute="_compute_is_group_cobranza")
+    #is_group_cobranza = fields.Boolean(string='Es Cobranza',compute="_compute_is_group_cobranza")
 
 
-    @api.onchange("partner_id")
-    def obtener_anticipos(self):
-        for l in self:
-            lista_ids=[]
-            lista=[]
-            if l.partner_id:
-                linea_pago_ids=self.env['account.payment.line.account'].search([('partner_id','=',self.partner_id.id),('aplicar_anticipo','=',True)])
-                for x in linea_pago_ids:
-                    if x.payment_id.state=='posted':
-                        lista.append({'linea_pago_id':x.id,
-                              'payment_id':x.payment_id.id,
-                              'credit':x.saldo_pendiente,
-                              'anticipo_pendiente':False,
-                              })
-            for prueba in lista:
-                id_registro=self.env['anticipos.pendientes'].create(prueba) 
-                lista_ids.append(id_registro.id)
-                self.update({'anticipos_ids':[(6,0,lista_ids)]}) 
+    # @api.onchange("partner_id")
+    # def obtener_anticipos(self):
+    #     for l in self:
+    #         lista_ids=[]
+    #         lista=[]
+    #         if l.partner_id:
+    #             linea_pago_ids=self.env['account.payment.line.account'].search([('partner_id','=',self.partner_id.id),('aplicar_anticipo','=',True)])
+    #             for x in linea_pago_ids:
+    #                 if x.payment_id.state=='posted':
+    #                     lista.append({'linea_pago_id':x.id,
+    #                           'payment_id':x.payment_id.id,
+    #                           'credit':x.saldo_pendiente,
+    #                           'anticipo_pendiente':False,
+    #                           })
+    #         for prueba in lista:
+    #             id_registro=self.env['anticipos.pendientes'].create(prueba) 
+    #             lista_ids.append(id_registro.id)
+    #             self.update({'anticipos_ids':[(6,0,lista_ids)]}) 
          
 
-    @api.depends("partner_id")
-    def _compute_is_group_cobranza(self):
-        self.is_group_cobranza = self.env['res.users'].has_group('gzl_facturacion_electronica.grupo_cobranza')
+    # @api.depends("partner_id")
+    # def _compute_is_group_cobranza(self):
+    #     self.is_group_cobranza = self.env['res.users'].has_group('gzl_facturacion_electronica.grupo_cobranza')
 
-    @api.onchange('contrato_estado_cuenta_ids')
-    def _onchange_contrato_estado_cuenta_ids(self):
-        obj_product = self.env['product.template'].search([('default_code','=','CA1')])
-        obj_account = self.env['account.account'].search([('code','=','4010101002')])
-        obj_tax = self.env['account.tax'].search([('name','=','VENTAS DE ACTIVOS FIJOS GRAVADAS TARIFA 12%')])
-        obj_account_debe = self.env['account.account'].search([('code','=','1010205001')])
-        obj_account_haber = self.env['account.account'].search([('code','=','4010102002')])
-        list_pagos_diferentes = {}
-        valor = 0
-        valor_debe = 0
-        valor_haber = 0
-        values = {
-                    'product_id':obj_product.id,
-                    'name': 'Cuota Administrativa. Pago de Cuota(s) de Contrato. Cuota Administrativa: ',
-                    'account_id':obj_account.id,
-                    'tax_ids': [(6,0,[obj_tax.id])],
-                    'quantity': 0,
-                    'price_unit':0,
-                }
-        cliente=self.partner_id.name
-        if self.contrato_estado_cuenta_ids:
-            obj_contrato_estado_cuenta = self.env['contrato.estado.cuenta'].search([('id','in',self.contrato_estado_cuenta_ids.ids)])
-            i=0
-            saldo_credito=0
-            numero_cuotas=''
-            for rec in obj_contrato_estado_cuenta:
-                if i==0:
-                    nombre=values.get('name')+str(rec.cuota_adm)+'.'+' IVA: '+str(rec.iva_adm)+' Cuota(s): '+rec.numero_cuota+','
-                else:
-                    nombre=values.get('name')+rec.numero_cuota+','
-                i+=1
-                values['quantity'] = values.get('quantity') + 1
-                valor += rec.cuota_adm
-                values['price_unit'] = valor/values.get('quantity')
-                values['name'] =nombre
-                list_pagos_diferentes.update({
-                    str(rec.cuota_adm):values
-                })
+    # @api.onchange('contrato_estado_cuenta_ids')
+    # def _onchange_contrato_estado_cuenta_ids(self):
+    #     obj_product = self.env['product.template'].search([('default_code','=','CA1')])
+    #     obj_account = self.env['account.account'].search([('code','=','4010101002')])
+    #     obj_tax = self.env['account.tax'].search([('name','=','VENTAS DE ACTIVOS FIJOS GRAVADAS TARIFA 12%')])
+    #     obj_account_debe = self.env['account.account'].search([('code','=','1010205001')])
+    #     obj_account_haber = self.env['account.account'].search([('code','=','4010102002')])
+    #     list_pagos_diferentes = {}
+    #     valor = 0
+    #     valor_debe = 0
+    #     valor_haber = 0
+    #     values = {
+    #                 'product_id':obj_product.id,
+    #                 'name': 'Cuota Administrativa. Pago de Cuota(s) de Contrato. Cuota Administrativa: ',
+    #                 'account_id':obj_account.id,
+    #                 'tax_ids': [(6,0,[obj_tax.id])],
+    #                 'quantity': 0,
+    #                 'price_unit':0,
+    #             }
+    #     cliente=self.partner_id.name
+    #     if self.contrato_estado_cuenta_ids:
+    #         obj_contrato_estado_cuenta = self.env['contrato.estado.cuenta'].search([('id','in',self.contrato_estado_cuenta_ids.ids)])
+    #         i=0
+    #         saldo_credito=0
+    #         numero_cuotas=''
+    #         for rec in obj_contrato_estado_cuenta:
+    #             if i==0:
+    #                 nombre=values.get('name')+str(rec.cuota_adm)+'.'+' IVA: '+str(rec.iva_adm)+' Cuota(s): '+rec.numero_cuota+','
+    #             else:
+    #                 nombre=values.get('name')+rec.numero_cuota+','
+    #             i+=1
+    #             values['quantity'] = values.get('quantity') + 1
+    #             valor += rec.cuota_adm
+    #             values['price_unit'] = valor/values.get('quantity')
+    #             values['name'] =nombre
+    #             list_pagos_diferentes.update({
+    #                 str(rec.cuota_adm):values
+    #             })
                     
-            for rec in list_pagos_diferentes.values():
-                if not self.invoice_line_ids:
-                    self.invoice_line_ids = [(0,0,rec)] 
-                else:
-                    for ric in self.invoice_line_ids:
-                        self.invoice_line_ids = [(1,ric.id,{
-                            'name': rec.get('name'),
-                            'quantity': rec.get('quantity'),
-                            'price_unit': rec.get('price_unit'),
-                        })]          
-            self._move_autocomplete_invoice_lines_values()
+    #         for rec in list_pagos_diferentes.values():
+    #             if not self.invoice_line_ids:
+    #                 self.invoice_line_ids = [(0,0,rec)] 
+    #             else:
+    #                 for ric in self.invoice_line_ids:
+    #                     self.invoice_line_ids = [(1,ric.id,{
+    #                         'name': rec.get('name'),
+    #                         'quantity': rec.get('quantity'),
+    #                         'price_unit': rec.get('price_unit'),
+    #                     })]          
+    #         self._move_autocomplete_invoice_lines_values()
 
 
 
@@ -127,39 +127,39 @@ class AccountMove(models.Model):
         numero_cuotas=","      
         saldo_credito=0
         longitud=0
-        longitud_total=len(self.contrato_estado_cuenta_ids)
-        for registros in self.contrato_estado_cuenta_ids:
-            longitud+=1
-            numero_cuotas=numero_cuotas+registros.numero_cuota+','
-            saldo_credito+=registros.saldo
+        #longitud_total=len(self.contrato_estado_cuenta_ids)
+        #for registros in self.contrato_estado_cuenta_ids:
+        #    longitud+=1
+        #    numero_cuotas=numero_cuotas+registros.numero_cuota+','
+        #    saldo_credito+=registros.saldo
         lista_dic=[] 
         saldo=0
 
         valor_restar=0
 
-        for m in self.anticipos_ids:
-            if m.anticipo_pendiente:
-                valor_restar+=m.credit
+        #for m in self.anticipos_ids:
+        #    if m.anticipo_pendiente:
+        #        valor_restar+=m.credit
 
         
-        for rec in self.contrato_estado_cuenta_ids:
-            if valor_restar:
-                if valor_restar<=rec.saldo_cuota_capital:
-                    for pag in self.anticipos_ids:
-                        if pag.anticipo_pendiente:
-                            valor_restar=0
-                            pass
-                else:
-                    for pag in self.anticipos_ids:
-                        if pag.anticipo_pendiente:
-                            valor_restar=valor_restar-rec.saldo_cuota_capital
+        #for rec in self.contrato_estado_cuenta_ids:
+        #    if valor_restar:
+        #        if valor_restar<=rec.saldo_cuota_capital:
+        #            for pag in self.anticipos_ids:
+        #                if pag.anticipo_pendiente:
+        #                    valor_restar=0
+        #                    pass
+        #        else:
+        #            for pag in self.anticipos_ids:
+        #                if pag.anticipo_pendiente:
+        #                    valor_restar=valor_restar-rec.saldo_cuota_capital
                             
-        for ant in self.anticipos_ids:
-            if ant.anticipo_pendiente:
+        #for ant in self.anticipos_ids:
+        #    if ant.anticipo_pendiente:
                 
-                ant.valor_sobrante=valor_restar
+        #        ant.valor_sobrante=valor_restar
                 
-                saldo+=ant.credit-valor_restar
+        #        saldo+=ant.credit-valor_restar
         if self.invoice_payment_term_id:
             lista_dic.append({
                             'nombre': 'CRÉDITO',
@@ -261,11 +261,11 @@ class AccountMove(models.Model):
     #    self._compute_invoice_taxes_by_group_view()
     #    self._recompute_dynamic_lines_view()
 
-    def get_cuotas_lines(self):
-        if self.contrato_estado_cuenta_ids:
-            cuotas = self.contrato_id.estado_de_cuenta_ids.search([('id','in',self.contrato_estado_cuenta_ids.ids)])
-            if cuotas:
-                return cuotas
+    #def get_cuotas_lines(self):
+    #    if self.contrato_estado_cuenta_ids:
+    #        cuotas = self.contrato_id.estado_de_cuenta_ids.search([('id','in',self.contrato_estado_cuenta_ids.ids)])
+    #        if cuotas:
+    #            return cuotas
 
     def get_total_and_subtotal_cuotas(self):
         cuotas = self.get_cuotas_lines()
@@ -593,157 +593,157 @@ class AccountMove(models.Model):
                     except:
                         print('Error de asiento contable')    
         
-        if self.type == 'out_invoice':
-            if self.contrato_estado_cuenta_ids:
-                #obj_account_debe = self.env['account.account'].search([('code','=','1010205001')])
-                obj_account_debe=self.partner_id.property_account_receivable_id
-                cuota_capital_obj = self.env['rubros.contratos'].search([('name','=','cuota_capital')])
-                seguro_obj = self.env['rubros.contratos'].search([('name','=','seguro')])
-                otros_obj = self.env['rubros.contratos'].search([('name','=','otros')])
-                rastreo_obj = self.env['rubros.contratos'].search([('name','=','rastreo')])
-                #obj_account_haber = self.env['account.account'].search([('code','=','2020601001')])
-                cuota_capital=0
-                seguro=0
-                otros=0
-                rastreo=0
-                obj_am = self.env['account.move']
-                valor_credito=0
+        # if self.type == 'out_invoice':
+        #     if self.contrato_estado_cuenta_ids:
+        #         #obj_account_debe = self.env['account.account'].search([('code','=','1010205001')])
+        #         obj_account_debe=self.partner_id.property_account_receivable_id
+        #         cuota_capital_obj = self.env['rubros.contratos'].search([('name','=','cuota_capital')])
+        #         seguro_obj = self.env['rubros.contratos'].search([('name','=','seguro')])
+        #         otros_obj = self.env['rubros.contratos'].search([('name','=','otros')])
+        #         rastreo_obj = self.env['rubros.contratos'].search([('name','=','rastreo')])
+        #         #obj_account_haber = self.env['account.account'].search([('code','=','2020601001')])
+        #         cuota_capital=0
+        #         seguro=0
+        #         otros=0
+        #         rastreo=0
+        #         obj_am = self.env['account.move']
+        #         valor_credito=0
 
-                if self.anticipos_ids:
-                    for m in self.anticipos_ids:
-                        if m.anticipo_pendiente:
-                            valor_credito+=m.credit
+        #         if self.anticipos_ids:
+        #             for m in self.anticipos_ids:
+        #                 if m.anticipo_pendiente:
+        #                     valor_credito+=m.credit
 
-                valor_restar=valor_credito
-                for rec in self.contrato_id.estado_de_cuenta_ids.search([('id','in',self.contrato_estado_cuenta_ids.ids)]):
-                    rec.factura_id = self.id
-                    if valor_restar:
-                        if valor_restar<=rec.saldo_cuota_capital:
-                            rec.saldo_cuota_capital=rec.saldo_cuota_capital-valor_restar
+        #         valor_restar=valor_credito
+        #         for rec in self.contrato_id.estado_de_cuenta_ids.search([('id','in',self.contrato_estado_cuenta_ids.ids)]):
+        #             rec.factura_id = self.id
+        #             if valor_restar:
+        #                 if valor_restar<=rec.saldo_cuota_capital:
+        #                     rec.saldo_cuota_capital=rec.saldo_cuota_capital-valor_restar
                             
-                            for pag in self.anticipos_ids:
-                                if pag.anticipo_pendiente:
-                                    pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':rec.id,'pago_id':pag.payment_id.id,
-                                                                                               'monto_pagado':pag.payment_id.amount,'valor_asociado':valor_restar})
-                                    valor_restar=0
-                                    pass
-                        else:
+        #                     for pag in self.anticipos_ids:
+        #                         if pag.anticipo_pendiente:
+        #                             pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':rec.id,'pago_id':pag.payment_id.id,
+        #                                                                                        'monto_pagado':pag.payment_id.amount,'valor_asociado':valor_restar})
+        #                             valor_restar=0
+        #                             pass
+        #                 else:
                             
-                            for pag in self.anticipos_ids:
-                                if pag.anticipo_pendiente:
+        #                     for pag in self.anticipos_ids:
+        #                         if pag.anticipo_pendiente:
 
-                                    pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':rec.id,'pago_id':pag.payment_id.id,
-                                                                                                    'monto_pagado':pag.payment_id.amount,'valor_asociado':rec.saldo_cuota_capital})
-                                    valor_restar=valor_restar-rec.saldo_cuota_capital
+        #                             pago_cuota_id=self.env['account.payment.cuotas'].create({'cuotas_id':rec.id,'pago_id':pag.payment_id.id,
+        #                                                                                             'monto_pagado':pag.payment_id.amount,'valor_asociado':rec.saldo_cuota_capital})
+        #                             valor_restar=valor_restar-rec.saldo_cuota_capital
 
-                            rec.saldo_cuota_capital=0
-                    cuota_capital += rec.saldo_cuota_capital
-                    seguro += rec.saldo_seguro
-                    otros += rec.saldo_otros
-                    rastreo +=rec.saldo_rastreo
-                if cuota_capital>0:
-                    if not cuota_capital_obj:
-                        raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
-                    obj_am.create({
-                        'date':self.invoice_date,
-                        'journal_id':cuota_capital_obj.journal_id.id,
-                        'company_id':self.company_id.id,
-                        'type':'entry',
-                        'ref':self.name,
-                        'line_ids':[
-                            (0,0,{
-                            'account_id':obj_account_debe.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':0,
-                            'debit':cuota_capital
-                            }),
-                            (0,0,{
-                            'account_id':cuota_capital_obj.cuenta_id.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':cuota_capital,
-                            'debit':0
-                            })
-                        ]
-                    }).action_post()
-                obj_anticipo=self.env['anticipos.pendientes'].search([('factura_id','=',self.id),('anticipo_pendiente','=',False)])
-                for ant in self.anticipos_ids:
-                    ant.linea_pago_id.saldo_pendiente=valor_restar
-                #    ant.valor_sobrante=valor_restar
-                    if not ant.linea_pago_id.saldo_pendiente:
-                        ant.linea_pago_id.aplicar_anticipo=False
-                obj_anticipo.unlink()
-                if seguro>0:
-                    if not seguro_obj:
-                        raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
-                    obj_am.create({
-                        'date':self.invoice_date,
-                        'journal_id':seguro_obj.journal_id.id,
-                        'company_id':self.company_id.id,
-                        'type':'entry',
-                        'ref':self.name,
-                        'line_ids':[
-                            (0,0,{
-                            'account_id':obj_account_debe.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':0,
-                            'debit':seguro
-                            }),
-                            (0,0,{
-                            'account_id':seguro_obj.cuenta_id.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':seguro,
-                            'debit':0
-                            })
-                        ]
-                    }).action_post()
-                if otros>0:
-                    if not otros_obj:
-                        raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
-                    obj_am.create({
-                        'date':self.invoice_date,
-                        'journal_id':otros_obj.journal_id.id,
-                        'company_id':self.company_id.id,
-                        'type':'entry',
-                        'ref':self.name,
-                        'line_ids':[
-                            (0,0,{
-                            'account_id':obj_account_debe.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':0,
-                            'debit':otros
-                            }),
-                            (0,0,{
-                            'account_id':otros_obj.cuenta_id.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':otros,
-                            'debit':0
-                            })
-                        ]
-                    }).action_post()
-                if rastreo>0:
-                    if not rastreo_obj:
-                        raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
-                    obj_am.create({
-                        'date':self.invoice_date,
-                        'journal_id':rastreo_obj.journal_id.id,
-                        'company_id':self.company_id.id,
-                        'type':'entry',
-                        'ref':self.name,
-                        'line_ids':[
-                            (0,0,{
-                            'account_id':obj_account_debe.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':0,
-                            'debit':rastreo
-                            }),
-                            (0,0,{
-                            'account_id':rastreo_obj.cuenta_id.id,
-                            'partner_id':self.partner_id.id,
-                            'credit':rastreo,
-                            'debit':0
-                            })
-                        ]
-                    }).action_post()
+        #                     rec.saldo_cuota_capital=0
+        #             cuota_capital += rec.saldo_cuota_capital
+        #             seguro += rec.saldo_seguro
+        #             otros += rec.saldo_otros
+        #             rastreo +=rec.saldo_rastreo
+        #         if cuota_capital>0:
+        #             if not cuota_capital_obj:
+        #                 raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
+        #             obj_am.create({
+        #                 'date':self.invoice_date,
+        #                 'journal_id':cuota_capital_obj.journal_id.id,
+        #                 'company_id':self.company_id.id,
+        #                 'type':'entry',
+        #                 'ref':self.name,
+        #                 'line_ids':[
+        #                     (0,0,{
+        #                     'account_id':obj_account_debe.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':0,
+        #                     'debit':cuota_capital
+        #                     }),
+        #                     (0,0,{
+        #                     'account_id':cuota_capital_obj.cuenta_id.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':cuota_capital,
+        #                     'debit':0
+        #                     })
+        #                 ]
+        #             }).action_post()
+        #         obj_anticipo=self.env['anticipos.pendientes'].search([('factura_id','=',self.id),('anticipo_pendiente','=',False)])
+        #         for ant in self.anticipos_ids:
+        #             ant.linea_pago_id.saldo_pendiente=valor_restar
+        #         #    ant.valor_sobrante=valor_restar
+        #             if not ant.linea_pago_id.saldo_pendiente:
+        #                 ant.linea_pago_id.aplicar_anticipo=False
+        #         obj_anticipo.unlink()
+        #         if seguro>0:
+        #             if not seguro_obj:
+        #                 raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
+        #             obj_am.create({
+        #                 'date':self.invoice_date,
+        #                 'journal_id':seguro_obj.journal_id.id,
+        #                 'company_id':self.company_id.id,
+        #                 'type':'entry',
+        #                 'ref':self.name,
+        #                 'line_ids':[
+        #                     (0,0,{
+        #                     'account_id':obj_account_debe.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':0,
+        #                     'debit':seguro
+        #                     }),
+        #                     (0,0,{
+        #                     'account_id':seguro_obj.cuenta_id.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':seguro,
+        #                     'debit':0
+        #                     })
+        #                 ]
+        #             }).action_post()
+        #         if otros>0:
+        #             if not otros_obj:
+        #                 raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
+        #             obj_am.create({
+        #                 'date':self.invoice_date,
+        #                 'journal_id':otros_obj.journal_id.id,
+        #                 'company_id':self.company_id.id,
+        #                 'type':'entry',
+        #                 'ref':self.name,
+        #                 'line_ids':[
+        #                     (0,0,{
+        #                     'account_id':obj_account_debe.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':0,
+        #                     'debit':otros
+        #                     }),
+        #                     (0,0,{
+        #                     'account_id':otros_obj.cuenta_id.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':otros,
+        #                     'debit':0
+        #                     })
+        #                 ]
+        #             }).action_post()
+        #         if rastreo>0:
+        #             if not rastreo_obj:
+        #                 raise ValidationError("Debe parametrizar la cuenta para los rubros de los contratos.")
+        #             obj_am.create({
+        #                 'date':self.invoice_date,
+        #                 'journal_id':rastreo_obj.journal_id.id,
+        #                 'company_id':self.company_id.id,
+        #                 'type':'entry',
+        #                 'ref':self.name,
+        #                 'line_ids':[
+        #                     (0,0,{
+        #                     'account_id':obj_account_debe.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':0,
+        #                     'debit':rastreo
+        #                     }),
+        #                     (0,0,{
+        #                     'account_id':rastreo_obj.cuenta_id.id,
+        #                     'partner_id':self.partner_id.id,
+        #                     'credit':rastreo,
+        #                     'debit':0
+        #                     })
+        #                 ]
+        #             }).action_post()
 
     def action_withholding_create(self):
         TYPES_TO_VALIDATE = ['in_invoice', 'liq_purchase', 'in_debit']
