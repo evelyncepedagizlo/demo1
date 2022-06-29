@@ -512,7 +512,7 @@ class AccountPayment(models.Model):
                 monto_pendiente_pago=0
                 obj_factura=self.env['account.move'].browse(factura)
                 for x in obj_factura.contrato_estado_cuenta_ids:
-                    monto_pendiente_pago+=(x.saldo_cuota_capital+x.saldo_seguro+x.saldo_rastreo+x.saldo_otros)
+                    #monto_pendiente_pago+=(x.saldo_cuota_capital+x.saldo_seguro+x.saldo_rastreo+x.saldo_otros)
                 line_id = PaymentLine.create([{
                     'invoice_id': obj_factura.id,
                     'amount_total': obj_factura.amount_total,
