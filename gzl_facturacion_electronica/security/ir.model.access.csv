@@ -17,4 +17,3 @@ wizard_ats,wizard.ats,model_wizard_ats,,1,1,1,1
 wizard_import_documents,wizard.import.documents,model_wizard_import_documents,,1,1,1,1
 wizard_mantenedor_importacion_masiva,wizard.mantenedor.importacion.masiva,model_mantenedor_importacion_masiva,,1,1,1,1
 
-contrato_estado_cuenta_payment_id,contrato_estado_cuenta_payment,model_contrato_estado_cuenta_payment,,1,1,1,1
