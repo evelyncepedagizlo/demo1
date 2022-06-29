@@ -480,8 +480,8 @@ class AccountPayment(models.Model):
 
     def post(self):
         for rec in self:
-            if rec.saldo_pago<0:
-                raise ValidationError("El saldo no puede ser negativo.")
+            #if rec.saldo_pago<0:
+            #    raise ValidationError("El saldo no puede ser negativo.")
             lista_invoice=[]
             for pago in rec.payment_line_ids:
                 if pago.pagar:
