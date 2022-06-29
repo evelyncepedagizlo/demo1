@@ -178,7 +178,7 @@ class AccountPayment(models.Model):
             ('state', '=', 'posted'), ('type', 'in', type),('invoice_payment_state','!=','paid')
         ], order="invoice_date asc")
         list_ids =[]
-        #deuda_total=0
+        deuda_total=0
         for invoice in invoices:
             deuda_total+=invoice.amount_residual
             payment_term_line = self.env['account.payment.term.line'].search([('payment_id','=',invoice.invoice_payment_term_id.id)])
