@@ -525,7 +525,7 @@ class AccountPayment(models.Model):
                     'payment_id':rec.id
 
                 }])
-            
+ 
             invoice_id=[l.invoice_id.id for l in rec.payment_line_ids if l.pagar]
          #   raise ValidationError(invoice_id)
 
