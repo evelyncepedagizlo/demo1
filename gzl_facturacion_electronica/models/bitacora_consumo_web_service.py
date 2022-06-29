@@ -122,40 +122,41 @@ class BitacoraConsumoServicios(models.Model):
     def procesarComprobante(self):
         comprobante,model,nombreComprobante,responseKey,template_id=self.seleccionComprobante()
 
-
-        self.etapa='Procesar Comprobante'
-        if not self.numero_autorizacion_sri:
-            url,header,diccionarioRequest=comprobante.procesarComprobante()
-            self.url=url
-            self.header=header
-            self.request=diccionarioRequest
-            response=comprobante.postJson(url,header,diccionarioRequest)
-
-
-            self.codigo_respuesta_web_service=str(response.status_code)
-            self.response=str(json.loads(response.text))
-            if response.status_code==200 :
-                response = json.loads(response.text)
-                facturas=response['respuestas']
-
-                for factura in facturas:                    
-                    self.codigo_respuesta_web_service=factura['codigo']
-                    dias=datetime.now(pytz.timezone('America/Guayaquil'))
-                    comprobante.estado_autorizacion_sri='PPR'
-                    self.state='proceso'
-                    comprobante.numero_autorizacion_sri=''
-                    self.respuesta=factura['respuesta']
-
-                    self.estado_autorizacion_sri='PPR'
-
-                    self.numero_autorizacion_sri=''
+        try:
+            self.etapa='Procesar Comprobante'
+            if not self.numero_autorizacion_sri:
+                url,header,diccionarioRequest=comprobante.procesarComprobante()
+                self.url=url
+                self.header=header
+                self.request=diccionarioRequest
+                response=comprobante.postJson(url,header,diccionarioRequest)
 
 
+                self.codigo_respuesta_web_service=str(response.status_code)
+                self.response=str(json.loads(response.text))
+                if response.status_code==200 :
+                    response = json.loads(response.text)
+                    facturas=response['respuestas']
+
+                    for factura in facturas:                    
+                        self.codigo_respuesta_web_service=factura['codigo']
+                        dias=datetime.now(pytz.timezone('America/Guayaquil'))
+                        comprobante.estado_autorizacion_sri='PPR'
+                        self.state='proceso'
+                        comprobante.numero_autorizacion_sri=''
+                        self.respuesta=factura['respuesta']
+
+                        self.estado_autorizacion_sri='PPR'
+
+                        self.numero_autorizacion_sri=''
 
 
-        else:
-            raise ValidationError('La factura ya fue procesada, si desea cambiarla use Reenvio de Factura')
 
+
+            else:
+                raise ValidationError('La factura ya fue procesada, si desea cambiarla use Reenvio de Factura')
+        except:
+            pass
 
 
 
