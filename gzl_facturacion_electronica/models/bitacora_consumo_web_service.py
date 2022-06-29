@@ -122,41 +122,39 @@ class BitacoraConsumoServicios(models.Model):
     def procesarComprobante(self):
         comprobante,model,nombreComprobante,responseKey,template_id=self.seleccionComprobante()
 
-        try:
-            self.etapa='Procesar Comprobante'
-            if not self.numero_autorizacion_sri:
-                url,header,diccionarioRequest=comprobante.procesarComprobante()
-                self.url=url
-                self.header=header
-                self.request=diccionarioRequest
-                response=comprobante.postJson(url,header,diccionarioRequest)
+        self.etapa='Procesar Comprobante'
+        if not self.numero_autorizacion_sri:
+            url,header,diccionarioRequest=comprobante.procesarComprobante()
+            self.url=url
+            self.header=header
+            self.request=diccionarioRequest
+            response=comprobante.postJson(url,header,diccionarioRequest)
 
 
-                self.codigo_respuesta_web_service=str(response.status_code)
-                self.response=str(json.loads(response.text))
-                if response.status_code==200 :
-                    response = json.loads(response.text)
-                    facturas=response['respuestas']
+            self.codigo_respuesta_web_service=str(response.status_code)
+            self.response=str(json.loads(response.text))
+            if response.status_code==200 :
+                response = json.loads(response.text)
+                facturas=response['respuestas']
 
-                    for factura in facturas:                    
-                        self.codigo_respuesta_web_service=factura['codigo']
-                        dias=datetime.now(pytz.timezone('America/Guayaquil'))
-                        comprobante.estado_autorizacion_sri='PPR'
-                        self.state='proceso'
-                        comprobante.numero_autorizacion_sri=''
-                        self.respuesta=factura['respuesta']
+                for factura in facturas:                    
+                    self.codigo_respuesta_web_service=factura['codigo']
+                    dias=datetime.now(pytz.timezone('America/Guayaquil'))
+                    comprobante.estado_autorizacion_sri='PPR'
+                    self.state='proceso'
+                    comprobante.numero_autorizacion_sri=''
+                    self.respuesta=factura['respuesta']
 
-                        self.estado_autorizacion_sri='PPR'
+                    self.estado_autorizacion_sri='PPR'
 
-                        self.numero_autorizacion_sri=''
-
-
+                    self.numero_autorizacion_sri=''
 
 
-            else:
-                raise ValidationError('La factura ya fue procesada, si desea cambiarla use Reenvio de Factura')
-        except:
-            pass
+
+
+        else:
+            raise ValidationError('La factura ya fue procesada, si desea cambiarla use Reenvio de Factura')
+
 
 
 
@@ -167,41 +165,38 @@ class BitacoraConsumoServicios(models.Model):
 
         self.etapa='Validar Comprobante'
 
-        try:
-            url,header,diccionarioRequest=comprobante.validarComprobante()
-            self.url=url
-            self.header=header
-            self.request=diccionarioRequest
-            response=comprobante.postJson(url,header,diccionarioRequest)
-            self.codigo_respuesta_web_service=str(response.status_code)
-            self.response=str(json.loads(response.text))
-            if response.status_code==200:
-                response = json.loads(response.text)
-                facturas=response[responseKey]
+        url,header,diccionarioRequest=comprobante.validarComprobante()
+        self.url=url
+        self.header=header
+        self.request=diccionarioRequest
+        response=comprobante.postJson(url,header,diccionarioRequest)
+        self.codigo_respuesta_web_service=str(response.status_code)
+        self.response=str(json.loads(response.text))
+        if response.status_code==200:
+            response = json.loads(response.text)
+            facturas=response[responseKey]
 
 
 
 
-                for factura in facturas:                    
-                    if factura['estado']=='AUTORIZADO':
-                        dias=datetime.now(pytz.timezone('America/Guayaquil'))
-                        fecha = dias.strftime('%Y-%m-%d %H:%M:%S')
-                        comprobante.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
-                        comprobante.clave_acceso_sri=factura['claveAcceso']
-                        comprobante.numero_autorizacion_sri=factura['numeroAutorizacion']
-                        comprobante.estado_autorizacion_sri='AUT'
+            for factura in facturas:                    
+                if factura['estado']=='AUTORIZADO':
+                    dias=datetime.now(pytz.timezone('America/Guayaquil'))
+                    fecha = dias.strftime('%Y-%m-%d %H:%M:%S')
+                    comprobante.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
+                    comprobante.clave_acceso_sri=factura['claveAcceso']
+                    comprobante.numero_autorizacion_sri=factura['numeroAutorizacion']
+                    comprobante.estado_autorizacion_sri='AUT'
 
-                        self.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
-                        self.clave_acceso_sri=factura['claveAcceso']
-                        self.numero_autorizacion_sri=factura['numeroAutorizacion']
-                        self.estado_autorizacion_sri='AUT'
+                    self.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
+                    self.clave_acceso_sri=factura['claveAcceso']
+                    self.numero_autorizacion_sri=factura['numeroAutorizacion']
+                    self.estado_autorizacion_sri='AUT'
 
 
-                        self.state='validar'
-                        self.respuesta=factura['mensajeSRI']
+                    self.state='validar'
+                    self.respuesta=factura['mensajeSRI']
 
-        except:
-            pass
 
     def descargarXML(self):
 
