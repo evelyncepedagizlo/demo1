@@ -28,7 +28,7 @@
 
 
 
-    <record id="view_contrato_form_inherit_usuario" model="ir.ui.view">
+<!--     <record id="view_contrato_form_inherit_usuario" model="ir.ui.view">
         <field name="name">view.contrato.form.inherit.usuario</field>
         <field name="model">contrato</field>
         <field name="inherit_id" ref="gzl_adjudicacion.view_contrato_form"/>
@@ -44,7 +44,7 @@
             </xpath>
         </field>
     </record>
-
+ -->
 
 
     </data>
