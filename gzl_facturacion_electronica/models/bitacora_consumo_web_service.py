@@ -167,38 +167,41 @@ class BitacoraConsumoServicios(models.Model):
 
         self.etapa='Validar Comprobante'
 
-
-        url,header,diccionarioRequest=comprobante.validarComprobante()
-        self.url=url
-        self.header=header
-        self.request=diccionarioRequest
-        response=comprobante.postJson(url,header,diccionarioRequest)
-        self.codigo_respuesta_web_service=str(response.status_code)
-        self.response=str(json.loads(response.text))
-        if response.status_code==200:
-            response = json.loads(response.text)
-            facturas=response[responseKey]
-
-
+        try:
+            url,header,diccionarioRequest=comprobante.validarComprobante()
+            self.url=url
+            self.header=header
+            self.request=diccionarioRequest
+            response=comprobante.postJson(url,header,diccionarioRequest)
+            self.codigo_respuesta_web_service=str(response.status_code)
+            self.response=str(json.loads(response.text))
+            if response.status_code==200:
+                response = json.loads(response.text)
+                facturas=response[responseKey]
 
 
-            for factura in facturas:                    
-                if factura['estado']=='AUTORIZADO':
-                    dias=datetime.now(pytz.timezone('America/Guayaquil'))
-                    fecha = dias.strftime('%Y-%m-%d %H:%M:%S')
-                    comprobante.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
-                    comprobante.clave_acceso_sri=factura['claveAcceso']
-                    comprobante.numero_autorizacion_sri=factura['numeroAutorizacion']
-                    comprobante.estado_autorizacion_sri='AUT'
-
-                    self.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
-                    self.clave_acceso_sri=factura['claveAcceso']
-                    self.numero_autorizacion_sri=factura['numeroAutorizacion']
-                    self.estado_autorizacion_sri='AUT'
 
 
-                    self.state='validar'
-                    self.respuesta=factura['mensajeSRI']
+                for factura in facturas:                    
+                    if factura['estado']=='AUTORIZADO':
+                        dias=datetime.now(pytz.timezone('America/Guayaquil'))
+                        fecha = dias.strftime('%Y-%m-%d %H:%M:%S')
+                        comprobante.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
+                        comprobante.clave_acceso_sri=factura['claveAcceso']
+                        comprobante.numero_autorizacion_sri=factura['numeroAutorizacion']
+                        comprobante.estado_autorizacion_sri='AUT'
+
+                        self.fecha_autorizacion_sri=datetime.strptime(factura['fechaAutorizacion'],'%Y-%m-%d %H:%M')
+                        self.clave_acceso_sri=factura['claveAcceso']
+                        self.numero_autorizacion_sri=factura['numeroAutorizacion']
+                        self.estado_autorizacion_sri='AUT'
+
+
+                        self.state='validar'
+                        self.respuesta=factura['mensajeSRI']
+
+        except:
+            pass
 
     def descargarXML(self):
 
