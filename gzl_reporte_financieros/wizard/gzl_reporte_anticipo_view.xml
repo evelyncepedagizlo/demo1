@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_anticipo_form_nuevo" model="ir.ui.view">
+            <field name="name">reporte.anticipo.form.nuevo</field>
+            <field name="model">reporte.anticipo</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Anticipo">
+                    <group>
+                        <group col="2">
+
+                            <field name="tipo_empresa" required="1" readonly="context.get('solo_lectura',False)"/>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="partner_ids" attrs="{'invisible':[('tipo_empresa','!=','cliente')]}"  domain="dominio" widget='many2many_tags'/>
+                            <field name="partner_ids" attrs="{'invisible':[('tipo_empresa','!=','proveedor')]}"  domain="dominio" widget='many2many_tags'/>
+                            <field name="dominio" invisible="1"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button name="print_report_pdf"
+                                string="Imprimir PDF"
+                                type="object"
+                                class="oe_highlight btn btn-danger" />
+                        or                        
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_anticipo_nuevo" model="ir.actions.act_window">
+            <field name="name">Anticipo</field>
+            <field name="res_model">reporte.anticipo</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_reporte_anticipo"  parent="bi_account_cheque.menu_informes_tesoreria" sequence="5" action="action_reporte_anticipo_nuevo"/>
+
+
+        <record id="action_reporte_anticipo_nuevo_cliente" model="ir.actions.act_window">
+            <field name="name">Anticipo</field>
+            <field name="res_model">reporte.anticipo</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_tipo_empresa':'cliente','solo_lectura':True}</field>
+        </record>
+
+        <menuitem action="action_reporte_anticipo_nuevo_cliente" id="menu_action_reporte_anticipo_receivable" parent="account.menu_finance_receivables" sequence="100"/>
+
+
+
+        <record id="action_reporte_anticipo_nuevo_proveedor" model="ir.actions.act_window">
+            <field name="name">Anticipo</field>
+            <field name="res_model">reporte.anticipo</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_tipo_empresa':'proveedor', 'solo_lectura':True}</field>
+        </record>
+
+
+
+        <menuitem action="action_reporte_anticipo_nuevo_proveedor" id="menu_action_reporte_anticipo_payables" parent="account.menu_finance_payables" sequence="100"/>
+
+
+
+
+
+
+
+</odoo>

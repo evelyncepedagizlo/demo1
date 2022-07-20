@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_payment_file_form" model="ir.ui.view">
+            <field name="name">Archivo de Pago</field>
+            <field name="model">report.payment.file</field>
+            <field name="arch" type="xml">
+                <form string="Archivo de Pago">
+                    <group>
+                        <p>Reporte de los Datos Bancarios de los empleados</p>                   
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="IMPRIMIR"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="CANCELAR"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_payment_file" model="ir.actions.act_window">
+            <field name="name">Archivo de Pago</field>
+            <field name="res_model">report.payment.file</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_report_payment_file" 
+                  id="menu_action_action_report_payment_file" 
+                  parent="hr_payroll.menu_hr_payroll_report" 
+                  sequence="3"/>
+</odoo>

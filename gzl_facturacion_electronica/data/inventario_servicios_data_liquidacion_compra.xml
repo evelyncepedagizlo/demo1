@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="url_servicio_procesar_liquidacion" model="inventario.servicio">
+            <field name="name">Procesar Liquidación de Compra</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/liquidacionCompra/v2.0/</field>
+            <field name="link">procesar</field>
+            <field name="description">Servicio asincrono para procesar Liquidación de compra</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_procesar_liquidacion</field>
+
+        </record>
+
+        <record id="url_servicio_validar_liquidacion" model="inventario.servicio">
+            <field name="name">Validar Liquidación de Compra</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/liquidacionCompra/v2.0/</field>
+            <field name="link">validar</field>
+            <field name="description">Servicio validar  Liquidación de compra</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_validar_liquidacion</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_ride_liquidacion" model="inventario.servicio">
+            <field name="name">Descargar RIDE Liquidación de Compra</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/liquidacionCompra/v2.0/</field>
+            <field name="link">descargarRide</field>
+            <field name="description">Servicio para descargar RIDE  Liquidación de compra</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_ride_liquidacion</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_xml_liquidacion" model="inventario.servicio">
+            <field name="name">Descargar XML Liquidación de Compra</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/liquidacionCompra/v2.0/</field>
+            <field name="link">descargarXml</field>
+            <field name="description">Servicio para descargar XML  Liquidación de compra</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_xml_liquidacion</field>
+
+
+        </record>
+
+
+    </data>
+</odoo>

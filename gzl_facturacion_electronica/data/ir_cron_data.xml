@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record forcecreate="True" id="ir_cron_bitacora_web_service_action" model="ir.cron">
+            <field name="name">Validar Factura</field>
+            <field name="model_id" ref="model_bitacora_consumo_servicios"/>
+            <field name="state">code</field>
+            <field name="code">model.jobEnvioServicioValidarFactura()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+
+
+        <record forcecreate="True" id="ir_cron_bitacora_web_service_validar_action" model="ir.cron">
+            <field name="name">Procesar Factura</field>
+            <field name="model_id" ref="model_bitacora_consumo_servicios"/>
+            <field name="state">code</field>
+            <field name="code">model.jobEnvioServicioProcesarFactura()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_bitacora_web_service_descargarRideFactura_action" model="ir.cron">
+            <field name="name">Descargar Ride XML Factura</field>
+            <field name="model_id" ref="model_bitacora_consumo_servicios"/>
+            <field name="state">code</field>
+            <field name="code">model.jobEnvioServicioDescargarRideXML()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+
+
+    </data>
+</odoo>

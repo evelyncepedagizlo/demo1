@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="url_servicio_procesar_nota_credito" model="inventario.servicio">
+            <field name="name">Procesar Nota de Credito</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/notaCredito/v2.0/</field>
+            <field name="link">procesar</field>
+            <field name="description">Servicio asincrono para procesar Nota de Credito</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_procesar_nota_credito</field>
+
+        </record>
+
+        <record id="url_servicio_validar_nota_credito" model="inventario.servicio">
+            <field name="name">Validar Nota de Credito</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/notaCredito/v2.0/</field>
+            <field name="link">validar</field>
+            <field name="description">Servicio validar nota de credito</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_validar_nota_credito</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_ride_nota_credito" model="inventario.servicio">
+            <field name="name">Descargar RIDE Nota de Credito</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/notaCredito/v2.0/</field>
+            <field name="link">descargarRide</field>
+            <field name="description">Servicio para descargar RIDE Nota de Credito</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_ride_nota_credito</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_xml_nota_credito" model="inventario.servicio">
+            <field name="name">Descargar XML Nota de Credito</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/notaCredito/v2.0/</field>
+            <field name="link">descargarXml</field>
+            <field name="description">Servicio para descargar XML Nota de Credito</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_xml_nota_credito</field>
+
+
+        </record>
+
+
+    </data>
+</odoo>

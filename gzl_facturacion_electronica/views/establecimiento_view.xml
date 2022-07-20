@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="establecimiento_tree" model="ir.ui.view">
+        <field name="name">establecimiento.tree</field>
+        <field name="model">establecimiento</field>
+        <field name="arch" type="xml">
+            <tree string="Establecimiento" delete="0">
+                <field name="type_id"/>
+                <field name="is_electronic"/>
+                <field name="serie_establecimiento"/>
+                <field name="serie_emision"/>
+                <field name="authorization_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="establecimiento_form" model="ir.ui.view">
+        <field name="name">establecimiento.form</field>
+        <field name="model">establecimiento</field>
+        <field name="arch" type="xml">
+            <form string="Establecimiento" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="is_electronic"/>
+                            <field name="type_id"/>
+                            <field name="sequence_id" class="oe_readonly" readonly="1" attrs="{'invisible': [('is_manual_sequence','=',True)]}"/>
+                            <field name="is_manual_sequence" class="oe_readonly" attrs="{'invisible': [('is_electronic','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="authorization_number" attrs="{'invisible': [('is_electronic','=',True)], 'required': [('is_electronic','=',False)]}"/>
+                            <field name="expiration_date" attrs="{'required': [('is_electronic','!=',True)], 'invisible': [('is_electronic','=',True)]}"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <label string="Establecimiento" for="serie_establecimiento"/>
+                            <div>
+                                <field name="serie_establecimiento" class="oe_inline" placeholder="001" attrs="{'required': [('is_manual_sequence','!=',True)]}"/> -
+                                <field name="serie_emision" placeholder="001" attrs="{'required': [('is_manual_sequence','!=',True)]}"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('is_manual_sequence','=',True)]}">
+                            <label string="Secuencia de Comprobante" for="num_start"/>
+                            <div>
+                                <field name="num_start" class="oe_inline" attrs="{'required': [('is_manual_sequence','!=',True)]}"/> 
+                                <!--<field name="num_end" class="oe_inline"/>-->
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="establecimiento_action" model="ir.actions.act_window">
+        <field name="name">Establecimiento</field>
+        <field name="res_model">establecimiento</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <menuitem name="Establecimiento" 
+            action="establecimiento_action" 
+            id="menu_establecimiento" 
+            parent="gzl_facturacion_electronica.menu_contabilidad_tributacion" 
+            sequence="1"/>
+
+    <menuitem 
+
+            action="account.action_account_fiscal_position_form"
+            id="account.menu_action_account_fiscal_position_form"
+            parent="gzl_facturacion_electronica.menu_contabilidad_tributacion" sequence="3"/>
+	
+    
+    <menuitem action="account.action_tax_form" id="account.menu_action_tax_form" parent="gzl_facturacion_electronica.impuestos_contab" sequence="2"/>
+    <menuitem id="account_reports.menu_action_account_report_aged_receivable" name="Vencida por Cobrar" action="account_reports.action_account_report_ar" parent="account.menu_finance_receivables"/>
+    <menuitem id="account_reports.menu_action_account_report_aged_payable" name="Vencida por Pagar" action="account_reports.action_account_report_ap" parent="account.menu_finance_payables"/>
+</odoo>

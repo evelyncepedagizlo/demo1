@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="configuracion_adicional1" model="configuracion.adicional.template">
+            <field name="requisitosPoliticasCredito">Texto Informativo</field>
+            <field name="name">Politicas de Credito y Cobranza</field>
+
+        </record>
+
+    </data>
+</odoo>

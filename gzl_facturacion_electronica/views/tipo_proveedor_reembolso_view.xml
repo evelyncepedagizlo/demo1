@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="view_tipo_proveedor_reembolso_tree">
+		<field name="name">view.tipo.proveedor.reembolso.tree</field>
+		<field name="model">tipo.proveedor.reembolso</field>
+		<field name="arch" type="xml">
+			<tree string="Tipo de Proveedor de Reembolso">
+				<field name="name" />
+				<field name="code" />
+
+
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_tipo_proveedor_reembolso_form">
+		<field name="name">view.tipo.proveedor.reembolso.form</field>
+		<field name="model">tipo.proveedor.reembolso</field>
+		<field name="arch" type="xml">
+			<form string="Tipo de Proveedor de Reembolso">
+
+				<group>
+					<group>
+						<field name="name" />
+						<field name="code" />
+					</group>
+				</group>
+
+			</form>
+		</field>
+	</record>
+
+
+
+	<record model="ir.actions.act_window" id="act_tipo_proveedor_reembolso">
+		<field name="name">Tipo de Proveedor de Reembolso</field>
+		<field name="res_model">tipo.proveedor.reembolso</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+			
+
+	<menuitem id="menu_tipo_proveedor_reembolso" parent="gzl_facturacion_electronica.menu_contabilidad_tributacion" action="act_tipo_proveedor_reembolso" sequence="10"/>
+</odoo>

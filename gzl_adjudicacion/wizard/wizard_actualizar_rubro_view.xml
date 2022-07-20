@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_actualizar_rubro_form" model="ir.ui.view">
+        <field name="name">wizard.actualizar.rubro.form</field>
+        <field name="model">wizard.actualizar.rubro</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Indique el numero de Cuotas"> 
+
+
+                        <field name="mes" required="1"/>
+                        <field name="anio" required="1"/>
+                        <field name="rubro" required="1"/>
+                        <field name="monto" required="1"/>
+                        <field name="diferido" required="1"/>
+                        <field name="contrato_id" invisible="1"/>
+                        <field name="partner_id" invisible="0"/>
+
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Actualizar" class="oe_highlight" type="object" name="actualizar_contrato"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

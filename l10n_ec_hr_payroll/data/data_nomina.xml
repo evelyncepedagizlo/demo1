@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_rol_nomina" model="mail.template">
+            <field name="name">Plantilla Envio de Rol</field>
+            <field name="email_from">admin@promoauto.com</field>
+            <field name="subject">Rol de Pago  </field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="email_to">${object.employee_id.work_email}</field>
+            <field name="body_html"><![CDATA[
+
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+    <table style="width:600px;background:inherit;color:inherit" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+            <td style="padding:10px 10px 10px 5px;font-size: 12px" width="200" valign="center">
+                <img src="/logo.png" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}">
+            </td>
+        </tr></tbody>
+    </table>
+</div>
+<div style="padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777">
+<p>Estimados,
+    </p><p>Esta notificación es para indicarle que se ha generado el rol de pago, a continuacion se adjunta el
+    link para su revision: 
+
+
+<a href="${object.url_doc}">${object.url_doc}</a>
+<p>
+Verificar que todos los datos del rol  sean correctos al validar.
+</p>
+    <p>
+    Saludos,
+    
+    </p>
+
+    <br><br>Administrador del Sistema.<br><br><strong>Nota: Este correo ha sido generado de manera automática por favor no responder.</strong></div>
+]]></field>
+        </record>
+
+
+
+
+        <record id="email_fin_periodo_prueba" model="mail.template">
+            <field name="name">Plantilla Envio de Correo de Prueba</field>
+            <field name="email_from">admin@promoauto.com</field>
+            <field name="subject">Finalización de Periodo de Prueba Contrato ${object.name} para el empleado ${object.employee_id.name}</field>
+            <field name="partner_to"></field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="email_to">${object.email}</field>
+            <field name="body_html"><![CDATA[
+
+                    <div class="moz-forward-container" align="center">
+                <div class="WordSection1">
+                <p class="MsoNormal">&nbsp;</p>
+                <table class="MsoNormalTable" style="border-spacing:0px;width: 375.0pt; border: outset 6.0pt;" width="500" cellspacing="0" cellpadding="0" border="1">
+                <tbody>
+                <tr align="center">
+                <td style="padding:0cm 0cm 0cm 0cm;">
+                <br></td>
+                </tr>
+                <tr>
+                <td style="background:#B1DEEF;padding: 0cm 0cm 0cm 0cm; border-image: initial;" valign="top">
+                <div align="center">
+                <table class="MsoNormalTable" style="border-spacing:0px;width: 366.75pt;" width="489" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                <tr>
+                <td style="background:white;padding: 0cm 0cm 0cm 0cm;">
+                <table class="MsoNormalTable" style="border-spacing:0px;width: 450.75pt;" width="601" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                <tr>
+                <td style="padding:15.0pt 15.0pt 15.0pt 15.0pt;">
+                <table class="MsoNormalTable" style="border-spacing:0px;text-decoration-style: initial; text-decoration-color: initial;" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                <tr>
+                <td style="width:12.0cm;border: none; border-bottom: double #B1DEEF 2.25pt; padding: 0cm 0cm 0cm 0cm;" colspan="2" width="454" valign="top">
+                <p style="mso-margin-top-alt:0cm;margin-right: 0cm; margin-bottom: 10.0pt; margin-left: 0cm;"><span style="font-family:'Helvetica',sans-serif;color: windowtext; background: white;">Estimados,&nbsp;</span><span style="color:windowtext;">&nbsp;&nbsp; </span><strong><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;"></span></strong><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;"></span></p>
+                <p style="mso-margin-top-alt:0cm;margin-right: 0cm; margin-bottom: 10.0pt; margin-left: 0cm;"><span style="color:windowtext;">El contrato&nbsp; ${object.name} del empleado ${object.employee_id.name} está en su fase finalización del periodo de pruebas con fecha&nbsp;</span><span style="color:rgb(0, 0, 0);font-style: inherit; font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: inherit; text-align: inherit;">&nbsp;</span><span style="color:rgb(0, 0, 0);font-style: inherit; font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: inherit; text-align: inherit;">${object.trial_date_end}&nbsp;</span><span style="font-style:inherit;font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: inherit; text-align: inherit; color: windowtext;">para su revisión</span><span style="font-style:inherit;font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: inherit; text-align: inherit; color: windowtext;">.</span></p>
+                </td>
+                </tr>
+                <tr>
+                <td style="width:241.0pt;padding: 0cm 5.4pt 0cm 5.4pt;" colspan="2" width="321" valign="top">&nbsp;Presionar el botón para dirigirse al sistema.&nbsp;</td>
+                </tr>
+                <tr>
+                <td style="width:150.0pt;padding: 0cm 0cm 0cm 0cm;" width="200" valign="top">&nbsp;</td>
+                <td style="width:241.0pt;padding: 0cm 5.4pt 0cm 5.4pt;" width="321" valign="top">&nbsp;</td>
+                </tr>
+                <tr>
+                <td style="width:150pt;padding: 0cm;" colspan="2" width="200" valign="top">
+                <div style="display:flex;justify-content: center;">
+                <div style="padding:10px;margin: 10px;" align="center"><a style="text-decoration-thickness:auto;float: left; margin: 15px auto; background-color: #68465f; border-radius: 5px; color: #ffffff; font-size: 12px; padding: 6px 18px 6px 18px; text-decoration: none;" href="/web#id=${object.id}&amp;view_type=form&amp;model=hr.contractd&amp;menu_id=hr_payroll.menu_hr_payroll_contracts_configuration
+&amp;action=hr_payroll.action_hr_contract_repository">Entrar al Sistema </a></div>
+                </div>
+                </td>
+                </tr>
+                <tr>
+                <td style="width:12.0cm;padding: 0cm 0cm 0cm 0cm; border-image: initial;" colspan="2" width="454" valign="top">
+                <p style="margin:0cm;margin-bottom: .0001pt;">&nbsp;<br><strong><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;">Atentamente,</span><span style="font-family:'Calibri',sans-serif;color: windowtext;">&nbsp;</span></strong><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: #333333; text-align: center;"><br></span><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;">Administrador de Sistema</span><span style="font-size:10.0pt;font-family: 'Helvetica',sans-serif; color: #333333;"><br><br></span></p>
+                <p style="margin:0cm;margin-bottom: .0001pt;"><strong><span style="font-size:8.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;">Nota:</span></strong><span style="font-size:8.0pt;font-family: 'Helvetica',sans-serif; color: windowtext; background: white;">&nbsp;Este mensaje fue generado automáticamente, por favor no lo responda.</span></p>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
+                </td>
+                </tr>
+                <tr>
+                <td style="background:#E1DCDF;padding: 0cm 0cm 0cm 0cm;">
+                <p class="MsoNormal"><span style="font-size:5.5pt;">&nbsp;</span></p>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <p class="MsoNormal"><span style="font-size:10.0pt;">&nbsp;</span></p>
+                </div>
+                </div>
+]]></field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

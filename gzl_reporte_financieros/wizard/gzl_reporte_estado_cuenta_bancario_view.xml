@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_estado_cuenta__bancario_form" model="ir.ui.view">
+            <field name="name">reporte.estado.cuenta.bancario.form</field>
+            <field name="model">reporte.estado.cuenta.bancario</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Estado de Cuenta">
+                    <group>
+                        <group col="2">
+
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="bank_id" required="1" domain="[('type', '=', 'bank')]"/>
+
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+
+                        <button name="print_report_pdf"
+                                string="Imprimir Pdf"
+                                type="object"
+                                class="oe_highlight btn btn-danger" />
+                        or
+
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_estado_cuenta_bancario" model="ir.actions.act_window">
+            <field name="name">Estado de Cuenta Bancario</field>
+            <field name="res_model">reporte.estado.cuenta.bancario</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_reporte_estado_cuenta_banario"  parent="bi_account_cheque.menu_conciliacion_bancaria" sequence="5" action="action_reporte_estado_cuenta_bancario"/>
+
+
+</odoo>

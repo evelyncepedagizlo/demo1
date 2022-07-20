@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="tipo_rol1" model="adjudicaciones.team">
+            <field name="name">Gerencia Administrativa</field>
+            <field name="code">gerenciaAdministrativa</field>
+            <field name="descripcion">Rol de Gerencia administrativa</field>
+        </record>
+        <record id="tipo_rol2" model="adjudicaciones.team">
+           <field name="name">Adjudicaciones</field>
+            <field name="code">adjudicaciones</field>
+            <field name="descripcion">Rol de Adjudicaciones</field>
+        </record>
+
+        <record id="tipo_rol3" model="adjudicaciones.team">
+            <field name="name">Crédito y Cobranza</field>
+            <field name="code">creditosYCobranzas</field>
+            <field name="descripcion">Rol de Crédito y Cobranza</field>
+        </record>
+
+
+        <record id="tipo_rol4" model="adjudicaciones.team">
+            <field name="name">Gerencia Financiera</field>
+            <field name="code">gerenciaFinanciera</field>
+            <field name="descripcion">Rol de Gerencia Financiera</field>
+        </record>
+
+        <record id="tipo_rol5" model="adjudicaciones.team">
+            <field name="name">Postventa</field>
+            <field name="code">postventa</field>
+            <field name="descripcion">Rol de postventa</field>
+        </record>
+
+        <record id="tipo_rol6" model="adjudicaciones.team">
+            <field name="name">Legal</field>
+            <field name="code">legal</field>
+            <field name="descripcion">Rol de legal</field>
+        </record>
+
+        <record id="tipo_rol7" model="adjudicaciones.team">
+            <field name="name">Contabilidad </field>
+            <field name="code">contabilidad</field>
+            <field name="descripcion">Contabilidad</field>
+        </record>
+
+        <record id="tipo_rol8" model="adjudicaciones.team">
+            <field name="name">Nomina</field>
+            <field name="code">nomina</field>
+            <field name="descripcion">Rol de Nomina</field>
+        </record>
+    </data>
+</odoo>

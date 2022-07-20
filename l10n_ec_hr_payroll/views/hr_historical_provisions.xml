@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="historical_provisions_tree_view" model="ir.ui.view">
+        <field name="name">hr.historical.provisions.view.tree</field>
+        <field name="model">hr.historical.provisions</field>
+        <field name="arch" type="xml">
+            <tree string="Historical Provisions" editable="bottom">
+                <field name="period" required='1' force_save="1"/>
+                <field name="employee_id" required='1'/>
+                <field name="provision" required='1'/>
+                <field name="working_days"/>
+                <field name="previus_value"/>
+                <field name="actual_value"/>
+                <field name="total"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_historical_provisions" model="ir.actions.act_window">
+        <field name="name">Historical Provisions</field>
+        <field name="res_model">hr.historical.provisions</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem 
+        id="menu_hr_historical_provisions" 
+        action="action_view_historical_provisions" 
+        parent="hr_payroll.menu_hr_salary_configuration" 
+        name="Historical Provisions" 
+        sequence="60"
+        groups="base.group_no_one"/>
+</odoo>

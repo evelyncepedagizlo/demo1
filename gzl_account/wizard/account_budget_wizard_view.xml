@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="account_budget_wizard_form" model="ir.ui.view">
+            <field name="name">account.budget.wizard.form</field>
+            <field name="model">account.budget.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Asistente de Presupuesto">
+                    <group>
+                        <group>
+                            <field name="frequence"/>
+                            <field name="tipo_presupuesto"/>
+                            <field name="general_budget_id" domain="[('tipo_presupuesto','=',tipo_presupuesto)]"/>
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <label for="date_from" string="Período"/>
+                            <div>
+                                <field name="date_from" class="oe_inline" readonly="1"/> - 
+                                <field name="date_to" class="oe_inline" nolabel="1" readonly="1"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Líneas" invisible="1">
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="bottom" create="false">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="planned_amount" required="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="make_budget_lines" string="Crear Líneas de Presupuesto" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancelar" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_account_budget_wizard"
+            name="Asistente de Presupuesto"
+            res_model="account.budget.wizard"
+            binding_model="crossovered.budget"
+            target="new"
+            view_mode="form"/>
+</odoo>

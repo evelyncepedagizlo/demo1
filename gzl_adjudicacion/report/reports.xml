@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="report_detalles_contrato" model="ir.actions.report">
+        <field name="name">Contrato</field>
+        <field name="model">contrato</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">gzl_adjudicacion.report_contrato_id_card_xlsx</field>
+        <field name="report_file">gzl_adjudicacion.report_contrato_id_card_xlsx</field>
+        <field name="binding_model_id" ref="contrato"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

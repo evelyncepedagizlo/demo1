@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="url_servicio_procesar_factura" model="inventario.servicio">
+            <field name="name">Procesar Factura</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/factura/v2.0/</field>
+            <field name="link">procesar</field>
+            <field name="description">Servicio asincrono para procesar factura</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_procesar_factura</field>
+
+
+        </record>
+
+        <record id="url_servicio_validar_factura" model="inventario.servicio">
+            <field name="name">Validar Factura</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/factura/v2.0/</field>
+            <field name="link">validar</field>
+            <field name="description">Servicio validar factura</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_validar_factura</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_ride_factura" model="inventario.servicio">
+            <field name="name">Descargar RIDE Factura</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/factura/v2.0/</field>
+            <field name="link">descargarRide</field>
+            <field name="description">Servicio para descargar RIDE Factura</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_ride_factura</field>
+
+
+        </record>
+
+        <record id="url_servicio_descargar_xml_factura" model="inventario.servicio">
+            <field name="name">Descargar XML</field>
+            <field name="ip_address">https://apis.ginvoice.gizlosoftware.com/servicios/factura/v2.0/</field>
+            <field name="link">descargarXml</field>
+            <field name="description">Servicio para descargar XML Factura</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-type": "application/json"}</field>
+            <field name="identificador_servicio">url_servicio_descargar_xml_factura</field>
+
+
+        </record>
+
+
+        <record id="url_servicio_token" model="inventario.servicio">
+            <field name="name">OAUT Token</field>
+            <field name="ip_address">https://api-ginvoice.auth.us-east-1.amazoncognito.com//oauth2/token/</field>
+            <field name="link">descargarXmlFactura</field>
+            <field name="description">Servicio para generar token</field>
+            <field name="active">True</field>
+            <field name="header">{"Content-Type":"application/json","Accept":"application/json"}</field>
+            <field name="identificador_servicio">url_servicio_oaut_token</field>
+            <field name="data">{"grant_type":"client_credentials"}</field>
+            <field name="idCliente">btqa3khtbvqn8nhj38o1bsoge</field>
+            <field name="clientSecret">p6tpgrv3e5oliu32jcllm3ahunfgochgilaji2sdjc44kjvjrd2</field>
+
+
+        </record>
+
+
+    </data>
+</odoo>

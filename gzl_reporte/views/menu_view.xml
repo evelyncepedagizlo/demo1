@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<menuitem id="menu_documentos_coporativos_principal" 
+	name="Reportes" parent="gzl_adjudicacion.menu_principal_adjudicaciones"  />
+
+	<menuitem id="menu_reporte" parent="menu_documentos_coporativos_principal" 
+	name="Reportes"/>
+
+	<menuitem id="menu_ajustes_documentos_corporativos" parent="menu_documentos_coporativos_principal" 
+	name="Ajustes"/>
+</odoo>

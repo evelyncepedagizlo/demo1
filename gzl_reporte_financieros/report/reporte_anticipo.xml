@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <report
+          id="repote_anticipo_pdf_id"
+          model="reporte.anticipo"
+          string="Reporte de Anticipo"
+          report_type="qweb-pdf"
+          name="gzl_reporte_financieros.template_anticipo_reporte"
+          file="gzl_reporte_financieros.template_anticipo_reporte"
+          menu="False"
+          attachment_use="False"
+          attachment="('Reporte Anticipo.pdf')"
+        />
+
+
+</odoo>

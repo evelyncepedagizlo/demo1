@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plantillas_dinamicas_informes_user,access.plantillas.dinamicas.informes.user,gzl_reporte.model_plantillas_dinamicas_informes,gzl_reporte.grupo_reporte,1,1,1,1
+access_campos_informe_user,access.campos.informe.user,gzl_reporte.model_campos_informe,gzl_reporte.grupo_reporte,1,1,1,1

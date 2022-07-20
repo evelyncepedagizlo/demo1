@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="inherit_hr_expence_view_form">
+        <field name="name">inherit.hr.expence.view.form</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='analytic_tag_ids']" position="after">
+                <field name="refund_type" required="True"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                <group>
+                    <group>
+                        <field name="supplier_id" string="Supplier" 
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                        <field name="document_type" string="Document type"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                        <field name="partner_shipping_id" string="Delivery Address"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                        <field name="document_number" string="Nro. Documento"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                        <field name="auth_number" string="Autorización"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                        <field name="ref" string="Reference"/>
+                        <field name="sustento_id" string="Sustento del comprobane"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                    </group>
+                    <group>
+                        <field name="document_date" string="Document date"
+                                attrs="{'required': [('refund_type', 'in', ('refund_client', 'refund_supplier'))]}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="numero_cuenta_bancaria_action" model="ir.actions.act_window">
+        <field name="name">Número Cuenta Bancaria</field>
+        <field name="res_model">res.partner.bank</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem 
+        name="Número Cuenta Bancaria" 
+        action="numero_cuenta_bancaria_action" 
+        id="menu_numero_cuenta_bancaria" 
+        parent="account.root_payment_menu" 
+        sequence="3"
+    />
+</odoo>

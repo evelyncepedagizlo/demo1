@@ -1,0 +1,214 @@
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="guia_remision_tree">
+        <field name="name">Guias de Remisión</field>
+        <field name="model">account.guia.remision</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="transporter_id"/>
+            </tree>
+        </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="guia_remision_form">
+        <field name="name">Guia de Remisión</field>
+        <field name="model">account.guia.remision</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                <button name="validate" type="object" string="Validar" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                <button name="cancel" type="object" string="Anular" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                <button name="procesoComprobanteElectronico" string="Facturación Electrónica" class="oe_highlight" type="object"  invisible="1"   />
+
+                
+                <field name="state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <h1>
+                    <field name="name" readonly="1"/>
+                </h1>
+                <group>
+                    <group>
+                        <field name="transporter_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="date" required="1" />
+                        <field name="placa"  required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="direccion_partida"  required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+
+                        <field name="transportation_company"  required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        <field name="commentary"  required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/> 
+                        <field name="partner_id"  required="1" domain="[('customer_rank','>',0)]" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+
+                    </group>
+                    <group>
+                        <field name="auth_id" domain="[('type_id.code', '=', '06')]" context="{'default_type_code': '06'}" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="date_start" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="date_end" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                </group>
+                <notebook>
+                <page string="Detalles" name="details">
+                    <field name="guia_remision_line_ids" attrs="{'readonly': [('state', '!=', 'draft')]}" context="{'default_partner_id':partner_id,'partner_id':partner_id}">
+                        <tree >
+                            <field name="picking_id" />
+                            <field name="invoice_id" string="Facturas Electrónicas"/>
+                            <field name="partner_id" />
+                            <field name="origin" readonly="1"/>
+                            <field name="motivo_id"/>
+                            <field name="exit_route"/>
+                            <field name="arrival_route"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="picking_id" domain="[('state','=','done'),('partner_id','=',context.get('partner_id'))]"/>
+                                    <field name="invoice_id" string="Facturas Electrónicas" options="{'no_create': True, 'no_create_edit': True}" domain="[('partner_id','=',context.get('partner_id')),('type','=','out_invoice'),('state','=','posted'),('is_electronic','=',True)]"/>
+                                    <field name="partner_id"/>
+                                    <field name="origin" readonly="1"/>
+                             
+                                </group>
+
+                                <group>
+                                    <field name="documento_aduanero" required="1"/>
+                                    <field name="cod_establecimiento_destino" required="1"/>
+                                    <field name="motivo_id" required="1"/>
+                                    <field name="exit_route" required="1"/>
+                                    <field name="arrival_route" required="1"/>   
+                                </group>
+                            </group>
+                            <field name="guia_remision_line_quantity_ids" >
+                                <tree editable='bottom'>
+                                    <field name="product_id" required="1"/>
+                                    <field name="cantidad" required="1"/>
+                                </tree>
+                            </field>
+
+
+
+                        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </field>
+                </page>
+
+                <page string="Otra Información" name="info_extra" invisible="1">
+                <group>
+                    <group  >
+                        <field name="is_electronic" />
+                    </group>
+                </group>
+                </page>
+
+
+
+
+                <page string="Tributación" name="tributacion" attrs="{'invisible': [('is_electronic','!=',True)]}">
+
+                    <group>
+                        <group>
+                            <field name="email_fe" string="Email Cliente" placeholder="Ingresar los email separado por comas" attrs="{'required':[('is_electronic','=',True)],'readonly': [('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+
+                    <group id="info_adicional">
+                        <group  >
+
+                            <field name="campos_adicionales_facturacion" string="Información Adicional" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="nombre"/>
+                                    <field name="valor"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="nombre"/>
+                                            <field name="valor"/>
+                                        </group>                       
+                                    </group>
+
+                                </form>
+
+                            </field>
+
+                        </group>
+
+                    </group>
+
+
+
+                <group>
+                    <group name="tributacion_group" >
+
+                        <field name="bitacora_id" readonly="1" />
+                        <field name="respuesta_sri" readonly="1"/>
+                        <field name="clave_acceso_sri" readonly="1"/>
+                        <field name="numero_autorizacion_sri" readonly="1"/>
+                        <field name="fecha_autorizacion_sri" readonly="1"/>
+                        <field name="estado_autorizacion_sri" readonly="1"/>
+                    </group>
+                </group>
+                </page>
+
+                </notebook>
+            </sheet>
+                <div class="o_attachment_preview"  />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+        </record>
+    
+    <record model="ir.actions.act_window" id="guia_remision_action_window">
+      <field name="name">Guia de Remisión</field>
+      <field name="res_model">account.guia.remision</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Guias de Remisión" id="menu_guia_remision" parent="account.menu_finance_receivables"
+              action="guia_remision_action_window"/>
+
+
+    <!-- MOTIVOS DE LA GUIA DE REMISION -->
+    <record model="ir.ui.view" id="reason_guia_remision_tree">
+        <field name="name">reason.guia.remision.tree</field>
+        <field name="model">reason.guia.remision</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="reason_guia_remision_action_window">
+      <field name="name">Motivo - Guia de Remisión</field>
+      <field name="res_model">reason.guia.remision</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Motivo - Guias de Remisión" 
+        id="menu_reason_guia_remision" 
+        parent="gzl_facturacion_electronica.menu_contabilidad_tributacion"
+        action="reason_guia_remision_action_window"
+        />
+    
+  </data>
+</odoo>

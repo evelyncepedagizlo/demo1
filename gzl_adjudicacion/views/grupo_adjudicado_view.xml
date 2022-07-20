@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_grupo_adjudicado_tree" model= "ir.ui.view">
+        <field name="name">view.grupo.adjudicado.tree</field>
+        <field name="model">grupo.adjudicado</field>
+        <field name="arch" type="xml">
+            <tree string="Grupo Adjudicado"  >
+                <field name="codigo" />
+                <field name="name" />
+                <field name="cantidad_integrantes" />
+                <field name="maximo_integrantes" />
+                <field name="monto_grupo" />
+                <field name="recuperacionCartera" />
+                <field name="active" />
+
+                <field name="create_date" string="Fecha de Creación"/>
+                <field name="create_uid" string="Usuario Creador"/>
+            </tree>
+        </field>
+    </record>
+
+    
+
+
+    <record id="view_grupo_adjudicado_form" model= "ir.ui.view">
+        <field name="name">view.grupo.adjudicado.form</field>
+        <field name="model">grupo.adjudicado</field>
+        <field name="arch" type="xml">
+            <form string="Grupo Adjudicado">
+                <header>
+                     <button name="cerrar_grupo" string="Cerrar Grupo"
+                                                type="object" attrs="{'invisible': [('estado','=','cerrado')]}"/>
+
+                     <button name="abrir_grupo" string="Abrir Grupo"
+                                                type="object"  attrs="{'invisible': [('estado','!=','cerrado')]}"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="en_conformacion,cerrado"/>
+
+
+                </header>
+                <sheet>
+
+
+
+
+                    <div name="button_box" class="oe_button_box">
+                        <button type="object" name="action_transacciones_grupo" string="Fondos" class="oe_stat_button" icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value" widget="statinfo">
+                                    <field name="contador_transacciones" widget="statinfo" nolabel="1" class="mr4"/>
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+
+
+
+                    <div class="row" >
+                        <div class="col-xs-12 col-sm-4">
+                            <group>
+
+                                
+                                <field name="secuencia_id" required="1"/>
+                                <field name="codigo" required="1"/>
+                                <field name="idGrupo" />
+                                <field name="cantidad_integrantes" readonly="1"/>
+                                <field name="descripcion"/>
+                            </group>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4">
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="maximo_integrantes" required="1"/>
+                            </group>
+                        </div> 
+
+                        <div class="col-xs-12 col-sm-4">
+                            <group>
+                                <field name="active"/>
+                                <field name="monto_grupo" />
+                                <field name="recuperacionCartera" />
+
+
+                            </group>
+                        </div>
+
+                    </div>
+
+                    <group string="Integrantes">
+                        <field name="integrantes" nolabel="1"  attrs="{'readonly': [('estado','=','cerrado')]}">
+                            <tree string="Integrantes" edit="false" editable="bottom">
+                                <field name="codigo_integrante" readonly="1"/>
+                                <field name="codigo_cliente" readonly="1"/>
+                                <field name="vat" readonly="1"/>
+                                <field name="adjudicado_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="mobile" readonly="1"/>
+                                <field name="contrato_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="cupo" invisible="1"/>
+                                <!-- <field name="descripcion"/>
+                                <field name="monto"/>
+                                <field name="nro_cuota_licitar"  />
+                                <field name="carta_licitacion"  /> -->
+                            </tree>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="adjudicado_id" domain="[('tipo','=','adjudicado')]"/>
+                                        <field name="descripcion"/>
+                                        <field name="monto"/>
+                                        <field name="nro_cuota_licitar"  />
+                                        <field name="carta_licitacion"  />
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+                <!-- Attachment preview -->
+                <div class="o_attachment_preview" />
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_grupo_adjudicado" model="ir.actions.act_window">
+        <field name="name">Grupos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">grupo.adjudicado</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+
+     <menuitem id="menu_grupo_adjudicado" action="action_grupo_adjudicado" 
+        parent="menu_socio_proceso_adjudicacion" sequence="5"  />
+
+</odoo>

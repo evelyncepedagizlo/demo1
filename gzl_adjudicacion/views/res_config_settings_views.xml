@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="adjudicados_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">adjudicados.res.config.settings.view.form</field>
+            <field name="model">res.config.settings</field>
+            <field name = "inherit_id" ref = "base.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Adjudicaciones" string="Adjudicaciones" data-key="gzl_adjudicacion" groups="account.group_account_manager">
+                        <h2>Ajustes </h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box" title="These taxes are set in any new product created.">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label string="Día de Corte" for="dia_corte" class="col-lg-3 o_light_label"/>
+                                            <field name="dia_corte" />
+                                        </div>
+                                        <div class="row">
+                                            <label string="Tasa Administrativa %" for="tasa_administrativa" class="col-lg-3 o_light_label"/>
+                                            <field name="tasa_administrativa" />
+                                        </div>
+
+                                        <div class="row">
+                                            <label string="Cantidad de Cuotas Mínimas Licitar" for="numero_cuotas_pagadas" class="col-lg-3 o_light_label"/>
+                                            <field name="numero_cuotas_pagadas" />
+                                        </div>
+
+                                        <div class="row">
+                                            <label string="Porcentaje permitido" for="numero_cuotas_pagadas" class="col-lg-3 o_light_label"/>
+                                            <field name="porcentaje_perm_adendum" />
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <label string="Configurar Texto informativo" for="configuracion_adicional" class="col-lg-3 o_light_label"/>
+                                            <field name="configuracion_adicional" readonly="1"/>
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <label string="Máximo número de Cuotas para Inactivar" for="numero_cuotas_para_inactivar" class="col-lg-3 o_light_label"/>
+                                            <field name="numero_cuotas_para_inactivar" readonly="0"/>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+         </record>
+                            
+
+        <record id="action_adjudicaciones_res_config" model="ir.actions.act_window">
+            <field name="name">Ajustes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'gzl_adjudicacion'}</field>
+        </record>
+
+        <menuitem id="menu_adjudicaciones_res_config" name="Ajustes" parent="menu_configuracion_adjudicaciones"
+            sequence="0" action="action_adjudicaciones_res_config" groups="base.group_system"/>
+    
+    </data>
+</odoo>

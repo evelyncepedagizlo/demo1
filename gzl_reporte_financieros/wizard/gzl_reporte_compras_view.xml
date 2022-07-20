@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_compras_form" model="ir.ui.view">
+            <field name="name">report.compras.form</field>
+            <field name="model">report.compras</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de compras">
+                    <group>
+                        <group col="2">
+
+                            <field name="month" required="1"/>
+                            <field name="year_date" required="1"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or                        
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_compras_report" model="ir.actions.act_window">
+            <field name="name">Reporte Compras</field>
+            <field name="res_model">report.compras</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_reporte_compras" name="Reporte Compras" parent="gzl_facturacion_electronica.menu_impuestos_informe" sequence="6" action="action_compras_report"/>
+      <record id="acount_fiscal_pret" model="ir.ui.view">
+        <field name="name">account.fiscal.position.view.form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+         
+            <xpath expr="//group/group/field[@name='auto_apply']" position="after">
+                <field name="apply_retention" />
+            </xpath>
+        </field>
+       </record>  
+
+</odoo>

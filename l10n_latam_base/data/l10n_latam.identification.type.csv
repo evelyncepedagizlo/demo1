@@ -1,0 +1,3 @@
+id,name,sequence,is_vat
+l10n_latam_base.it_vat,Cédula,80,TRUE
+l10n_latam_base.it_pass,Ruc,90,

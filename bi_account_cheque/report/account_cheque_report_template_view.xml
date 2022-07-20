@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+     
+     	<template id="account_cheque_report_template_document">
+    		<t t-call="web.external_layout">
+        		<t t-set="doc"/>
+        		<div class="page">
+            		<div class="oe_structure"/>
+            		<div class="row">
+            			<!-- <t t-if="data['cheque_type'] == 'incoming'">
+            				<h4 class="text-center"><b>Informe de Cuenta Entrante</b></h4>
+            			</t>
+            			<t t-if="data['cheque_type'] == 'outgoing'"> -->
+            				<h4 class="text-center"><b>Informe de Cuenta Saliente</b></h4>
+            			<!--</t>-->
+            			<br/>
+            		</div>
+
+        			<div class="row col mt32 mb32" id="informations">
+            			<div class="mr32">
+					        <strong>Fecha Inicio:</strong>
+					        <p t-esc="data['from_date']"/>
+						</div>
+						    
+					    <div class="mr32">
+					        <strong>Fecha Fin:</strong>
+					        <p t-esc="data['to_date']"/>
+					    </div>
+					</div>
+            			<br/>
+            			
+            			<!-- <t t-if="data['cheque_type'] == 'incoming'">
+	                		<table class="table table-striped">
+	                        	<thead class="thead-light">
+	                    			<tr>
+	                    				<th>Empresa</th>
+					                    <th>Número de Cheque</th>
+					                    <th>Fecha de Cheque</th>
+					                    <th>Fecha Entrega De Cheque</th>
+					                    <th>Cuenta Bancaria</th>
+					                    <th>Cuenta de Crédito</th>
+					                    <th>Cuenta de Débito</th>
+					                    <th>Fecha de Cobro / Devolución del Cheque</th>
+					                    <th>Estado</th>
+				                    </tr>
+	                        	</thead>
+	                        	<tbody>
+	                        		<t t-foreach="docs" t-as="main">
+	                            		<tr>
+	                            			<td><span t-field="main.payee_user_id.name"/></td>
+					                        <td><span t-field="main.cheque_number"/></td>
+					                        <td><span t-field="main.cheque_date"/></td>
+					                        <td><span t-field="main.cheque_given_date"/></td>
+					                        <td><span t-field="main.bank_account_id.name"/></td>
+					                        <td><span t-field="main.credit_account_id.name"/></td>
+					                        <td><span t-field="main.debit_account_id.name"/></td>
+					                        <td><span t-field="main.cheque_date"/></td>
+					                        <td>
+												<span t-if="main.status == 'draft'">Borrador</span>
+												<span t-if="main.status == 'registered'">Registrado</span>
+												<span t-if="main.status == 'bounced'">Rebotado</span>
+												<span t-if="main.status == 'return'">Devuelto</span>
+												<span t-if="main.status == 'cashed'">Hecho</span>
+												<span t-if="main.status == 'cancel'">Cancelado</span>
+											</td>
+					                    </tr>
+	                        		</t>
+	                        	</tbody>
+	                    	</table>
+	                    </t> 
+
+	                    <t t-if="data['cheque_type'] == 'outgoing'">-->
+	                		<table class="table table-condensed">
+	                        	<thead>
+	                    			<tr>
+										<th>Empresa</th>
+										<th>A Nombre de Tercero</th>
+					                    <th>Número de Cheque</th>
+					                    <th>Fecha de Cheque</th>
+					                    <th>Retorno del Cheque</th>
+					                    <th>Cuenta Bancaria</th>
+					                    <th>Cuenta de Débito</th>
+					                    <th>Fecha de Cobro / Devolución del Cheque</th>
+                                        <th>Monto</th>
+					                    <th>Estado</th>
+				                    </tr>
+	                        	</thead>
+	                        	<tbody>
+	                        		<t t-foreach="docs" t-as="main">
+	                            		<tr>
+	                            			<td><span t-field="main.payee_user_id.name"/></td>
+	                            			<td><span t-field="main.third_party_name"/></td>
+					                        <td><span t-field="main.cheque_number"/></td>
+					                        <td><span t-field="main.cheque_date"/></td>
+					                        <td><span t-field="main.cheque_return_date"/></td>
+					                        <td><span t-field="main.bank_account_id.name"/></td>
+					                        <td><span t-field="main.debit_account_id.name"/></td>
+					                        <td><span t-field="main.cheque_date"/></td>
+                                            <td><span t-field="main.amount"/></td>
+					                        <td>
+												<span t-if="main.status == 'draft'">Borrador</span>
+												<span t-if="main.status == 'registered'">Registrado</span>
+												<span t-if="main.status == 'bounced'">Rebotado</span>
+												<span t-if="main.status == 'return'">Devuelto</span>
+												<span t-if="main.status == 'cashed'">Hecho</span>
+												<span t-if="main.status == 'cancel'">Cancelado</span>
+											</td>
+					                    </tr>
+	                        		</t>
+	                        	</tbody>
+	                    	</table>
+                    	<!--</t>-->
+
+                <div class="oe_structure"/>
+        			</div>
+		    </t>	
+		</template>
+
+		<template id="account_cheque_template">
+			<t t-call="web.html_container">
+				<t t-call="bi_account_cheque.account_cheque_report_template_document"/>
+			</t>
+		</template>
+
+     </data>
+</odoo>

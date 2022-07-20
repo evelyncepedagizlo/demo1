@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tipo_inventario_tree" model="ir.ui.view">
+        <field name="name">tipo.inventario.tree</field>
+        <field name="model">tipo.inventario</field>
+        <field name="arch" type="xml">
+            <tree string="Tipo Inventario" editable="bottom"  default_order="nombre">
+                <field name="nombre"/>
+                <field name="activo"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tipo_inventario_action" model="ir.actions.act_window">
+        <field name="name">Tipo Inventario</field>
+        <field name="res_model">tipo.inventario</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem 
+        name="Tipo de Inventario" 
+        action="tipo_inventario_action" 
+        id="menu_tipo_inventario" 
+        parent="stock.menu_product_in_config_stock" 
+        sequence="1"
+    />
+</odoo>

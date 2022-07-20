@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <report
+          id="repote_saldo_pdf_id"
+          model="reporte.proveedor.cliente"
+          string="Reporte de Saldos"
+          report_type="qweb-pdf"
+          name="gzl_reporte_financieros.template_saldo_clientes_prov"
+          file="gzl_reporte_financieros.template_saldo_clientes_prov"
+          menu="False"
+          attachment_use="False"
+          attachment="('Reporte Saldos Empresas.pdf')"
+        />
+
+
+</odoo>

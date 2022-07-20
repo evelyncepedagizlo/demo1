@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_subproyectos_agrupados_mes_form" model="ir.ui.view">
+            <field name="name">report.subproyectos.agrupados.mes.form</field>
+            <field name="model">reporte.subproyecto.mes</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Suproyectos Mes">
+                    <group>
+                        <group col="2">
+                            <field name="cuenta_analitica_ids" widget="many2many_tags" />
+                            <field name="proyectos" widget="many2many_tags"/>
+                            <field name="eje_ids" widget="many2many_tags"/>
+                            <field name="area_ids" widget="many2many_tags"/>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_subproyectos_agrupados_mes_form" model="ir.actions.act_window">
+            <field name="name">Subproyectos</field>
+            <field name="res_model">reporte.subproyecto.mes</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_presupuestos" name="Presupuesto" parent="account.menu_finance_reports" sequence="5"/>
+
+
+        <menuitem action="action_report_subproyectos_agrupados_mes_form" 
+                  id="menu_action_report_subproyectos_agrupados_mes" 
+                  parent="menu_presupuestos" 
+                  sequence="3"/>
+
+    
+    
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <!-- Calificación cuando el job de mora lo detecta que no está en mora-->
+        <record id="calificacion_1" model="calificador.cliente.parametros">
+            <field name="motivo">Si està al dìa con los pagos</field>
+            <field name="calificacion">10</field>
+
+
+            
+        </record>
+
+        <!-- Calificación cuando el job de mora lo detecta que  está en mora-->
+
+
+        <record id="calificacion_2" model="calificador.cliente.parametros">
+            <field name="motivo">Si està atrasado con los pagos</field>
+            <field name="calificacion">-5</field>
+
+
+            
+        </record>
+
+        <!-- Se registra cuando se realiza un adelanto de cuotas en el contrato-->
+
+
+
+        <record id="calificacion_3" model="calificador.cliente.parametros">
+            <field name="motivo">Si tiene cuotas adelantadas</field>
+            <field name="calificacion">10</field>
+
+        </record>
+        <!-- Calificación cuando se realiza el pago en el wizard y la fecha es menor a la fecha del estado de cuenta-->
+
+        <record id="calificacion_4" model="calificador.cliente.parametros">
+            <field name="motivo">Si paga a tiempo la cuota del 1 al 5</field>
+            <field name="calificacion">5</field>
+
+        </record>
+        <!-- Calificación cuando se realiza el pago en el wizard y la fecha es mayor a la fecha del estado de cuenta-->
+
+        <record id="calificacion_5" model="calificador.cliente.parametros">
+            <field name="motivo">Si paga a atrasado la cuota</field>
+            <field name="calificacion">-5</field>
+
+        </record>
+
+
+
+    </data>
+</odoo>

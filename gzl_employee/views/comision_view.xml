@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_comision_view" model= "ir.ui.view">
+        <field name="name">view.comision.view</field>
+        <field name="model">comision</field>
+        <field name="arch" type="xml">
+            <tree string="Comision" editable="bottom">
+                
+                <field name="cargo_id" />
+                <field name="valor_min"/>
+                <field name="valor_max" />
+                <field name="comision"/>
+                <field name="bono"/>
+                <field name="logica"/>
+                
+
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_comision_view" model="ir.actions.act_window">
+        <field name="name">Tabla de Comisiones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">comision</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'group_by':'cargo_id'}</field>
+    </record>
+
+
+    <menuitem id="menu_action_comision_view" action="action_comision_view" parent="hr_payroll.menu_hr_payroll_configuration" sequence="7" />
+</odoo>

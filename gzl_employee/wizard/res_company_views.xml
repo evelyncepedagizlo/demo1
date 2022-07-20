@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="company_form_img" model="ir.ui.view">
+        <field name="name">res.company.form.img.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="imagen_excel_company" widget="image" class="float-left oe_avatar" groups="base.group_no_one"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

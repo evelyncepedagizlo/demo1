@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_payslip" inherit_id="hr_payroll.report_payslip">
+            <xpath expr="//table[@class='table table-sm table-bordered'][1]/tr/td/strong" position="replace">
+                <strong>Información de la Compañía</strong>
+            </xpath>
+            <xpath expr="//table[@name='employee-infos']" position="replace">
+                    <table name="employee-infos" class="table table-sm table-bordered">
+                        <tr>
+                            <td><strong>Nombre</strong></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><strong>Cargo</strong></td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dias Trabajados</strong></td>
+                            <td colspan="3">
+                                <div  t-field="o.dias_trabajados"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo</strong></td>
+                            <td><span t-field="o.employee_id.correo"/></td>
+                            <td><strong>No. Identificación</strong></td>
+                            <td><span t-field="o.employee_id.identification_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Referencia</strong></td>
+                            <td><span t-field="o.number"/></td>
+                            <td><strong>Número Cta.Bancaria</strong></td>
+                            <td><span t-field="o.employee_id.number_bank"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fecha Desde</strong></td>
+                            <td><span t-field="o.date_from"/></td>
+                            <td><strong>Fecha Hasta</strong></td>
+                            <td><span t-field="o.date_to"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sueldo</strong></td>
+                            <td><span t-field="o.contract_id.wage"/></td>
+                        </tr>
+                
+                 
+                 
+                    </table>
+            </xpath>
+            
+            <xpath expr="//table[@class='table table-sm'][2]" position="replace">
+                <div class="row">
+                    <div class="col-6"><span><strong>INGRESOS</strong></span></div>
+                    <div class="col-6"><span><strong>EGRESOS</strong></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <t t-foreach="[l for l in o.line_ids if l.total &gt; 0 and l.salary_rule_id.appears_on_payslip == True and l.category_id.code != 'NET']" t-as="payslip">
+                            
+                                <div class="row">
+                                <div class="col-8">
+                                    <span t-esc="payslip.name"/>
+                                </div>
+                                <div class="col-4">
+                                    <span t-esc="'$'+'%.2f' %(payslip.total)"/>
+                                </div>
+                                </div>
+                                <!-- <br/> -->
+                        </t>
+                    </div>
+                    <div class="col-6">
+                        <t t-foreach="[l for l in o.line_ids if l.total &lt; 0 and l.salary_rule_id.appears_on_payslip == True and l.category_id.code != 'NET']" t-as="payslip">
+                            
+                                <div class="row">
+                                <div class="col-8">
+                                    <span t-esc="payslip.name"/>
+                                </div>
+                                <div class="col-4">
+                                    <span t-esc="'$'+'%.2f' %(abs(payslip.total))"/>
+                                </div>
+                                </div>
+                        </t>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <t t-foreach="o.line_ids" t-as="payslip">
+                        <t t-if="payslip.code == 'INGRESOS'">
+                            <div class="col-6">
+                                <div class="row">
+                                <div class="col-8">
+                                    <strong><span t-esc="payslip.name"/></strong>
+                                </div>
+                                <div class="col-4">
+                                    <strong><span t-esc="'$'+'%.2f' %(payslip.total)"/></strong>
+                                </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="payslip.code == 'EGRESOS'">
+                            <div class="col-6">
+                                <div class="row">
+                                <div class="col-8">
+                                    <strong><span t-esc="payslip.name"/></strong>
+                                </div>
+                                <div class="col-4">
+                                    <strong><span t-esc="'$'+'%.2f' %(abs(payslip.total))"/></strong>
+                                </div>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+                <br/>
+                <div class="row">
+                    <t t-foreach="o.line_ids" t-as="payslip">
+                        <t t-if="payslip.code == 'NET'">
+                            <div class="col-6"><span></span></div>
+                            <div class="col-4"><span><strong>NETO A RECIBIR</strong></span></div>
+                            <div class="col-2" ><strong><span t-esc="'$'+'%.2f' %(payslip.total)" /></strong></div>
+                        </t>
+                    </t>
+                </div>
+            </xpath>
+            <xpath expr="//p[@class='text-right']" position="replace">
+                <br/><br/>
+                <div class="row">
+                    <div class="col-1"/>
+                    <div class="col-3" style="border-top: 1px solid black;"><span>Autorizado</span></div>
+                    <div class="col-2"/>
+                    <div class="col-3" style="border-top: 1px solid black;"><span>Recibi Conforme</span></div>
+                </div>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm'][1]" position="replace">
+            </xpath>
+        </template>
+    </data>
+</odoo>

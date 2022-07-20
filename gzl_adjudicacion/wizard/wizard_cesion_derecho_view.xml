@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_cesion_derecho_form" model="ir.ui.view">
+        <field name="name">wizard.cesion.derecho.form</field>
+        <field name="model">wizard.cesion.derecho</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Cesion de Derecho"> 
+
+
+                        <field name="partner_id" required="1"/>
+                        <field name="contrato_id" invisible="1"/>
+                        <field name="monto_a_ceder" invisible="1"/>
+                        <field name="contrato_a_ceder" invisible="1"/>
+                        <field name="carta_adjunto" />
+                        
+
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Ejecutar Cesión" class="oe_highlight" type="object" name="pagar_cuotas_por_adelantado"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

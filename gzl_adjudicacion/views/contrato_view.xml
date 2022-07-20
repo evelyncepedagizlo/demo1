@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_contrato_tree" model= "ir.ui.view">
+        <field name="name">view.contrato.tree</field>
+        <field name="model">contrato</field>
+        <field name="arch" type="xml">
+            <tree string="Contrato">
+                <field name="secuencia" />
+                <field name="cliente" />
+                <field name="grupo" />
+                <field name="tipo_de_contrato"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="view_contrato_form_inherit_rol_supervisor" model= "ir.ui.view">
+        <field name="name">view.contrato.form.inherit</field>
+        <field name="model">contrato</field>
+        <field name="arch" type="xml">
+            <form string="Contrato">
+                <field   name="tasa_administrativa" position="attributes">
+                    <attributes name="readonly">1</attributes>
+                </field>
+
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+
+
+
+
+
+
+
+    <record id="view_contrato_form" model= "ir.ui.view">
+        <field name="name">view.contrato.form</field>
+        <field name="model">contrato</field>
+        <field name="arch" type="xml">
+            <form string="Contrato">
+                <header>
+                    <field name="is_group_cobranza" invisible="1"/>
+                    <button name="cambio_estado_boton_borrador" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','!=','pendiente')]}" string="Activo" type="object"  class="oe_highlight"/>
+
+                    <button name="cambio_estado_congelar_contrato" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','!=','inactivo')]}" string="Congelar "  type="object" class="oe_highlight"/>
+                    <button name="reactivar_contrato_congelado" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','not in',['congelar_contrato'])]}" string="Reactivar Contrato " type="object" class="oe_highlight"/>
+
+
+                    <button name="cambio_estado_boton_desistir" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','!=','inactivo')]}" string="Desistir" type="object" class="oe_highlight"/>
+                    
+                    <button name="detalle_tabla_amortizacion" attrs="{'invisible': ['|',('is_group_cobranza', '=', True)]}" string="Generar estado cuenta contrato" invisible="1" type="object" class="oe_highlight"/>
+                    <button name="pagar_cuotas_por_adelantado" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','not in',['activo','adjudicar'])]}" invisible="1" string="Pagar Cuotas por Adelantado" type="object" class="oe_highlight"/>
+                    <button name="actualizar_rubros_por_adelantado" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','not in',['activo','adjudicar'])]}"  string="Actualizar Rubros" type="object" class="oe_highlight"/>
+                    <button name="cambio_estado_boton_inactivar" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','!=','activo')]}"  string="Inactivar" type="object" class="oe_highlight"/>
+
+
+
+                    <button name="cesion_derecho" string="Cesión de Derecho" attrs="{'invisible':['|',('state','not in',['inactivo','desistir','congelar']),'|',('desistido','=',True),('is_group_cobranza', '=', True)]}" type="object" class="oe_highlight"/>
+
+
+
+
+
+
+
+                    <button name="crear_adendum" attrs="{'invisible': ['|',('is_group_cobranza', '=', True),('state','!=','activo')]}" string="Crear Adendum" type="object" class="oe_highlight"/>
+                    <button name="modificar_tabla_contrato" attrs="{'invisible': [('is_group_cobranza', '=', True)]}" string="Bajada de Montos" type="object" class="oe_highlight"/>
+
+
+                    <field name="state" widget="statusbar" statusbar_visible="pendiente,activo,congelar_contrato,adjudicar,adendum,desistir"/>
+                </header>
+
+                    <div >
+                        <div class="oe_title">
+                            <h1>
+                                <field name="secuencia" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="row">
+                            <group string="Información del Contrato"/>
+                            <div class="col-xs-12 col-sm-4">
+                                <group>
+                                    <field name="cliente" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="grupo" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="dia_corte" readonly="1"/>
+                                    <field name="saldo_a_favor_de_capital_por_adendum" />
+                                    <field name="pago" />
+                                    <field name="monto_financiamiento"/>
+                                    <field name="tasa_administrativa" readonly="1"/>
+                                    <field name="valor_inscripcion" />
+                                    <field name="desistido" />
+
+                                </group>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <group>
+                                    <field name="tipo_de_contrato" options="{'no_create': True, 'no_open': True}" />
+                                    <field name="codigo_grupo" />
+                                    <field name="provincias" domain="[('country_id','=',63)]" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="ciudad" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="direccion"/>
+                                    <field name="archivo" filename="name"/>
+                                    <field name="fecha_contrato" />
+                                    <field name="tiene_cuota" invisible="1"/>
+                                    <field name="plazo_meses" widget="selection" />
+                                    <field name="porcentaje_programado" attrs="{'invisible': [('tiene_cuota', '=',False)]}"/>
+                                    <field name="monto_programado" attrs="{'invisible': [('tiene_cuota', '=',False)]}"/>
+                                    <field name="cuota_pago" attrs="{'invisible': [('tiene_cuota', '=',False)],
+                                                        'required': [('tiene_cuota', '!=',False)]}"/>
+                                    <field name="cuota_adm"/>
+                                    <field name="factura_inscripcion" options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                                <group>
+                                    <field name="active" />
+                                    <field name="descripcion_adjudicaciones" />
+                                    
+                                    <field name="observacion"/>
+                                    <field name="nota"/>
+                                    <field name="aplicaGarante"/>
+                                    <field name="garante" attrs="{'invisible': [('aplicaGarante', '=', False)]}"/>
+                                    
+                                    <field name="archivo_adicional" filename="name"/>
+                                    <field name="fecha_inicio_pago" readonly="0"/>
+                                    <field name="cuota_capital"/>
+                                    <field name="iva_administrativo" />
+                                    <field name="numero_cuotas_pagadas" />
+                                </group>
+                            </div>
+
+                        </div>
+
+                        <separator string="Estado de Cuenta de Aportes"></separator>
+
+                        <field name="estado_de_cuenta_ids" nolabel="1">
+                            <tree string="Estado de Cuenta" create="0" editable="bottom" limit="100" delete="0">
+                                <field name="contrato_id" invisible="1" readonly="1"/>
+                                <field name="numero_cuota" string="Nro." readonly="1"/>
+                                <field name="fecha" readonly="1"/>
+                                <field name="fecha_pagada" readonly="1"/>
+                                <field name="cuota_capital" sum="cuota_capital" readonly="1"/>
+                                <field name="cuota_adm" sum="cuota_adm" readonly="1"/>
+                                <field name="iva_adm" sum="iva_adm" readonly="1"/>
+                                <field name="programado" sum="Cuota Programada" readonly="1"/>
+                                <field name="factura_id" />
+                                <!-- <field name="pago_ids" widget="many2many_tags" /> -->
+                                <field name="seguro" sum="seguro" readonly="1"/>
+                                <field name="rastreo" sum="rastreo" readonly="1"/>
+                                <field name="otro" sum="otro" readonly="1"/>
+                                <field name="monto_pagado" sum="monto_pagado" readonly="1"/>
+                                <field name="saldo" sum="saldo" readonly="1"/>
+                                <field name="estado_pago"   readonly="1"/>
+                                <button name="pagar_cuota" invisible="1"  type="object" string="Pagar"/>
+                            </tree>
+                            <form string="Estado de Cuenta" >
+                                <header>
+                                    <field name="estado_pago" widget="statusbar" readonly="1"/>
+                                </header>
+                                <sheet>
+                                <group>
+                                    <field name="idContrato" readonly="1"/>
+                                    <field name="contrato_id" invisible="1"/>
+                                    <field name="numero_cuota"  readonly="1"/>
+                                    <field name="fecha" readonly="1"/>
+                                    <field name="fecha_pagada" readonly="1"/>
+                                    <field name="referencia"   readonly="1"/>
+                                </group>
+                                <group name="totales">    
+                                    <group>
+                                        <field name="cuota_capital" readonly="1"/>
+                                        <field name="cuota_adm" readonly="1"/>
+                                        <field name="iva_adm" readonly="1"/>
+                                        <field name="seguro" sum="seguro" readonly="1"/>
+                                        <field name="rastreo" sum="rastreo" readonly="1"/>
+                                        <field name="otro" sum="otro" readonly="1"/>
+                                        <field name="programado"   readonly="1"/>
+                                        <field name="fondo_reserva"   readonly="1"/> 
+                                        <field name="monto_pagado" sum="monto_pagado" readonly="1"/>
+                                        <field name="factura_id" />
+                                    </group>
+                                    <group>
+                                        <field name="saldo_cuota_capital"   readonly="1"/>
+                                        <field name="saldo_cuota_administrativa"   readonly="1"/>
+                                        <field name="saldo_iva"   readonly="1"/>
+                                        <field name="saldo_seguro"   readonly="1"/>
+                                        <field name="saldo_rastreo"   readonly="1"/>
+                                        <field name="saldo_otros"   readonly="1"/>
+                                        <field name="saldo_programado"   readonly="1"/>
+                                        <field name="saldo_fondo_reserva"   readonly="1"/>
+                                        <field name="saldo" sum="saldo" readonly="1"/>
+                                        <field name="iva"   readonly="1"/>
+                                        <field name="saldo_tabla"   readonly="1"/>
+                                    </group>
+                                    
+                                </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </div>
+                <!-- Attachment preview -->
+                <div class="o_attachment_preview" />
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+                
+            </form>
+        </field>
+    </record>
+
+
+
+
+        <record model="ir.actions.act_window" id="action_contrato">
+
+            <field name="name">Contrato</field>
+
+            <field name="res_model">contrato</field>
+
+            
+
+            <field name="view_mode">tree,form</field>
+
+            <!--field name="search_view_id" ref="view_solicitud_central_search"/-->
+
+        </record>
+
+
+
+    <record model="ir.actions.act_window.view" id="act_contrato_tree_view">
+
+        <field eval="1" name="sequence"/>
+
+        <field name="view_mode">tree</field>
+
+        <field name="view_id" ref="view_contrato_tree"/>
+
+        <field name="act_window_id" ref="action_contrato"/>
+
+    </record>
+
+
+
+    <record model="ir.actions.act_window.view" id="act_contrato_form_view">
+
+        <field eval="2" name="sequence"/>
+
+        <field name="view_mode">form</field>
+
+        <field name="view_id" ref="view_contrato_form"/>
+
+        <field name="act_window_id" ref="action_contrato"/>
+
+    </record>
+
+    <!--record id="action_contrato" model="ir.actions.act_window">
+        <field name="name">Contrato</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contrato</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="gzl_adjudicacion.view_contrato_tree"/>
+    </record-->
+
+    <menuitem id="menu_contrato" action="action_contrato" parent="menu_socio_proceso_adjudicacion" sequence="7" />
+    <menuitem id="menu_contrato_cobranzas" action="action_contrato" parent="account.menu_finance_reports" sequence="1" />
+
+</odoo>

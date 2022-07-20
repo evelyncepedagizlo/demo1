@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="generic_product_template" model="product.template">
+            <field name="name">Producto Generico</field>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="type">consu</field>
+            <field name="weight">0.00</field>
+            <field name="default_code">GE</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="description_sale">Producto usado como generico para las facturas</field>
+        </record>
+    </data>
+</odoo>

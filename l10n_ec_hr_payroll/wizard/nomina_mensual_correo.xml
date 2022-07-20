@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="correo_nomina_mensual" model="ir.ui.view">
+            <field name="name">correo.nomina.mensual.form</field>
+            <field name="model">correo.nomina.mensual</field>
+            <field name="arch" type="xml">
+                <form string="Correo Nomina Mensual">
+                    <group>
+                        <group colspan="2" >
+                            <separator string="Enviar Rol de pago a Empleados" colspan="4"/>
+                            <newline/>
+                            <field name="fecha_inicio" />
+                            <field name="fecha_fin" />
+                            <button name="actualizar_empleados_payroll"
+                                string="Consultar"
+                                type="object"
+                                class="oe_highlight" />
+                        </group>
+                        
+                        <group colspan="4" >
+                            
+                            <newline/>
+                            <field name="employee_ids_correo" nolabel="1"/>
+                        </group>
+                        
+                    </group>
+                    <footer>
+                        <button name="send_mail_payrol"
+                                string="Enviar Correo"
+                                type="object"
+                                class="oe_highlight" />
+
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_correo_nomina_mensual" model="ir.actions.act_window">
+            <field name="name">Correo Nomina Mensual</field>
+            <field name="res_model">correo.nomina.mensual</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    <record id="hr_payslip_form_dos" model="ir.ui.view">
+        <field name="name">hr.payslip.form</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="pago_quincena" />
+            </xpath>
+
+            <xpath expr="//field[@name='worked_days_line_ids']/tree/field[6]" position="replace">
+                <field name="amount" string="Sueldo Mensual" />
+            </xpath>
+        </field>
+    </record>
+
+
+        <menuitem 
+        id = "menu_action_correo_nomina_mensual"
+        name = "Correo Nomina Mensual"  
+        parent="hr_payroll.menu_hr_payroll_payslips" 
+        sequence="1" 
+        action="action_correo_nomina_mensual"/>
+
+
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_contrato_tree_informe" model= "ir.ui.view">
+        <field name="name">view.contrato.tree</field>
+        <field name="model">contrato</field>
+        <field name="arch" type="xml">
+            <tree string="Contrato Informe">
+                <field name="secuencia" />
+                <field name="tipo_de_contrato"/>
+                <field name="cliente" />
+                <field name="grupo" />
+                <field name="factura_inscripcion" />
+                <field name="valor_inscripcion" />
+                <field name="monto_financiamiento" />
+                <field name="tasa_administrativa" />
+                <field name="cuota_capital" />
+                <field name="cuota_adm" />
+                <field name="iva_administrativo" />
+                <field name="plazo_meses" />
+                <field name="numero_cuotas_pagadas" />
+                <field name="state" />
+                <field name="fecha_contrato" />
+                <field name="fecha_inicio_pago" />
+                <field name="ciudad" />
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.actions.act_window" id="action_contrato_informe">
+
+            <field name="name">Contrato Informe</field>
+
+            <field name="res_model">contrato</field>
+
+           
+
+            <field name="view_mode">tree</field>
+
+        </record>
+
+
+
+    <record model="ir.actions.act_window.view" id="act_contrato_informe_tree_view">
+
+        <field eval="1" name="sequence"/>
+
+        <field name="view_mode">tree</field>
+
+        <field name="view_id" ref="view_contrato_tree_informe"/>
+
+        <field name="act_window_id" ref="action_contrato_informe"/>
+
+    </record>
+
+
+    <!--record id="action_contrato_informe" model="ir.actions.act_window">
+        <field name="name">Contrato Informe</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contrato</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="gzl_adjudicacion.view_contrato_tree_informe"/>
+    </record-->
+
+    <menuitem id="menu_contrato_informe" action="action_contrato_informe" parent="gzl_reporte.menu_reporte" sequence="7" />
+
+</odoo>

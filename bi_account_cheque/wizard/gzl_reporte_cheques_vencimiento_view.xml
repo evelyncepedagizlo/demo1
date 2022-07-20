@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="report_cheques_por_vencimiento_form" model="ir.ui.view">
+            <field name="name">report.cheques.por.vencimiento.form</field>
+            <field name="model">reporte.cheques.vencimiento</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Cheques por Vencimiento">
+                    <group>
+                        <group col="2">
+
+                            <field name="tipo_empresa" required="1"/>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                            <field name="conciliado" required="1"/>
+                            <field name="bank_ids" string="Diarios" widget="many2many_tags" domain="[('type', '=', 'bank')]"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_cheques_por_vencimiento" model="ir.actions.act_window">
+            <field name="name">Cheques por Vencimiento</field>
+            <field name="res_model">reporte.cheques.vencimiento</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_informes_cheques_vencimiento" name="Cheques por Vencimiento" parent="menu_conciliacion_bancaria" sequence="5" action="action_report_cheques_por_vencimiento"/>
+
+
+
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_proforma" model="ir.ui.view">
+        <field name="name">wizard.proforma</field>
+        <field name="model">proforma.cuotas</field>
+        <field name="arch" type="xml">
+            <form string="Proforma Plan Cuota Exacta">
+                <group>
+                    <group col="2">
+                        <field name="monto_fijo" widget="monetary" force_save="1"/>
+                        <field name="porcentaje_ce"/>
+                    </group>                    
+                </group>                        
+                <footer>
+                    <button name="print_proforma"
+                            string="Imprimir"
+                            type="object"
+                            class="oe_highlight" />
+
+                    <button special="cancel"
+                            string="Cancelar"
+                            class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_proforma" model="ir.actions.act_window">
+        <field name="name">Proforma</field>
+        <field name="res_model">proforma.cuotas</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem action="action_wizard_proforma" 
+                id="menu_action_wizard_proforma" 
+                parent="crm.crm_menu_report" 
+                sequence="14"/>
+
+
+
+    <report 
+        string="Proforma Cuotas" 
+        id="reporte_proforma_cuota" 
+        model="proforma.cuotas" 
+        report_type="qweb-pdf"
+        name="gzl_crm.reporte_proforma" 
+        file="gzl_crm.reporte_proforma"
+        print_report_name="object.name"
+    />
+
+
+    
+</odoo>

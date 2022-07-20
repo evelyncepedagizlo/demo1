@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="reporte_anticipo_form" model="ir.ui.view">
+            <field name="name">report.impuestos.form</field>
+            <field name="model">report.impuestos</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Impuestos">
+                    <group>
+                        <group col="2">
+
+                            <!--field name="tipo_empresa" required="1"/-->
+                            <field name="month" required="1"/>
+                            <field name="year_date" required="1"/>
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Excel"
+                                type="object"
+                                class="oe_highlight" />
+                        
+                        <!--button name="print_report_pdf"
+                                string="Imprimir PDF"
+                                type="object"
+                                class="oe_highlight btn btn-danger" /-->
+                        or                        
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_reporte_impuesto" model="ir.actions.act_window">
+            <field name="name">Reporte de Impuestos</field>
+            <field name="res_model">report.impuestos</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem id="menu_action_reporte_impuesto" name="Reporte Impuesto" parent="gzl_facturacion_electronica.menu_impuestos_informe" sequence="5" action="action_reporte_impuesto"/>
+
+
+</odoo>

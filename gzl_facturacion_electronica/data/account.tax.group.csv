@@ -1,0 +1,14 @@
+name,code,id
+Retención Impuesto a la Renta,ret_ir,g_ret_ir
+No sujeto a Retención Impuesto a la Renta,no_ret_ir,g_no_ret_ir
+IVA diferente de 0%,vat,g_vat
+IVA 0,vat0,g_vat0
+No objeto de IVA,novat,g_novat
+Retención IVA Servicios,ret_vat_srv,g_ret_vat_srv
+Retención IVA Bienes,ret_vat_b,g_ret_vat_b
+Impuesto a Consumos Especiales,ice,g_ice
+Impuesto a la Salida de Capitales,isd,g_isd
+Impuesto Aduanas,iad,g_iad
+Contribución Super de Bancos,isb,g_isb
+Compensaciones Tributarias,comp,g_comp
+Impuesto Redimible Botellas Plásticas no Retornables,irbp,g_irbp

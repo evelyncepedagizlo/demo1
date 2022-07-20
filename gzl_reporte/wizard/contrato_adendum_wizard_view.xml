@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="contrato_adendum_reporte_form" model="ir.ui.view">
+            <field name="name">contrato.adendum.form</field>
+            <field name="model">contrato.adendum.report</field>
+            <field name="arch" type="xml">
+                <form string="Contrato Adendum">
+                    <group>
+                         <group col="2">
+
+                            <field name="contrato_id" required="1"   options="{'no_open': True, 'no_create': True}" />
+
+                        </group>
+
+                    </group>                        
+                    <footer>
+                        <button name="print_report_xls"
+                                string="Imprimir Word"
+                                type="object"
+                                class="oe_highlight" />
+                                               
+                        <button special="cancel"
+                                string="_Cancel"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_contrato_adendum_reporte_form" model="ir.actions.act_window">
+            <field name="name">Contrato de Adendum</field>
+            <field name="res_model">contrato.adendum.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+        <menuitem 
+        id = "menu_action_reporte_contrato_adendum_form"
+        name = "Contrato Adendum"  
+        parent="menu_reporte" 
+        sequence="1" 
+        action="action_contrato_adendum_reporte_form"/>
+
+
+</odoo>

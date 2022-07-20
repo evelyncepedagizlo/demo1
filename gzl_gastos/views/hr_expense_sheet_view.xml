@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_expense_sheet_heredado" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.heredado</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="analytic_account_id" options="{'no_create_edit': True}" required="1"/>
+            </field>
+            
+            <xpath expr="//notebook" position="before">
+                <group string="Gasto Anticipado" >
+                    <field name="expense_sheet_line_active_id" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="expense_sheet_id" invisible="1"/>
+                            <field name="name_employee" readonly="1"/>
+                            <field name="name_responsable_project" invisible="1" />
+                            <field name="concept" readonly="1"/>
+                            <field name="bank" readonly="1" />
+                            <field name="date" readonly="1" />
+                            <field name="amount" widget="monetary" readonly="1"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+            
+            <xpath expr="//notebook" position="inside">
+                <page string="Todos los Gastos" name="all_expense">
+                    <field name="expense_sheet_line_id" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="expense_sheet_id" invisible="1"/>
+                            <field name="is_active" />
+                            <field name="name_employee" readonly="1"/>
+                            <field name="name_responsable_project" invisible="1" />
+                            <field name="concept" readonly="1" />
+                            <field name="bank" readonly="1"/>
+                            <field name="date" readonly="1"/>
+                            <field name="amount" widget="monetary" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            
+            <xpath expr="//group[@name='expense_total']" position="inside">
+                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                    <label for="total_expense"/>
+                </div>
+                <field name="total_expense" nolabel="1" class="oe_subtotal_footer_separator" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

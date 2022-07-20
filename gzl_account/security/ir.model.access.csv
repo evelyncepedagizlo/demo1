@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+business_area,business.area,model_business_area,,1,1,1,1
+axis,axis,model_axis,,1,1,1,1
+parent_project,parent.project,model_parent_project,,1,1,1,1
+hierarchy_analytical_accounts,hierarchy.analytical.accounts,model_hierarchy_analytical_accounts,,1,1,1,1

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="account_analytic_account_form_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="business_area_id" required="1" />
+                    <field name="axis_id" required="1"/>
+                    <field name="project_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='group_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Area/Unidad -->
+        <record model="ir.ui.view" id="business_area_tree">
+            <field name="name">business.area.tree</field>
+            <field name="model">business.area</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" />
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="business_area_action_window">
+        <field name="name">Area/Unidad</field>
+        <field name="res_model">business.area</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Area/Unidad" 
+            id="menu_business_area" 
+            parent="project.menu_project_config"
+            action="business_area_action_window"
+            />
+
+        <!-- Eje
+        <record model="ir.ui.view" id="axis_tree">
+            <field name="name">axis.tree</field>
+            <field name="model">axis</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="axis_action_window">
+        <field name="name">Eje</field>
+        <field name="res_model">axis</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Eje" 
+            id="menu_axis" 
+            parent="project.menu_project_config"
+            action="axis_action_window"
+            /> -->
+
+        <!-- Proyecto Padre 
+        <record model="ir.ui.view" id="parent_project_tree">
+            <field name="name">parent.project.tree</field>
+            <field name="model">parent.project</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="parent_project_action_window">
+        <field name="name">Proyecto Padre</field>
+        <field name="res_model">parent.project</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Proyecto Padre" 
+            id="menu_parent_project" 
+            parent="project.menu_project_config"
+            action="parent_project_action_window"
+            />-->
+
+        <!-- Jerarquía de las Cuentas Analíticas -->
+        <record model="ir.ui.view" id="hierarchy_analytical_accounts_tree">
+            <field name="name">hierarchy.analytical.accounts.tree</field>
+            <field name="model">hierarchy.analytical.accounts</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="business_area_id" />
+                    <field name="axis_id" />
+                    <field name="project_id" />
+                    <field name="analytic_account_id" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="hierarchy_analytical_accounts_action_window">
+        <field name="name">Jerarquía de Ctas. Analíticas</field>
+        <field name="res_model">hierarchy.analytical.accounts</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Jerarquía de Ctas. Analíticas" 
+            id="menu_hierarchy_analytical_accounts" 
+            parent="project.menu_project_config"
+            action="hierarchy_analytical_accounts_action_window"
+            />
+
+  </data>
+</odoo>

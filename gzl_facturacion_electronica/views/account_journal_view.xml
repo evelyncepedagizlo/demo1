@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_account_journal_inherit" model="ir.ui.view">
+                <field name="name">account.journal.inherit</field>
+                <field name="model">account.journal</field>
+                <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+            <field name="code" position="before">
+                <field name="auth_out_invoice_id" domain="[('type_id.code', '=', '18')]" 
+                    context="{'default_type_code': '18'}"
+                    attrs="{'invisible': [('type','!=','sale')], 'required': [('type','=','sale')]}"/>
+                <field name="auth_out_refund_id" domain="[('type_id.code', '=', '04')]" 
+                    context="{'default_type_code': '04'}"
+                    attrs="{'invisible': [('type','!=','sale')], 'required': [('type','=','sale')]}"/>
+                <field name="auth_out_debit_id" domain="[('type_id.code', '=', '05')]" 
+                    context="{'default_type_code': '05'}"
+                    attrs="{'invisible': [('type','!=','sale')], 'required': [('type','=','sale')]}"/>
+                <field name="auth_retention_id" domain="[('type_id.code', '=', '07')]" 
+                    context="{'default_type_code': '07'}"
+                    attrs="{'invisible': [('type','!=','purchase')], 'required': [('type','=','purchase')]}"/>
+                <field name="auth_out_liq_purchase_id" domain="[('type_id.code', '=', '03')]" 
+                    context="{'default_type_code': '03'}"
+                    attrs="{'invisible': [('type','!=','purchase')], 'required': [('type','=','purchase')]}"/>
+            </field>
+            </field>
+        </record>
+
+
+
+<!--     <record id="view_contrato_form_inherit_usuario" model="ir.ui.view">
+        <field name="name">view.contrato.form.inherit.usuario</field>
+        <field name="model">contrato</field>
+        <field name="inherit_id" ref="gzl_adjudicacion.view_contrato_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='estado_de_cuenta_ids']/form/sheet/group[@name='totales']" position="after">
+                <field name="ids_pagos">
+                                        <tree string="Detalle de Pagos Realizados" >
+                                        <field name="pago_id" string="Pago" readonly="1"/>
+                                        <field name="monto_pagado" string="Total Pago" readonly="1"/>
+                                        <field name="valor_asociado" sum="Valor asociado a la cuota" readonly="1"/>
+                                        </tree>
+                                    </field>
+            </xpath>
+        </field>
+    </record>
+ -->
+
+
+    </data>
+</odoo>

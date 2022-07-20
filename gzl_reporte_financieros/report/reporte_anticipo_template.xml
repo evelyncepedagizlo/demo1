@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <template id="template_anticipo_reporte">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size: 14px">
+                    <span><center><h1>Reporte de Anticipos</h1></center></span><br/><br/>
+                    <span><strong>Desde: </strong></span> <span t-esc="o.date_from"/><br/>
+                    <span><strong>Hasta: </strong></span> <span t-esc="o.date_to"/><br/>
+
+
+                    <table class="table table-condensed">
+                    <thead style="text-align: center; margin-bottom: 10px ">
+                        <th>Documento</th>
+                        <th>Fc. Emisión</th>
+                        <th>Fc.Vencimiento</th>
+                        <th>Anticipo</th>
+                        <th>Aplicación</th>
+                        <th>Saldo</th>
+                        <th>Observaciones</th>
+                    </thead>
+                    <tbody>
+                    <tr t-foreach="o.obtenerDatos()" t-as="anticipo">
+                        <td><span t-esc="anticipo.numero_documento" /></td>
+                        <td><span t-esc="anticipo.fecha_emision"  /></td>
+                        <td><span t-esc="anticipo.fecha_vencimiento"   /></td>
+                        <td><span t-esc="'%.2f' %(anticipo.monto_anticipo)" t-if="anticipo.reglon != 'titulo'"/></td>
+                        <td><span t-esc="'%.2f' %(anticipo.monto_aplicado)"  t-if="anticipo.reglon != 'titulo'" /></td>
+                        <td><span t-esc="'%.2f' %(anticipo.monto_adeudado)"  t-if="anticipo.reglon != 'titulo'" /></td>
+                        <td><span t-esc="anticipo.observaciones"  /></td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_comision_bitacora_view" model= "ir.ui.view">
+        <field name="name">view.comision.bitacora.view</field>
+        <field name="model">comision.bitacora</field>
+        <field name="arch" type="xml">
+            <tree string="Comision" editable="bottom">
+                
+                <field name="user_id" />
+                <field name="supervisor_id"/>
+                <field name="lead_id" />
+                <field name="valor_inscripcion"/>
+                <field name="bono"/>
+                <field name="porcentaje_comision"/>
+                
+                <field name="comision"/>
+                <field name="cargo"/>
+                <field name="empleado_id"/>
+                <field name="active"/>
+
+
+
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_comision_bitacora_view" model="ir.actions.act_window">
+        <field name="name">Bitacora de Comisiones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">comision.bitacora</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'group_by':'cargo'}</field>
+    </record>
+
+
+    <menuitem id="menu_action_comision_bitacora_view" action="action_comision_bitacora_view" parent="hr_payroll.menu_hr_payroll_configuration" sequence="7" />
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menu acunalema 
+        -->	
+        <menuitem name="Impuestos" id="impuestos_contab" parent="account_accountant.menu_accounting" sequence="1" groups="account.group_account_user"/>
+        <menuitem name="Ejercicio Fiscal" id="impuestos_ejfiscal" parent="impuestos_contab" action="account.actions_account_fiscal_year" sequence="1"/>
+        <menuitem name="Configuracion Tributacion" id="menu_contabilidad_tributacion" parent="impuestos_contab"  sequence="2"/>     
+        <menuitem name="Informe de Impuestos" id="menu_impuestos_informe" parent="impuestos_contab"  sequence="3"/>     
+
+        <menuitem name="PPE" id="ppe_contab" parent="account_accountant.menu_accounting" sequence="2" groups="account.group_account_user"/>
+        <menuitem name="Modelos de Activos" id="ppe_modactivos" parent="ppe_contab" action="account_asset.action_account_asset_model_form" sequence="2"/>
+        <menuitem name="Activos" id="ppe_activos" parent="ppe_contab" action="account_asset.action_account_asset_form" sequence="1"/>
+        <menuitem name="Informe de Activos" id="ppe_infactivos" parent="ppe_contab" action="account_asset.action_account_report_assets" sequence="3"/>
+        <!-- ==-->
+        <!-- Cambio de parent acunalema
+        antes: account.menu_finance_configuration
+        -->
+        <!-- -->
+        <!--menuitem id="menu_contabilidad_tributacion" parent="gzl_facturacion_electronica.impuestos_config" name="Tributación" sequence="1"/-->
+        
+        
+        <!-- -->
+        <!-- SUSTENTO DEL COMPROBANTE SEGUN EL SRI-->
+        <!-- -->
+        <record id="view_ats_sustento_comprobante_tree" model="ir.ui.view">
+            <field name="name">ats.sustento.comprobante.tree</field>
+            <field name="model">ats.sustento.comprobante</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sustento del Comprobante" editable="top">
+                    <field name="code" select="1"/>
+                    <field name="type"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ats_sustento_comprobante" model="ir.actions.act_window">
+            <field name="name">Sustento del Comprobante</field>
+            <field name="res_model">ats.sustento.comprobante</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_ats_sustento_comprobante" id="menu_action_ats_sustento_comprobante" parent="gzl_facturacion_electronica.menu_contabilidad_tributacion"/>
+    
+
+        <!-- -->
+        <!-- FORMAS DE PAGOS SEGUN EL SRI -->
+        <!-- -->
+        <record id="view_account_epayment_tree" model="ir.ui.view">
+            <field name="name">account.epayment.tree</field>
+            <field name="model">account.epayment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Forma de Pago" editable="top">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_epayment" model="ir.actions.act_window">
+            <field name="name">Formas de Pago</field>
+            <field name="res_model">account.epayment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_account_epayment" id="menu_account_epayment" parent="gzl_facturacion_electronica.menu_contabilidad_tributacion"/>
+
+
+        <!-- -->
+        <!-- PAGO RESIDENTE SEGUN EL SRI -->
+        <!-- -->
+        <record id="view_ats_pago_residente_tree" model="ir.ui.view">
+            <field name="name">ats.pago.residente.tree</field>
+            <field name="model">ats.pago.residente</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Pago Residente" editable="top">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ats_pago_residente" model="ir.actions.act_window">
+            <field name="name">Pago Residente</field>
+            <field name="res_model">ats.pago.residente</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_ats_pago_residente" id="menu_ats_pago_residente" parent="gzl_facturacion_electronica.menu_contabilidad_tributacion"/>
+
+        <!-- -->
+        <!-- REGIMEN FISCAL SEGUN EL SRI -->
+        <!-- -->
+        <record id="view_ats_regimen_fiscal_tree" model="ir.ui.view">
+            <field name="name">ats.regimen.fiscal.tree</field>
+            <field name="model">ats.regimen.fiscal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Ats Regimen Fiscal" editable="top">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ats_regimen_fiscal" model="ir.actions.act_window">
+            <field name="name">Regimen Fiscal</field>
+            <field name="res_model">ats.regimen.fiscal</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_ats_regimen_fiscal" id="menu_ats_regimen_fiscal" parent="gzl_facturacion_electronica.menu_contabilidad_tributacion"/>
+    </data>
+</odoo>

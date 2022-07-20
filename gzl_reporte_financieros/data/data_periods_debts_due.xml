@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="period_1-30" model="periods.debts.due">
+        <field name="name">1-30</field>
+        <field name="day_from">1</field>
+        <field name="day_to">30</field>
+        <field name="active">1</field>
+    </record>
+    <record id="period_31-60" model="periods.debts.due">
+        <field name="name">31-60</field>
+        <field name="day_from">31</field>
+        <field name="day_to">60</field>
+        <field name="active">1</field>
+    </record>
+        <record id="period_61-90" model="periods.debts.due">
+        <field name="name">61-90</field>
+        <field name="day_from">61</field>
+        <field name="day_to">90</field>
+        <field name="active">1</field>
+    </record>
+    <record id="period_91-120" model="periods.debts.due">
+        <field name="name">91-120</field>
+        <field name="day_from">91</field>
+        <field name="day_to">120</field>
+        <field name="active">1</field>
+    </record>
+    <record id="period_121" model="periods.debts.due">
+        <field name="name">Más Antiguos</field>
+        <field name="day_from">121</field>
+        <field name="day_to">999999</field>
+        <field name="active">1</field>
+    </record>
+</odoo>
